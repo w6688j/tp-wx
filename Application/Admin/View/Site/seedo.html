@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>后台 - 会员上分</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form id="signform" method="post" action="{:U('Admin/Integral/under')}" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">会员名：<span style="color: red;">{$userinfo.nickname}</span></label>
+                            <input type="hidden" name="userid" value="{$userinfo.id}"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">头像:<img src="{$userinfo.headimgurl}"></label>
+                            <a onclick="see_team('{$userinfo.id}')" class="btn btn-primary">团队</a>
+                            <a onclick="see_yongjin('{$userinfo.id}')" class="btn btn-primary">佣金</a>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">注册时间:{$userinfo.reg_time|date="Y-m-d H:i:s",###}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">最后登录时间:{$userinfo.last_time|date="Y-m-d H:i:s",###}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">注册ip:{$userinfo.reg_ip}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">最后登录时间:{$userinfo.last_ip}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">余额:{$userinfo.points}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">推荐人id:{$userinfo.t_id}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">推荐人数:{$t_sum}</label>
+                        </div>
+                        <div class="form-group">
+                        <label class="col-sm-2 control-label">推荐收入:{$userinfo.t_add}</label>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">充值总金额:{$xiangqing.addpoints}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">最后一次充值时间:{$xiangqing.before_time|date="Y-m-d H:i:s",###}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">最后一充值金额:{$xiangqing.before_points}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">个人游戏出:{$xiangqing.del_points}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">个人游戏进:{$xiangqing.add_points}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">团队上分:{$xiangqing.team_shangfen}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">团队下分:{$xiangqing.team_xiafen}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">团队输赢（上分减下分）:{$xiangqing['team_shangfen']-$xiangqing['team_xiafen']}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">团队游戏进:{$xiangqing.team_add_points}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">团队游戏出:{$xiangqing.team_del_points}</label>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名:{$userinfo.username}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">支付宝:{$userinfo.zhifubao}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">微信:{$userinfo.weixin}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">银行账号:{$userinfo.banksou}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">开户行:{$userinfo.khh}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">银行姓名:{$userinfo.name}</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否为客服:<if condition="$userinfo['iskefu'] eq 1"> 是<else/>否</if></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注:{$userinfo.msg}</label>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="__PUBLIC__/Admin/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script>
+    function see_team(id) {
+        parent.layer.open({
+            type: 2,
+            title: '详情',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '700px'],
+            content: "__APP__/Admin/Member/team_list/id/" + id + ""
+        });
+    }
+    function see_yongjin(id) {
+        parent.layer.open({
+            type: 2,
+            title: '佣金详情',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['700px', '600px'],
+            content: "__APP__/Admin/Member/team_yongjin/id/" + id + ""
+        });
+    }
+
+    $(function(){
+        $('#signform').ajaxForm({
+            beforeSubmit: checkForm,
+            success: complete,
+            dataType: 'json'
+        });
+        function checkForm(){
+            if( '' == $.trim($('#points').val())){
+                layer.alert('输入兑换点数', {icon: 5}, function(index){
+                    layer.close(index);
+                    $('#points').focus();
+                });
+                return false;
+            }
+        }
+        function complete(data){
+            if(data.status==1){
+                $('.btn-primary').attr('disabled','disabled');
+                layer.msg(data.info, function(index){
+                    layer.close(index);
+                    window.parent.location.href=data.url;
+                });
+            }else{
+                layer.msg(data.info);
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>后台 - 快3</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>快3配置</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form id="signform" action="{:U('Admin/Site/save_game_config')}" method="post" class="form-horizontal">
+                        <input type="hidden" name="game"  value="kuai3">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><h2>返水设置：</h2></label>
+                            <div class="col-sm-6">(返水设置不能为空，不能为0)</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否返水</label>
+                            <div class="col-sm-6">
+                                <input type="radio" value="1" <if condition="$config['kuai3_is_fanshui'] eq 1">checked</if> class="i-checks" name="kuai3_is_fanshui">是&nbsp;&nbsp;
+                                <input type="radio" value="0" <if condition="$config['kuai3_is_fanshui'] eq 0">checked</if> class="i-checks" name="kuai3_is_fanshui">否
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 游戏局数大于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai3_fs_jushu" value="{$config['kuai3_fs_jushu']}" placeholder="" class="form-control"style="width: 100px;display: inline">局返水
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大于等于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai3_fs_jine_1" value="{$config['kuai3_fs_jine_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="kuai3_fs_bl_1" value="{$config['kuai3_fs_bl_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大于等于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai3_fs_jine_2" value="{$config['kuai3_fs_jine_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="kuai3_fs_bl_2" value="{$config['kuai3_fs_bl_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大于等于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai3_fs_jine_3" value="{$config['kuai3_fs_jine_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="kuai3_fs_bl_3" value="{$config['kuai3_fs_bl_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否返佣（分销）</label>
+                            <div class="col-sm-6">
+                                <input type="radio" value="1" <if condition="$config['kuai3_is_fenxiao'] eq 1">checked</if> class="i-checks" name="kuai3_is_fenxiao">是&nbsp;&nbsp;
+                                <input type="radio" value="0" <if condition="$config['kuai3_is_fenxiao'] eq 0">checked</if> class="i-checks" name="kuai3_is_fenxiao">否
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大、小、单、双</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai3_dxds" value="{$config['kuai3_dxds']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">顺子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai3_sz_bv" value="{$config['kuai3_sz_bv']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">短牌</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai3_duanp_bv" value="{$config['kuai3_duanp_bv']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">对子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_dz" value="{$config['jnd_dz']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">豹子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_bz" value="{$config['kuai_bz']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">全豹</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_bz_quan" value="{$config['kuai_bz_quan']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">三军</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_bz_sanjun" value="{$config['kuai_bz_sanjun']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">长牌</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_bz_changpai" value="{$config['kuai_bz_changpai']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">和值（勿打乱顺序）请勿删除</label>
+                            <div class="col-sm-6">
+                                <textarea type="text" name="kuai3_hezhi_bv" value="{$config['kuai3_hezhi_bv']}" placeholder="{$config['kuai3_hezhi_bv']}" class="form-control">{$config['kuai3_hezhi_bv']}
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><h3>设定下注金额：</h3></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">最低下注金额</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai3_zuidi" value="{$config['kuai3_zuidi']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">短牌</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_check_dp" value="{$config['kuai_check_dp']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">长牌</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_check_cp" value="{$config['kuai_check_cp']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">顺子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_check_shunzi" value="{$config['kuai_check_shunzi']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">豹子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_check_baozi" value="{$config['kuai_check_baozi']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">全豹</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_check_quanb" value="{$config['kuai_check_quanb']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">和值</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_check_hz" value="{$config['kuai_check_hz']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">和值大小单双</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_check_dxds" value="{$config['kuai_check_dxds']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">三军</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_check_sj" value="{$config['kuai_check_sj']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">单局最高总金额</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="kuai_all_jine" value="{$config['kuai_all_jine']}" placeholder="输入" class="form-control">
+                            </div>
+                        </div>
+                        <span style="color: red;">*赔率为含本赔率  <br><br>** 修改了下注金额限定，请联系服务商，服务器重启worker服务</span>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="__PUBLIC__/Admin/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".i-checks").iCheck({
+            checkboxClass: "icheckbox_square-green",
+            radioClass: "iradio_square-green",
+        })
+    });
+</script>
+<script>
+    $(function(){
+        $('#signform').ajaxForm({
+            success: complete,
+            dataType: 'json'
+        });
+        function complete(data){
+            if(data.status==1){
+                $('.btn-primary').attr('disabled','disabled');
+                layer.msg(data.info, function(index){
+                    layer.close(index);
+                    window.location.href=data.url;
+                });
+            }else{
+                layer.msg(data.info);
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

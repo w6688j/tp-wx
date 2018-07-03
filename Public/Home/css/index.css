@@ -1,0 +1,204 @@
+body{
+	/*background-image: url(../img/beijin.jpg);*/
+	background-size: 100% auto;
+	background-position: top center;
+	background-repeat: repeat-y;
+	min-height: calc(100%);
+}
+/*
+ 文字
+ * */
+.tab-content .wz{font-size: 8px;}
+.tab-content .wz .shuzi,
+.tab-content .wz .longhu{font-size: 12px;margin-right: 2px;}
+.tab-content .wz .tm{font-size: 10px;margin-right: 3px;}
+.tab-content .wz{background-color: #6a6e71;padding: 10px;color: white;}
+.tab-content .wz tbody tr:nth-child(2n){background-color: #919294;}
+.tab-content .wz thead tr{
+	border-color: white;
+	border-style: solid;
+	border-width: 1px 0;
+}
+.tab-content .wz table{text-align: left;border: none;}
+.tab-content .wz tr>*{
+	padding: 5px 3px;
+	vertical-align: middle;
+	border: none;
+}
+.tab-content .wz tbody tr>*:first-child{font-weight: 600;}
+.tab-content .wz .shuzi,
+.tab-content .wz .longhu{
+	width: 17px;
+	height: 17px;
+	line-height: 17px;
+	display: inline-block;
+	border: 1px solid transparent;
+}
+.tab-content .wz .shuzi{
+	border-color:white;
+	text-align: center;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+	border-radius: 100%;
+	margin-bottom: 5px;
+	text-shadow: 0 0 2px black;
+}
+.tab-content .wz .shuzi_1{background-color: #f8dd00;}
+.tab-content .wz .shuzi_2{background-color: #1e86cf;}
+.tab-content .wz .shuzi_3{background-color: #505052;}
+.tab-content .wz .shuzi_4{background-color: #fd7215;}
+.tab-content .wz .shuzi_5{background-color: #7bd6d7;}
+.tab-content .wz .shuzi_6{background-color: #5053a2;}
+.tab-content .wz .shuzi_7{background-color: #d9d8d6;}
+.tab-content .wz .shuzi_8{background-color: #f41a2a;}
+.tab-content .wz .shuzi_9{background-color: #840a15;}
+.tab-content .wz .shuzi_10{background-color: #45b640;}
+
+/*select 页面*/
+.shuzi{
+	border-color:white;
+	text-align: center;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+	border-radius: 100%;
+	margin-bottom: 5px;
+	text-shadow: 0 0 2px black;
+}
+.shuzi_1{background-color: #f8dd00;}
+.shuzi_2{background-color: #1e86cf;}
+.shuzi_3{background-color: #505052;}
+.shuzi_4{background-color: #fd7215;}
+.shuzi_5{background-color: #7bd6d7;}
+.shuzi_6{background-color: #5053a2;}
+.shuzi_7{background-color: #d9d8d6;}
+.shuzi_8{background-color: #f41a2a;}
+.shuzi_9{background-color: #840a15;}
+.shuzi_10{background-color: #45b640;}
+.shuzi_01{background-color: #f8dd00;}
+.shuzi_02{background-color: #1e86cf;}
+.shuzi_03{background-color: #505052;}
+.shuzi_04{background-color: #fd7215;}
+.shuzi_05{background-color: #7bd6d7;}
+.shuzi_06{background-color: #5053a2;}
+.shuzi_07{background-color: #d9d8d6;}
+.shuzi_08{background-color: #f41a2a;}
+.shuzi_09{background-color: #840a15;}
+
+
+@media only screen and (min-width: 414px){
+	.tab-content .wz tr>*{ padding: 5px;}
+	.tab-content .wz{font-size: 12px;}
+	.tab-content .wz thead,
+	.tab-content .wz tbody tr td:nth-child(2){font-size: 11px;}
+	/*.tab-content .wz .shuzi,*/
+	.tab-content .wz .longhu{font-size: 14px;}
+	.tab-content .wz .tm{font-size: 13px;}
+	.tab-content .wz .shuzi,
+	.tab-content .wz .longhu{
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		font-weight: 600;
+	}
+}
+
+/*.main-box .top,*/
+.leftRight .nav,
+.leftRight .content{ padding: 10px; }
+
+/*
+ 第一行（表单、积分在线人数）
+ * */
+.main-box .top{height: 40px;}
+.main-box .top>* +*{margin-left: 10px;}
+.main-box .top input{
+	height: 28px;
+	line-height: 18px;
+	/*padding: 5px 13px;*/
+	border: 1px solid #d8c9c9;
+	}
+.main-box .top input{
+	width: 81%;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.main-box .top button{
+	background-color: #569660;
+	height: 28px;
+	line-height: 18px;
+	padding: 5px 15px;
+	border: 1px solid #ffffff;
+	color: white;
+
+}
+.main-box .top .info{
+	-webkit-box-flex: 3;
+    -webkit-flex: 3;
+    flex: 3;
+    color: #000;
+    /*font-weight: 600;*/
+}
+.main-box .top .info p{
+	font-size: 12px;
+	line-height: 1;
+}
+@media only screen and (min-width: 361px){
+	/*.main-box .top input,
+	.main-box .top button{
+		height: 25px;
+		line-height: 23px;
+		}*/
+}
+@media only screen and (max-width: 500px){
+}
+@media only screen and (max-width: 360px){
+	.main-box .top>* +*{margin-left: 5px;}
+	.main-box .top input,
+	.main-box .top button{
+		height: 24px;
+		line-height: 18px;
+		padding: 3px 10px;
+	}
+	.main-box .top input{
+		width: 81%;
+	}	
+	/*
+	.main-box .top .info p{
+		line-height: 1;
+	}
+	*/
+}
+
+/*
+ 左右主要内容
+ * */
+.leftRight{ }
+.leftRight .nav,
+.leftRight .content{
+	padding-top:0 ;
+}
+.leftRight .nav > * + *{margin-top: 5px;/*margin-top: 10px;*/}
+
+.leftRight .content{
+	padding-top:0px;
+	-webkit-box-flex: 3;
+    -webkit-flex: 3;
+    flex: 3;
+    padding-left: 0;
+}
+.leftRight .content .iframewp{
+	width: 100%;
+}
+.leftRight .content iframe{
+	width: 100%;
+	height: 100%;
+	}
+.leftRight .content iframe{
+	border: none;
+	overflow: hidden;
+	/*background-color: #eee;*/
+}
+/*
+ 聊天框
+ * */

@@ -1,0 +1,949 @@
+<?php
+
+namespace Home\Controller;
+
+use Think\Server;
+use Think\Model;
+use Workerman\Worker;
+
+header('content-type:text/html;charset=utf-8');
+
+class WorkerController extends Server
+{
+    protected $socket = 'websocket://0.0.0.0:8880';
+    protected $processes = 1000;
+    public static $type_data = array(
+        "ssc" => array("time" => 600, "title" => "重庆时时彩", "check" => "check_format_ssc",'fun'=>'getssc','robot_say'=>'ssc'),
+        "fei" => array("time" => 300, "title" => "幸运飞艇", "check" => "check_format_pk10",'fun'=>'getfei','robot_say'=>'pk10'),
+        "jnd28" => array("time" => 300, "title" => "加拿大28", "check" => "check_format_jnd28",'fun'=>'getJnd28','robot_say'=>'jnd28'),
+        "jsssc" => array("time" => 115, "title" => "极速时时彩", "check" => "check_format_ssc",'fun'=>'get_ssc_jisu','robot_say'=>'ssc'),
+        "jscar" => array("time" => 100, "title" => "极速赛车", "check" => "check_format_pk10",'fun'=>'get_pk10_jisu','robot_say'=>'pk10'),
+        "bj28" => array("time" => 300, "title" => "北京28", "check" => "check_format_bj28",'fun'=>'getBj28','robot_say'=>'jnd28'),
+        "pk10" => array("time" => 300, "title" => "北京赛车", "check" => "check_format_pk10",'fun'=>'getPK10','robot_say'=>'pk10'),
+        "kuai3" => array("time" => 600, "title" => "江苏快3", "check" => "check_format_kuai3",'fun'=>'getkuai3','robot_say'=>'kuai3'),
+        "lhc" => array("time" => 172800, "title" => "香港六合彩", "check" => "check_format_lhc",'fun'=>'getlhc','robot_say'=>'lhc'),
+        "chart"=>array("title"=>"聊天室"),
+    );
+    public function __construct()
+    {
+        /* 读取站点配置 */
+        $config =   S('DB_CONFIG_DATA');
+        if(!$config){
+            $config =  M('config')->find();
+            S('DB_CONFIG_DATA',$config);
+        }
+        C($config); //添加配置
+        //游戏配置.就是包含了赔率等
+        $config =   S('DB_CONFIG_GAME_DATA');
+        if(!$config){
+            $config =  M('game_config')->find();
+            S('DB_CONFIG_GAME_DATA',$config);
+        }
+        C($config); //添加配置
+        parent::__construct();
+    }
+
+    /**
+     * 添加定时器
+     *监控连接状态
+     * */
+    public function onWorkerStart()
+    {
+        $inner_http_worker = new Worker('http://0.0.0.0:2095');
+        // 当http客户端发来数据时触发
+        $inner_http_worker->onMessage = function($http_connection, $data){
+                    $_POST = $_POST ? $_POST : $_GET;
+                    $new_message =$_POST;
+                    $to = @$_POST['to'];
+                    // 有指定uid则向uid所在socket组发送数据
+                    if($to){
+                        $this->send_type($to,$new_message);
+                        // 否则向所有uid推送数据
+                    }else{
+                        $this->send_all($new_message);
+                    }
+                    // http接口返回，如果用户离线socket返回fail
+                    if($to && !isset($this->worker->connections)){
+                        return $http_connection->send('offline');
+                    }else{
+                        return $http_connection->send('ok');
+                    }
+            return $http_connection->send('fail');
+        };
+        // 执行监听
+        $inner_http_worker->listen();
+        $this->init();
+        $time_interval = 1;//每几秒钟触发php一次
+        /*开奖time*/
+        \Workerman\Lib\Timer::add($time_interval, function () {
+//            dump(memory_get_usage());
+            //php异步操作，执行让缓存更新，防止获取信息停顿为空，等待时间超时问题
+            $all_game = F('all_game_on_off');
+            //5.获取时时彩的缓存
+            foreach ($all_game as $value) {
+                //5.0获取缓存
+                $get_one_game = F('get' . $value . 'data');
+                //6.0获取下一期的时间
+                $get_next_game_time = $get_one_game['next']['delayTimeInterval'] + strtotime($get_one_game['next']['awardTime']);
+                //7.0在38秒的时候提醒一次
+                $this->t_fengpan($value, $get_next_game_time, $get_one_game['next']['periodNumber'], 60);
+                //8关闭游戏
+                $this->tip_close($value, $get_next_game_time, $get_one_game['next']['periodNumber']);
+                //9开启游戏
+                $this->tip_open($value, $get_next_game_time, $get_one_game['next']['periodNumber']);
+                //10机器人触发
+                $this->t_robo($value);
+            }
+        });
+
+//        //统计人数--------------------------------------------------------------------------
+//        \Workerman\Lib\Timer::add(3, function () {
+//            //ping客户端(获取房间内所有用户列表 )
+//            $clients_list = $this->worker->connections;
+//            $num = count($clients_list);
+//            $new_message = array(
+//                'type' => 'ping',
+//                'content' => $num,
+//                'time' => date('H:i:s')
+//            );
+//            foreach ($this->worker->connections as $conn) {
+//                $conn->send(json_encode($new_message));
+//            }
+//        });
+        //300秒一次的公告------------------------------------------------------------------
+//        \Workerman\Lib\Timer::add(300, function () {
+//            $new_message = array(
+//                'type' => 'admin',
+//                'head_img_url' => '/Public/main/img/system.jpg',
+//                'from_client_name' => '客服',
+//                'content' => '由于各地网络情况不同，开奖动画仅作为参考，可能存在两秒的误差，不影响最终开奖结果！',
+//                'time' => date('H:i:s')
+//            );
+//            $this->send_all($new_message);
+//        });
+        //8秒更新缓存---------------------------------------------------------------------------------------
+        \Workerman\Lib\Timer::add(8, function () {
+            $all_game = F('all_game_on_off');
+            //5.更新缓存
+            foreach ($all_game as $value) {
+                $fun =WorkerController::$type_data[$value]['fun'];
+                $datas = $fun();
+                if (F($value . '_periodNumbers') != $datas['current']['periodNumber']) {
+                    F($value . '_periodNumbers', $datas['current']['periodNumber']);
+                    F('get' . $value . 'data', $datas);
+                }
+            }
+        });
+    }
+
+    public function init()
+    {
+        $beginToday = strtotime('09:00:00');
+        $endToday = strtotime("23:59:59");
+        //获取已经开启的游戏的开关
+        F('all_game_on_off', array());
+        foreach (WorkerController::$type_data as $key => $value) {
+            if (C($key . '_on_off') == 1) {
+                $a = F('all_game_on_off');
+                array_push($a, $key);
+                F('all_game_on_off', $a);
+            }
+        }
+        //1.获取加拿大初始化数据
+        $jnddata = getJnd28();
+        dump($jnddata);
+        //1.获取极速时时彩初始化数据
+        $jssscdata = get_ssc_jisu();
+        //1。获取时时彩初始化数据
+        $sscdata = getssc();
+        //1.获取快3初始化数据
+        $kuai3data = getkuai3();
+        //1.获取极速赛车数据
+        $getjscar = get_pk10_jisu();
+        //1。获取北京28初始化数据
+//        $jianadabegin = strtotime('00:00:00');
+//        $jianadaend = strtotime("09:00:00");
+        $bj28data = getBj28();
+        //1。获取北京赛车pk10初始化数据
+        $pkdata = getPK10();
+        //1。获取飞艇初始化数据
+        $fei_data = getfei();
+        //2.极速时时彩下一场的时间的值
+        $jsssc_nexttime = $jssscdata['next']['delayTimeInterval'] + strtotime($jssscdata['next']['awardTime']);
+        //2.极速赛车距离下一场的时间的值
+        $jscar_nexttime = $getjscar['next']['delayTimeInterval'] + strtotime($getjscar['next']['awardTime']);
+        //2.飞艇距离下一场的时间的值
+        $fei_nexttime = $fei_data['next']['delayTimeInterval'] + strtotime($fei_data['next']['awardTime']);
+        //2.快3距离下一场的时间的值
+        $kuai3_nexttime = $kuai3data['next']['delayTimeInterval'] + strtotime($kuai3data['next']['awardTime']);
+        //2.加拿大28距离下一场的时间的值
+        $jnd_nexttime = $jnddata['next']['delayTimeInterval'] + strtotime($jnddata['next']['awardTime']);
+        //2.北京28距离下一场的时间的值
+        $bj28_nexttime = $bj28data['next']['delayTimeInterval'] + strtotime($bj28data['next']['awardTime']);
+        //2.时时彩距离下一场的时间的值
+        $ssc_nexttime = $sscdata['next']['delayTimeInterval'] + strtotime($sscdata['next']['awardTime']);
+        //2.北京赛车pk10距离下一场的值
+        $pk10_nexttime = $pkdata['next']['delayTimeInterval'] + strtotime($pkdata['next']['awardTime']);
+        //3 初始化极速时时彩开奖状态
+        if ($jsssc_nexttime - time() > 20 && $jsssc_nexttime - time() < 600 && C('jsssc_on_off') == 1) {
+            F('jsssc_status', 1);//开盘
+        } else {
+            F('jsssc_status', 0);
+        }
+        //3.极速赛车是否开盘
+        if ($jscar_nexttime - time() > 20 && $jscar_nexttime - time() < 600 && C('jscar_on_off') == 1) {
+            F('jscar_status', 1);//开盘
+        } else {
+            F('jscar_status', 0);
+        }
+        //3.飞艇初始状态是否开盘
+        if ($fei_nexttime - time() > 20 && $fei_nexttime - time() < 600 && C('fei_on_off') == 1) {
+            F('fei_status', 1);//开盘
+        } else {
+            F('fei_status', 0);
+        }
+        //3.块3初始状态是否开盘
+        if ($kuai3_nexttime - time() > 20 && $kuai3_nexttime - time() < 600 && C('kuai3_on_off') == 1) {
+            F('kuai3_status', 1);//开盘
+        } else {
+            F('kuai3_status', 0);
+        }
+        //3.加拿大初始化状态状态是或开盘
+        if ($jnd_nexttime - time() > 20 && $jnd_nexttime - time() < 200 && C('jnd28_on_off') == 1) {
+            F('jnd_status', 1);//开盘
+        } else {
+            F('jnd_status', 0);
+        }
+        //3.北京28初始化状态状态是或开盘
+        if ($bj28_nexttime - time() > 20 && $bj28_nexttime - time() < 300 && C('bj28_on_off') == 1) {
+            F('bj28_status', 1);//开盘
+        } else {
+            F('bj28_status', 0);
+        }
+        //3.时时彩初始化状态状态是或开盘
+        if ($ssc_nexttime - time() > 20 && $ssc_nexttime - time() < 600 && C('ssc_on_off') == 1/* && time() > $beginToday && time() < $endToday*/) {
+            F('ssc_status', 1);//开盘
+        } else {
+            F('ssc_status', 0);
+        }
+        //3.北京赛车pk10初始化状态状态是或开盘
+        if ($pk10_nexttime - time() > 20 && $pk10_nexttime - time() < 300 && time() > $beginToday && time() < $endToday && C('pk10_on_off') == 1) {
+            F('pk10_status', 1);//开盘
+        } else {
+            F('pk10_status', 0);
+        }
+        //4, 极速时时彩获取缓存
+        F('getjssscdata', $jssscdata);
+        //4.极速赛车把api获取的值缓存到服务器.
+        F('getjscardata', $getjscar);
+        //4.飞艇把api获取的值缓存到服务器.
+        F('getfeidata', $fei_data);
+        //4.快3把api获取的值缓存到服务器.
+        F('getkuai3data', $kuai3data);
+        //4.加拿大把api获取的值缓存到服务器.
+        F('getjnd28data', $jnddata);
+        //4.北京28把api获取的值缓存到服务器.
+        F('getbj28data', $bj28data);
+        //4.北京pk10把api获取的值缓存到服务器.
+        F('getpk10data', $pkdata);
+        //4.时时彩把api获取的值缓存到服务器.
+        F('getsscdata', $sscdata);
+        //4.5 极速时时彩的机器人的随机数字
+        if (!F('jsssc_robo')) {
+            F('jsssc_robo', rand(0, C('jsssc_robo_suiji')));
+        }
+        //4.5极速赛车随机
+        if (!F('jscar_robo')) {
+            F('jscar_robo', rand(0, C('jscar_robo_suiji')));
+        }
+        //4.5飞艇机器人的随机数字
+        if (!F('fei_robo')) {
+            F('fei_robo', rand(0, C('fei_suiji')));
+        }
+        //4.5 加拿大机器人的随机数字
+        if (!F('jnd28_robo')) {
+            F('jnd28_robo', rand(0, C('jnd28_robo_suiji')));
+        }
+        //4.5 北京28 机器人的随机数字
+        if (!F('bj28_robo')) {
+            F('bj28_robo', rand(0, C('bj28_robo_suiji')));
+        }
+        //4.5 北京赛车机器人的随机数字
+        if (!F('pk10_robo')) {
+            F('pk10_robo', rand(0, C('pk10_robo_suiji')));
+        }
+        //4.5快3机器人的随机数字
+        if (!F('kuai3_robo')) {
+            F('kuai3_robo', rand(0, C('kuai3_robo_suiji')));
+        }
+        //4.5 时时彩机器人的随机数字
+        if (!F('ssc_robo')) {
+            F('ssc_robo', rand(0, C('ssc_robo_suiji')));
+        }
+        //4.6　极速赛车机器人初始化30秒的倒计时
+        if (!F('jscar_robo_yc')) {
+            F('jscar_robo_yc', rand(0, 5));
+        }
+        //4.6　北京赛车机器人初始化30秒的倒计时
+        if (!F('pk10_robo_yc')) {
+            F('pk10_robo_yc', rand(0, 5));
+        }
+        //4.6　飞艇机器人初始化30秒的倒计时
+        if (!F('fei_robo_yc')) {
+            F('fei_robo_yc', rand(0, 5));
+        }
+        //4.6　加拿大机器人初始化30秒的倒计时
+        if (!F('jnd28_robo_yc')) {
+            F('jnd28_robo_yc', rand(0, 5));
+        }
+        //4.6　北京机器人初始化30秒的倒计时
+        if (!F('bj28_robo_yc')) {
+            F('bj28_robo_yc', rand(0, 5));
+        }
+        //4.6　快3机器人初始化30秒的倒计时
+        if (!F('kuai3_robo_yc')) {
+            F('kuai3_robo_yc', rand(0, 5));
+        }
+        //4.6　时时彩机器人初始化30秒的倒计时
+        if (!F('ssc_robo_yc')) {
+            F('ssc_robo_yc', rand(0, 5));
+        }
+        //4.6　时时彩机器人初始化30秒的倒计时
+        if (!F('jsssc_robo_yc')) {
+            F('jsssc_robo_yc', rand(0, 5));
+        }
+    }
+
+    //机器人的方法
+    public function t_robo($type){
+        if (C('robot') == 1 && C($type . '_on_off') == 1) {
+            if (F($type . '_robo') < 0 && F($type . '_robo_yc') < 0) {
+                $types= WorkerController::$type_data[$type]['robot_say'];
+                $mess = $this->robot_message($types);
+                $robot = $this->robot();
+                $feistatus = F($type . '_status');
+                $new_message = array(
+                    'type' => 'say',
+                    'send_type' => $type,
+                    'head_img_url' => '/Uploads' . $robot[0]['headimgurl'],
+                    'from_client_name' => $robot[0]['nickname'],
+                    'content' => $mess[0]['content'],
+                    'time' => date('H:i:s')
+                );
+                if ($feistatus == 1) {
+                    $this->send_type($type, $new_message);
+                    $this->add_message($new_message, $type);
+                }
+                F($type . '_robo', rand(0, C($type . '_robo_suiji')));
+            } else {
+                $fei_rob_sum = F($type . '_robo');
+                $fei_rob_data = $fei_rob_sum - 1;
+                $jacar_robo_yc = F($type . '_robo_yc');
+                $jscar_robo_yc_instrt = $jacar_robo_yc - 1;
+                F($type . '_robo_yc', $jscar_robo_yc_instrt);
+                F($type . '_robo', $fei_rob_data);
+            }
+        }
+    }
+
+    //开启状态和提示已经开启
+    public function tip_open($type, $next_time, $next_period)
+    {
+        if($type =='lhc'){
+            echo $next_time-time();
+        }
+        if ($next_time - time() < WorkerController::$type_data[$type]['time'] && $next_time - time() > C($type . '_status_off') && F($type . '_status') == 0/*|| F($type.'_status') == 0 && $next_time - time() > $this->type_time[$type]['peroid_time'] */) {
+            F($type . '_status', 1);
+            F($type . '_robo_yc', 30);
+            $new_message = array(
+                'delay' => '8',
+                'type' => 'admin',
+                'send_type' => $type,
+                'head_img_url' => '/Public/main/img/kefu.jpg',
+                'from_client_name' => 'GM管理员',
+                'content' => '期号:' . $next_period . '开放，祝各位中大奖',
+                'time' => date('H:i:s')
+            );
+            $this->send_type($type, $new_message);
+            $this->add_message($new_message, $type);
+        }
+    }
+
+    public function tip_close($type, $next_time, $next_periodnumber)
+    {
+        //如果大约每期固定的期数，则为关闭
+        if ($next_time - time() <= C($type . '_status_off') && F($type . '_status') == 1 || $next_time - time() > WorkerController::$type_data[$type]['time'] && F($type . '_status') == 1) {
+            F($type . '_status', 0);
+            $new_message = array(
+                'type' => 'admin',
+                'send_type' => $type,
+                'head_img_url' => '/Public/main/img/kefu.jpg',
+                'from_client_name' => 'GM管理员',
+                'content' => '期号:' . $next_periodnumber . '<br/>' . '--关闭，请耐心等待--' . '单局最高中奖100万积分，最低下注' . C('ssc_zuidi') . '积分',
+                'time' => date('H:i:s')
+            );
+            $this->send_type($type, $new_message);
+            $this->add_message($new_message, $type);
+        }
+    }
+
+    public function t_fengpan($type, $time, $period, $f_time = 50)
+    {
+        if ($time - time() != $f_time) {
+            return;
+        }
+        $new_message = array(
+            'type' => 'admin',
+            'send_type' => $type,
+            'head_img_url' => '/Public/main/img/kefu.jpg',
+            'from_client_name' => 'GM管理员',
+            'content' => '期号:' . $period . '<br/>' . '--距离封盘还有30秒--' . '<br/>' . '最高中奖100万积分，最低下注' . C('ssc_zuidi') . '积分',
+            'time' => date('H:i:s')
+        );
+        //发给在线用户
+        $this->send_type($type, $new_message);
+        $this->add_message($new_message, $type);
+    }
+
+    public function send_type($type, $new_message)
+    {
+        foreach ($this->worker->uidConnections[$type] as $conn) {
+            $conn->send(json_encode($new_message));
+        }
+    }
+
+    public function send_all($new_message)
+    {
+        foreach ($this->worker->connections as $conn) {
+            $conn->send(json_encode($new_message));
+        }
+    }
+
+    /**
+     * 客户端连接时
+     * */
+    public function onConnect($connection)
+    {
+        $connection->onWebSocketConnect = function ($connection, $http_header) {
+            if ($_SERVER['HTTP_ORIGIN'] != 'http://pk.aicaiyou.com') {
+                //$connection->close();
+            }
+        };
+    }
+
+    /**
+     * onMessage
+     * @access public
+     * 转发客户端消息
+     * @param  void
+     * @param  void
+     * @return void
+     */
+    public function onMessage($connection, $data)
+    {
+        $user = session('user');
+        // 客户端传递的是json数据
+        $message_data = json_decode($data, true);
+        if (!$message_data) {
+            return;
+        }
+        // 1:表示执行登陆操作 2:表示执行说话操作 3:表示执行退出操作
+        // 根据类型执行不同的业务
+        switch ($message_data['type']) {
+            case 'login':
+                // 把昵称放到session中
+                $client_name = htmlspecialchars($message_data['client_name']);
+                /* 保存uid到connection的映射，这样可以方便的通过uid查找connection， */
+                $connection->uid = $message_data['client_id'];
+                $this->worker->uidConnections[$message_data['type_name']][$connection->uid] = $connection;
+//                session($connection->uid,$client_name);
+                $new_message = array(
+                    'type' => 'admin',
+                    'send_type' => $message_data['type_name'],
+                    'head_img_url' => '/Public/main/img/kefu.jpg',
+                    'from_client_name' => 'GM管理员',
+                    'content' => '欢迎莅临' . WorkerController::$type_data[$message_data['type_name']]['title'] . '，' . C('welcome'),
+                    'time' => date('H:i:s')
+                );
+                $connection->send(json_encode($new_message));//单人发送
+                $clients_list = $this->worker->connections;
+                $num = count($clients_list);
+                $new_message1 = array(
+                    'type' => 'ping',
+                    'content' => $num,
+                    'time' => date('H:i:s')
+                );
+                $connection->send(json_encode($new_message1));//单人发送
+                break;
+            case 'say':
+                $userid = $connection->uid;
+                /*是否竞猜时间*/
+                $game_type = $message_data['type_name'];
+                $ssc_status = F($game_type . '_status');
+                if ($ssc_status == 0) {
+                    $time_error_message = array(
+                        'uid' => $connection->uid,
+                        'type' => 'say',
+                        'send_type' => $game_type,
+                        'head_img_url' => $message_data['headimgurl'],
+                        'from_client_name' => $message_data['client_name'],
+                        'content' => $message_data['content'],
+                        'time' => date('H:i:s')
+                    );
+                    $connection->send(json_encode($time_error_message));//单人发送
+                    $time_error_message['type'] = 'say_error';
+                    $this->add_message($time_error_message, $game_type);/*添加信息*/
+                    $time_message = array(
+                        'uid' => $connection->uid,
+                        'type' => 'admin',
+                        'send_type' => $game_type,
+                        'head_img_url' => '/Public/main/img/kefu.jpg',
+                        'from_client_name' => 'GM管理员',
+                        'content' => '「' . $message_data['content'] . '」' . '非竞猜时间，竞猜失败',
+                        'time' => date('H:i:s')
+                    );
+                    $connection->send(json_encode($time_message));//单人发送
+                    $time_message['type'] = 'error';
+                    $this->add_message($time_message, $game_type);/*添加信息*/
+                } else {
+                    /*检测格式和金额*/
+                    $check = WorkerController::$type_data[$game_type]['check'];
+                    $res = $check($message_data['content'], $connection->uid);
+                    if ($res['error'] == 0) {
+                        $error_message = array(
+                            'uid' => $connection->uid,
+                            'type' => 'say',
+                            'send_type' => $game_type,
+                            'head_img_url' => $message_data['headimgurl'],
+                            'from_client_name' => $message_data['client_name'],
+                            'content' => $message_data['content'],
+                            'time' => date('H:i:s')
+                        );
+                        $connection->send(json_encode($error_message));//单人发送
+                        $error_message['type'] = 'say_error';
+                        $this->add_message($error_message, $game_type);/*添加信息*/
+                        $new_message = array(
+                            'uid' => $connection->uid,
+                            'type' => 'admin',
+                            'send_type' => $game_type,
+                            'head_img_url' => '/Public/main/img/kefu.jpg',
+                            'from_client_name' => 'GM管理员',
+                            'content' => '「' . $message_data['content'] . '」' . '单笔点数' . $res['money'] . '竞猜失败',
+                            'time' => date('H:i:s')
+                        );
+                        $connection->send(json_encode($new_message));//单人发送
+                        $new_message['type'] = 'error';
+                        $this->add_message($new_message, $game_type);/*添加信息*/
+                    } else if ($res['type']) {
+                        /*查询积分*/
+                        $jifen = M('user')->where("id = $userid")->find();
+                        if ($jifen['points'] < $res['points']) {
+                            $points_error = array(
+                                'uid' => $connection->uid,
+                                'type' => 'say',
+                                'send_type' => $game_type,
+                                'head_img_url' => $message_data['headimgurl'],
+                                'from_client_name' => $message_data['client_name'],
+                                'content' => $message_data['content'],
+                                'time' => date('H:i:s')
+                            );
+                            $connection->send(json_encode($points_error));
+                            $points_error['type'] = 'say_error';
+                            $this->add_message($points_error, $game_type);/*添加信息*/
+
+                            $points_tips = array(
+                                'uid' => $connection->uid,
+                                'type' => 'admin',
+                                'send_type' => $game_type,
+                                'head_img_url' => '/Public/main/img/kefu.jpg',
+                                'from_client_name' => 'GM管理员',
+                                'content' => '「' . $message_data['content'] . '」' . '点数不足，竞猜失败',
+                                'time' => date('H:i:s')
+                            );
+                            $connection->send(json_encode($points_tips));//单人发送
+                            $points_tips['type'] = 'error';
+                            $this->add_message($points_tips, $game_type);/*添加信息*/
+                        } else {
+                            $user = M('user')->where("id = $userid")->find();
+                            $getssc = F('get' . $game_type . 'data');
+                            $map['userid'] = $userid;
+                            $map['type'] = $res['type'];
+                            $map['state'] = 1;
+                            $map['is_add'] = 0;
+                            $map['time'] = time();
+                            $map['number'] = $getssc['next']['periodNumber'];
+                            $map['jincai'] = $message_data['content'];
+                            $map['del_points'] = $res['points'];
+                            $map['balance'] = $user['points'] - $map['del_points'];
+                            $map['nickname'] = $message_data['client_name'];
+                            $map['game'] = $game_type;
+                            /*添加竞猜*/
+                            $return = $this->add_order($map);
+                            if ($return) {
+                                /*减分*/
+                                $res_points = M('user')->where("id = $userid")->setDec('points', $map['del_points']);
+                                if ($res_points) {
+                                    $points_del = array(
+                                        'type' => 'points',
+                                        'content' => $res['points'],
+                                        'time' => date('H:i:s')
+                                    );
+                                    $connection->send(json_encode($points_del));
+                                }
+                                $new_message2 = array(
+                                    'uid' => $connection->uid,
+                                    'type' => 'say',
+                                    'send_type' => $game_type,
+                                    'head_img_url' => $message_data['headimgurl'],
+                                    'from_client_name' => $message_data['client_name'],
+                                    'content' => $message_data['content'],
+                                    'time' => date('H:i:s')
+                                );
+                                $this->send_type($game_type, $new_message2);
+                                $add_return = $this->add_message($new_message2, $game_type);/*添加信息*/
+                                $jifen = M('user')->where("id = $userid")->find();
+                                if ($add_return) {
+                                    /*成功通知*/
+                                    $new_message1 = array(
+                                        'uid' => $connection->uid,
+                                        'type' => 'admin',
+                                        'send_type' => $game_type,
+                                        'updatepoints' => $jifen['points'],
+                                        'head_img_url' => '/Public/main/img/kefu.jpg',
+                                        'from_client_name' => 'GM管理员',
+                                        'content' => '@' . $user['nickname'] . '「' . $message_data['content'] . '」' . ',竞猜成功',
+                                        'time' => date('H:i:s')
+                                    );
+                                    $connection->send(json_encode($new_message1));
+                                    $new_message1['type'] = 'error';
+                                    $type = $game_type;
+                                    $this->add_message($new_message1, $type);/*添加信息*/
+                                }
+                            }
+                        }
+                    } else {
+                        $format_error_message = array(
+                            'uid' => $connection->uid,
+                            'type' => 'say',
+                            'send_type' => $game_type,
+                            'head_img_url' => $message_data['headimgurl'],
+                            'from_client_name' => $message_data['client_name'],
+                            'content' => $message_data['content'],
+                            'time' => date('H:i:s')
+                        );
+                        $connection->send(json_encode($format_error_message));
+                        $format_error_message['type'] = 'say_error';
+                        $type = $game_type;
+                        $this->add_message($format_error_message, $type);/*添加信息*/
+
+                        $new_message3 = array(
+                            'uid' => $connection->uid,
+                            'type' => 'admin',
+                            'send_type' => $game_type,
+                            'head_img_url' => '/Public/main/img/kefu.jpg',
+                            'from_client_name' => 'GM管理员',
+                            'content' => '「' . $message_data['content'] . '」' . '格式不正确,竞猜失败',
+                            'time' => date('H:i:s')
+                        );
+                        $connection->send(json_encode($new_message3));
+                        $new_message3['type'] = 'error';
+                        $type = $game_type;
+                        $this->add_message($new_message3, $type);/*添加信息*/
+                    }
+                }
+                break;
+            case 'say_chat':
+                $userid = $connection->uid;
+                $user = M('user')->where(array('id' => $userid))->find();
+                if ($user['isgag'] == 1) {
+                    $time_message = array(
+                        'uid' => $connection->uid,
+                        'type' => 'admin',
+                        'send_type' => 'chat',
+                        'isgag' => 1,
+                        'head_img_url' => '/Public/Home/img/wnsr.png',
+                        'from_client_name' => 'GM管理员GM管理员',
+                        'content' => "你已被禁言,请联系管理员",
+                        'time' => date('H:i:s')
+                    );
+                    $connection->send(json_encode($time_message));
+                } elseif (D('Honbao')->checksay($connection->uid) == 0) {
+                    $time_message = array(
+                        'uid' => $connection->uid,
+                        'type' => 'admin',
+                        'send_type' => 'chat',
+                        'isgag' => 1,
+                        'head_img_url' => '/Public/Home/img/wnsr.png',
+                        'from_client_name' => 'GM管理员',
+                        'content' => "你没有发言资格，请咨询在线客服",
+                        'time' => date('H:i:s')
+                    );
+                    $connection->send(json_encode($time_message));
+                } else {
+                    //判断是否聊天室禁言
+                    $time_message = array(
+                        'uid' => $connection->uid,
+                        'type' => 'admin',
+                        'send_type' => 'chat',
+                        'isimg' => $message_data['isimg'],
+                        'head_img_url' => $message_data['headimgurl'],
+                        'from_client_name' => $message_data['client_name'],
+                        'content' => $message_data['content'],
+                        'time' => date('H:i:s')
+                    );
+                    $messages = array(
+                        'uid' => $connection->uid,
+                        'uname' => $message_data['client_name'],
+                        'imgurl' => $message_data['headimgurl'],
+                        'iskefu' => 2,
+                        'ishon' => 0,
+                        'isimg' => $message_data['isimg'],
+                        'content' => $message_data['content'],
+                        'time' => time()
+                    );
+                    M('chatroom')->add($messages);
+                    foreach ($this->worker->connections as $conn) {
+                        $conn->send(json_encode($time_message));
+                    }
+                }
+                break;
+//            case 'say_chat':
+//                $userid = $connection->uid;
+//                $user = M('user')->where(array('id' => $userid))->find();
+//                if ($user['isgag'] == 1) {
+//                    $time_message = array(
+//                        'uid' => $connection->uid,
+//                        'type' => 'admin',
+//                        'send_type' => 'chat',
+//                        'isgag' => 1,
+//                        'head_img_url' => '/Public/Home/img/wnsr.png',
+//                        'from_client_name' => 'GM管理员GM管理员',
+//                        'content' => "你已被禁言,请联系管理员",
+//                        'time' => date('H:i:s')
+//                    );
+//                    $connection->send(json_encode($time_message));
+//                } elseif (D('Honbao')->checksay($connection->uid) == 0) {
+//                    $time_message = array(
+//                        'uid' => $connection->uid,
+//                        'type' => 'admin',
+//                        'send_type' => 'chat',
+//                        'isgag' => 1,
+//                        'head_img_url' => '/Public/Home/img/wnsr.png',
+//                        'from_client_name' => 'GM管理员',
+//                        'content' => "你没有发言资格，请咨询在线客服",
+//                        'time' => date('H:i:s')
+//                    );
+//                    $connection->send(json_encode($time_message));
+//                } else {
+//                    //判断是否聊天室禁言
+//                    $time_message = array(
+//                        'uid' => $connection->uid,
+//                        'type' => 'admin',
+//                        'send_type' => 'chat',
+//                        'isimg' => $message_data['isimg'],
+//                        'head_img_url' => $message_data['headimgurl'],
+//                        'from_client_name' => $message_data['client_name'],
+//                        'content' => $message_data['content'],
+//                        'time' => date('H:i:s')
+//                    );
+//                    $messages = array(
+//                        'uid' => $connection->uid,
+//                        'uname' => $message_data['client_name'],
+//                        'imgurl' => $message_data['headimgurl'],
+//                        'iskefu' => 2,
+//                        'ishon' => 0,
+//                        'isimg' => $message_data['isimg'],
+//                        'content' => $message_data['content'],
+//                        'time' => time()
+//                    );
+//                    M('chatroom')->add($messages);
+//                    foreach ($this->worker->connections as $conn) {
+//                        $conn->send(json_encode($time_message));
+//                    }
+//                }
+//                break;
+        }
+    }
+
+    public function robot_message($type)
+    {
+        $count = M('robot_message')->where(array('type' => $type))->count();
+        $rand = mt_rand(0, $count - 1); //产生随机数。
+        $limit = $rand . ',' . '1';
+        $data = M('robot_message')->where(array('type' => $type))->limit($limit)->select();
+        return $data;
+    }
+
+    public function robot()
+    {
+        $count = M('robot')->count();
+        $rand = mt_rand(0, $count - 1); //产生随机数。
+        $limit = $rand . ',' . '1';
+        $data = M('robot')->limit($limit)->select();
+        return $data;
+    }
+
+    /**
+     * onClose
+     * 关闭连接
+     * @access public
+     * @param  void
+     * @return void
+     */
+    public function onClose($connection)
+    {
+//        $user = session($connection->id);
+//        foreach ($this->worker->uidConnections as $con) {
+//            if (!empty($user)) {
+//                $new_message = array(
+//                    'type' => 'logout',
+//                    'from_client_name' => $user,
+//                    'time' => date('H:i:s')
+//                );
+//                $con->send(json_encode($new_message));
+//            }
+//        }
+        if (isset($connection->uid)) {
+            // 连接断开时删除映射
+            foreach ($this->worker->uidConnections as $grouid) {
+                unset($grouid[$connection->uid]);
+            }
+        }
+    }
+
+    /**
+     * 存竞猜记录和信息
+     * */
+    protected function add_order($mew_message)
+    {
+        $userid = $mew_message['userid'];
+        $data = M('user')->where(array('id' => $userid))->find();
+        if ($data['iskefu'] == 1) {
+            $mew_message['is_kefu'] = 1;
+        }
+        if ($data['t_id'] !== 0) {
+            $mew_message['t_id'] = $data['t_id'];
+        }
+        if (!empty($data['d_id'])) {
+            $mew_message['d_id'] = $data['d_id'];
+            $mew_message['td_id'] = $data['td_id'];
+        }
+        $res = M('order')->add($mew_message);
+        return $res;
+    }
+
+    protected function add_message($new_message, $type)
+    {
+//        switch ($type){
+//            case 'jsssc':
+//                $new_message['game'] ='jsssc';
+//                $res = M('sscmessage')->add($new_message);
+//                break;
+//            case 'jscar':
+//                $new_message['game'] = 'jscar';
+//                $res = M('message')->add($new_message);
+//                break;
+//            case 'fei':
+//                $new_message['game'] = 'fei';
+//                $res = M('message')->add($new_message);
+//                break;
+//            case 'kuai3':
+//                $res = M('kuai3message')->add($new_message);
+//                break;
+//            case 'pk10':
+//                $new_message['game'] = 'pk10';
+//                $res = M('message')->add($new_message);
+//                break;
+//            case 'bj28':
+//                $new_message['game'] = 'Bj28';
+//                $res = M('danmessage')->add($new_message);
+//                break;
+//            case 'jnd28':
+//                $new_message['game'] = 'Jnd28';
+//                $res = M('jndmessage')->add($new_message);
+//                break;
+//            case 'ssc':
+//                $new_message['game'] ="ssc";
+//                $res = M('sscmessage')->add($new_message);
+//                break;
+//        }
+
+        return true;
+    }
+
+    /**
+     * 竞猜成功  加分
+     * */
+    public function add_points($order_id, $userid, $points)
+    {
+        if (empty($userid)) {
+            return 0;
+        }
+        if (!M('order')->where(array("id" => $order_id, "is_add" => 0, "userid" => $userid))->find()) {
+            return 0;
+        }
+        $res = M('user')->where(array("id" => $userid))->setInc('points', $points);
+        if ($res) {
+            $res1 = M('order')->where(array("id" => $order_id))->setField(array('is_add' => '1', 'add_points' => $points));
+        }
+        if ($res && $res1) {
+            return 1;
+        }
+    }
+
+    /**
+     * 竞猜成功  加分
+     * */
+    public function del_points($order_id)
+    {
+        $res = M('order')->where(array("id" => $order_id))->setField(array('is_add' => '1'));
+        if ($res) {
+            return 1;
+        }
+    }
+
+    /**
+     * 竞猜成功通知
+     * */
+    public function send_msg($type, $points, $userid)
+    {
+        $message_points = array(
+            'type' => $type,
+            'points' => $points,
+            'time' => date('H:i:s')
+        );
+        if (isset($this->worker->uidConnections[$userid])) {
+            $connection = $this->worker->uidConnections[$userid];
+            $connection->send(json_encode($message_points));
+        }
+    }
+
+    /*
+     * 冒泡
+     */
+    function compare($data, $order = 'asc')
+    {
+        if (empty($data))
+            return;
+        $count = count($data);
+        for ($i = 0; $i < $count; $i++) {
+            for ($j = $i + 1; $j < $count; $j++) {
+                $tmp = $data[$i];
+                if ($order == 'desc') {
+                    if ($data[$i] < $data[$j]) {
+                        $data[$i] = $data[$j];
+                        $data[$j] = $tmp;
+                    }
+                } else {
+                    if ($data[$i] > $data[$j]) {
+                        $data[$i] = $data[$j];
+                        $data[$j] = $tmp;
+                    }
+                }
+            }
+        }
+        return $data;
+    }
+}
+
+?>

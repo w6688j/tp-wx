@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>后台 - pc28配置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>六合彩配置</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form id="signform" action="{:U('Admin/Site/save_game_config')}" method="post" class="form-horizontal">
+                        <input type="hidden" name="game"  value="lhc">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><h2>返水设置：</h2></label>
+                            <div class="col-sm-6">(返水设置不能为空，不能为0)</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否返水</label>
+                            <div class="col-sm-6">
+                                <input type="radio" value="1" <if condition="$config['lhc_is_fanshui'] eq 1">checked</if> class="i-checks" name="lhc_is_fanshui">是&nbsp;&nbsp;
+                                <input type="radio" value="0" <if condition="$config['lhc_is_fanshui'] eq 0">checked</if> class="i-checks" name="lhc_is_fanshui">否
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 游戏局数大于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fs_jushu" value="{$config['lhc_fs_jushu']}" placeholder="" class="form-control"style="width: 100px;display: inline">局返水
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大于等于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fs_jine_1" value="{$config['lhc_fs_jine_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="lhc_fs_bl_1" value="{$config['lhc_fs_bl_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大于等于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fs_jine_2" value="{$config['lhc_fs_jine_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="lhc_fs_bl_2" value="{$config['lhc_fs_bl_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大于等于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fs_jine_3" value="{$config['lhc_fs_jine_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="lhc_fs_bl_3" value="{$config['lhc_fs_bl_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否返佣（分销）</label>
+                            <div class="col-sm-6">
+                                <input type="radio" value="1" <if condition="$config['lhc_is_fenxiao'] eq 1">checked</if> class="i-checks" name="lhc_is_fenxiao">是&nbsp;&nbsp;
+                                <input type="radio" value="0" <if condition="$config['lhc_is_fenxiao'] eq 0">checked</if> class="i-checks" name="lhc_is_fenxiao">否
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">每年更新生肖比如：狗</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="shengxiao" value="{$config['shengxiao']}" placeholder="狗" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">特码（请按规则修改）</label>
+                            <div class="col-sm-6">
+                                <textarea type="text" name="lhc_tema_bv" value="{$config['lhc_tema_bv']}" placeholder="0=ss,1=110,2=50,3=40,4=30,5=20,6=18,7=17,8=16,9=15,10=14,11=13,12=12,13=12,14=12,15=12,16=13,17=14,18=15,19=16,20=17,21=18,22=20,23=30,24=40,25=50,26=110,27=510  " class="form-control">{$config['lhc_tema_bv']}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">色波</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_sebo_bv" value="{$config['lhc_sebo_bv']}" placeholder="红:50,绿:50,蓝:50" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">五行</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_wuxing_bv" value="{$config['lhc_wuxing_bv']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">头（0）</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_tou0_bv" value="{$config['lhc_tou0_bv']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">头（1-4）</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_tou1_bv" value="{$config['lhc_tou1_bv']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">尾（0）</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_wei0_bv" value="{$config['lhc_wei0_bv']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">尾（非0）</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_wei1_bv" value="{$config['lhc_wei1_bv']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">生肖</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_shengxiao_bv" value="{$config['lhc_shengxiao_bv']}" placeholder="鼠:10,狗:10" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">平特肖</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_pingtexiao_bv" value="{$config['lhc_pingtexiao_bv']}" placeholder="鼠:10,狗:10" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">两面</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_liangmian_bv" value="{$config['lhc_liangmian_bv']}" placeholder="特大:10,合小:10" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">三中二</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_sze_bv" value="{$config['lhc_sze_bv']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">三全中</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_sqz_bv" value="{$config['lhc_sqz_bv']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">二中特</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_ezt_bv" value="{$config['lhc_ezt_bv']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">二全中</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_eqz_bv" value="{$config['lhc_eqz_bv']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">四全中</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_siqz_bv" value="{$config['lhc_siqz_bv']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><h2>单注封顶</h2></label>
+                            <div class="col-sm-6">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">六合彩最小下注</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_zuidi" value="{$config['lhc_zuidi']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">特码</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_tema" value="{$config['lhc_fending_tema']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">色波</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_sebo" value="{$config['lhc_fending_sebo']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">五行</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_wuxing" value="{$config['lhc_fending_wuxing']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">头尾</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_touwei" value="{$config['lhc_fending_touwei']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">生肖</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_shengxiao" value="{$config['lhc_fending_shengxiao']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">平特肖</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_pingxiao" value="{$config['lhc_fending_pingxiao']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">两面</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_two" value="{$config['lhc_fending_two']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">三中二</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_sze" value="{$config['lhc_fending_sze']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                      <div class="form-group">
+                            <label class="col-sm-2 control-label">三全中</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_sqz" value="{$config['lhc_fending_sqz']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">二中特</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_ezt" value="{$config['lhc_fending_ezt']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">二全中</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_eqz" value="{$config['lhc_fending_eqz']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">四全中</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_fending_siqz" value="{$config['lhc_fending_siqz']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">单局最高总金额</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lhc_all_jine" value="{$config['lhc_all_jine']}" placeholder="输入" class="form-control">
+                            </div>
+                        </div>
+                        <span style="color: red;">*赔率为含本赔率  <br><br>** 修改了下注金额限定，请联系服务商，服务器重启worker服务</span>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="__PUBLIC__/Admin/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".i-checks").iCheck({
+            checkboxClass: "icheckbox_square-green",
+            radioClass: "iradio_square-green",
+        })
+    });
+</script>
+<script>
+    $(function(){
+        $('#signform').ajaxForm({
+            success: complete,
+            dataType: 'json'
+        });
+        function complete(data){
+            if(data.status==1){
+                $('.btn-primary').attr('disabled','disabled');
+                layer.msg(data.info, function(index){
+                    layer.close(index);
+                    window.location.href=data.url;
+                });
+            }else{
+                layer.msg(data.info);
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

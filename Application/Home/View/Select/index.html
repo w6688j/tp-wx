@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/iconfont.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/common.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/style.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/emoji.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/Select/css/amazeui.min.css">
+    <link rel="stylesheet" type="text/css" href="//res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css">
+    <style type="text/css">li.disabled {
+        display: none;
+    }</style>
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+        var puri = "http://v4.dgtztz.com";
+    </script>
+    <script src="__PUBLIC__/Home/Carhome/js/layer.js" type="text/javascript" charset="utf-8"></script>
+    <link href="__PUBLIC__/Home/Carhome/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
+    <script src="__PUBLIC__/Home/Carhome/js/xsapp.js?v=20171101" type="text/javascript" charset="utf-8"></script>
+    <title>{:C('sitename')}</title>
+    <SCRIPT language=javascript>
+        <!--
+        window.onerror=function(){return true;}
+        // -->
+    </SCRIPT>
+</head>
+<!---->
+<body class="index-sea" style="background: black">
+<!--<div style="z-index: 999;color: #ee162d">aaaaaaaa</div>-->
+<style>
+    .am-slider-default .am-viewport{
+        max-height: 150px;
+    }
+</style>
+<section class="main" >
+    <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0" >
+        <if condition="C('is_lunbo') eq 1">
+        <ul class="am-slides">
+            <volist name="list" id="vo">
+                <li>
+                    <img src="{$vo.imgurl}">
+                </li>
+            </volist>
+            <!--<li>-->
+                <!--<img src="__PUBLIC__/Home/Select/img/banner1.png">-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<img src="__PUBLIC__/Home/Select/img/banner2.png">-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<img src="__PUBLIC__/Home/Select/img/banner3.png">-->
+            <!--</li>-->
+        </ul>
+        </if>
+
+    </div>
+    <div class="per-info" style="    margin-bottom: 10px;">
+        <div class="pic ">
+            <span class="sw"></span>
+            <img src="{$userinfo.headimgurl}">
+        </div>
+        <div class="view">
+               <!-- <a href="/down/index.html"><span style="    width: 66px;
+    height: 29px;
+    float: right;
+    color: white;
+    font-size: 14px;
+    background-color: #953b39;
+    border-radius: 5px;
+    padding: 4px;">App下载</span></a>-->
+
+            <br>
+            <h3 style="margin: 0px">{$userinfo.nickname}</h3>
+                <empty name="userinfo.username">
+                    <a href="/home/select/binding"><span style="    width: 66px;
+    height: 29px;
+    float: right;
+    color: white;
+    font-size: 14px;
+    background-color: #953b39;
+    border-radius: 5px;
+    padding: 4px;">绑定账号</span></a>
+                </empty>
+            <if condition="$status eq 1">
+                <a href="/home/select/bangding"><span style="width: 92px;height: 29px;float: right;color: white;font-size: 14px;background-color: #953b39;border-radius: 5px;padding: 4px;">绑定已有账号</span></a>
+            </if>
+            <p style="margin: 0">ID:{$userinfo.id}</p>
+            <span style="margin: 0" class="ble">余额:<span id="money">{$userinfo.points}</span></span>
+        </div>
+    </div>
+    <div style="
+
+    color: white;
+    width: 91%;
+    height: 20px;
+    margin: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    "> <marquee style="    line-height: 20px;">{:C('youxitoptongzhi')}</marquee></div>
+    <div class="game-list">
+        <ul style="padding-left: 0;">
+            <if condition="C('pk10_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/Circle">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_pk10.png"></p>北京赛车 </a>
+                </li>
+            </if>
+            <if condition="C('fei_on_off') eq 1">
+            <li class="show_load">
+                <a href="__APP__/Home/fei">
+                    <p><img src="__PUBLIC__/Home/Carhome/images/icon_xfft.png"></p>幸运飞艇 </a>
+            </li>
+            </if>
+            <if condition="C('ssc_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/ssc">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_cqssc.png"></p>时时彩 </a>
+                </li>
+            </if>
+            <if condition="C('kuai3_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/kuai3">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/jsks.png"></p>快3 </a>
+                </li>
+            </if>
+            <if condition="C('bj28_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/Dan">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_bjpc.png"></p>北京28 </a>
+                </li>
+            </if>
+            <if condition="C('jnd28_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/jnd">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_jnd.png"></p>加拿大28 </a>
+                </li>
+            </if>
+            <if condition="C('jsssc_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/jsssc">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_jsssc.png"></p>极速时时彩 </a>
+                </li>
+            </if>
+            <if condition="C('jscar_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/jscar">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/saiche.png"></p>极速赛车 </a>
+                </li>
+            </if>
+            <if condition="C('lhc_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/lhc">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_lhc.png"></p><font> 六合彩</font> </a>
+                </li>
+            </if>
+            <if condition="C_set('chat_on_off') eq 1">
+            <li class="show_load">
+                <a href="__APP__/Home/Chat">
+                    <p><img src="__PUBLIC__/Home/Carhome/images/liaotianshi.png"></p>福利群 </a>
+            </li>
+            </if>
+        </ul>
+    </div>
+    <div style="clear:both;"></div>
+    <div style="height: 5rem;width: 100%"></div>
+    <script>
+        $(".game-list li").each(function (i, o) {
+            if ($(o).hasClass("disabled")) {
+                $(o).appendTo($(".game-list ul"));
+            }
+        });
+        $.ajax({
+            url: '/home/select/getmoney',
+            type: 'POST', //GET
+            data: {},
+            dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success: function (data) {
+                $("#money").html(data);
+            }
+        });
+    </script>
+</section>
+<footer>
+    <ul style="padding-left: 0">
+        <li class="">
+            <a href="/Home/Select/spread.html">
+                <i class="iconfont"></i>推广
+            </a>
+        </li>
+        <li>
+            <a href="/Home/Select/sxselect.html">
+                <i class="iconfont"></i> 上下分
+            </a>
+        </li>
+        <li class="home on">
+            <a href="/?lottery=mall">
+                <i class="iconfont"></i> 大厅
+            </a>
+        </li>
+        <li class="">
+            <a href="/Home/Select/person.html">
+                <i class="iconfont"></i> 个人中心
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" data-css="bottom:0;" class="kefu ajax_load" data-uri="/Home/Select/kefu.html">
+                <i class="iconfont"></i> 客服
+            </a>
+        </li>
+    </ul>
+</footer>
+<script src="//res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js" type="text/javascript" charset="utf-8"></script>
+
+<section id="ajax_container" class="win-show score-view-box"></section>
+<script>
+    $(document).ready(function() {
+        var msgs='{$msgs}'
+        if (msgs!=null && msgs!=undefined&&msgs!=""){
+            var content='{$msgs["content"]}';
+            if (content!=null  && content!=undefined&&content!=""){
+                var status='{$msgs["is_status"]}';
+                if (status!=1){
+                    layer.open({content:content,btn: ['确定'],yes: function(index){
+                        layer.close(index),
+                            $.get('/home/select/msgsout').then(function(res){
+
+                            })
+                    }
+                    })
+                }
+            }
+        }
+
+        var hd_title="{:C_set('activity_title')}";
+        var hd_content="{:C_set('activity_content')}";
+        if (hd_content!=null  && hd_content!=undefined&&hd_content!=""){
+            var timestamp= Date.parse(new Date())/100;
+            var zui_time=getCookieValue("zui_time");
+            if (timestamp-zui_time>3600*24){
+                layer.open({
+                    type: 1
+                    ,title: false //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '300px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,resize: false
+                    ,btn: ['确定']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content:'<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">'+hd_title+'<br><p>'+hd_content+'</p></div>'
+                    ,success: function(layero){
+
+                    }
+                });
+                document.cookie="zui_time="+timestamp;
+            }
+            if (empty(zui_time)){
+                document.cookie="zui_time="+timestamp;
+            }
+        }
+    });
+    function getCookieValue(name) {
+        var strCookie=document.cookie;
+        var arrCookie=strCookie.split(";");
+        for(var i=0;i<arrCookie.length;i++){
+            var c=arrCookie[0].split("=");
+            if(c[0]==name){
+                return c[1];
+            }
+        }
+        return "";
+    }
+</script>
+</body>
+</html>

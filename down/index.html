@@ -1,0 +1,134 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" id="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <title>掌上游戏厅，赢千万大奖。</title>
+    <meta name="applicable-device" content="mobile">
+    <meta name="keywords" content="">
+    <meta name="description" content="完美体验，千万彩池，安卓/苹果/电脑端万人在线赢大奖，7×24小时在线上下分。超高倍率，等你来战！">
+    <link href="./css/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <!--Luara样式文件-->
+    <script src="./js/jquery-1.8.3.min.js"></script>
+    <!--Luara js文件-->
+    <script src="./js/jquery.luara.0.0.1.min.js"></script>
+</head>
+<body>
+<div class="wrap" id="all">
+    <div class="top"><img src="./images/topbg.png"></div>
+    <!--<div class="banner">-->
+        <!--<img src="./images/b1.jpg">-->
+    <!--</div>-->
+    <!--<div class="h11"><img src="./images/h11.jpg"></div>-->
+    <!--<div class="h12"><img src="./images/h12.jpg"></div>-->
+    <!--<div class="h13"><img src="./images/h13.jpg"></div>-->
+    <!--<div class="h13"><img src="./images/h14.jpg"></div>-->
+    <div class="foot">
+        Copyright © 2017-2020<br>
+
+    </div>
+
+    <style>
+        .openinbrowser {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999999999;
+            padding: 2% 2% 0 2%;
+            width: 97%;
+            height: 100%;
+            text-align: right;
+            background: rgba(0, 0, 0, 0.5);
+            filter: alpha(opacity=50);
+        }
+
+        .openinbrowser img {
+            max-width: 100%;
+        }
+    </style>
+    <div class="openinbrowser" id="J_openinbrowser">
+        <img src="./images/tip_wechat_android.png">
+    </div>
+
+    <script type="text/javascript">
+
+        $("#all").click(function () {
+
+            var userAgent = navigator.userAgent.toLowerCase();
+            var docHeight = document.documentElement.clientHeight;
+
+            function isWeixin() {
+                if (userAgent.indexOf('micromessenger') > -1) {
+                    return !0;
+                }
+                return !1;
+            }
+
+            if (isWeixin()) {
+                var openinbrowser = document.getElementById('J_openinbrowser')
+                openinbrowser.style.height = docHeight + 'px';
+                openinbrowser.style.display = 'block';
+                openinbrowser.onclick = function () {
+                    openinbrowser.style.display = 'none';
+                }
+                return !1;
+            }
+            if (isPIA() == 2) {  //安卓
+                window.open('./download/app.apk');
+            } else if (isPIA() == 1) { // 苹果
+                window.open('itms-services://?action=download-manifest&url=https://coding.net/u/ushesoft/p/qp/git/raw/master/app.plist');
+            } else {
+                window.open('./download/app.apk');
+                /*
+                 var isok = confirm("是否用电脑下载777棋牌");
+                 if(isok){
+                 window.open(href ='/download/777.exe');
+                 }else{
+                 return;
+                 }
+                 */
+            }
+        });
+
+        document.getElementById('all').onclick = function () {
+        }
+
+        //js判断终端是安卓还是苹果
+        function isPIA() {
+            var u = navigator.userAgent, app = navigator.appVersion;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if (isiOS) {
+                return 1;
+            }
+            if (isAndroid) {
+                return 2
+            }
+        }
+    </script>
+</div>
+
+
+<script>
+    (function () {
+        var _53code = document.createElement("script");
+        _53code.src = "#########";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(_53code, s);
+    })();
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "#######";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		
+		<title>{:C('sitename')}</title>
+		<meta name="keywords" content="{:C('keyword')}">
+		<meta name="description" content="{:C('content')}">
+
+		<meta name="renderer" content="webkit">
+		<meta name="format-detection" content="telephone=no,email=no"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+		<meta name="telephone=no" content="format-detection">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no" />
+		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		<META HTTP-EQUIV="Expires" CONTENT="0">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/lib.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/public.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/menu/dist/mfb.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/page.css"/>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/menu/css/mfb.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/vivify.min.css"/>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/menu/Font-Awesome-3.2.1/css/font-awesome.css">
+		<link rel="stylesheet" href="__PUBLIC__/Home/Select/css/font-awesome-4.7.0/css/font-awesome.css">
+		<script src="__PUBLIC__/layer/layer.js"></script>
+	</head>
+	<style>
+		#Cocos2dGameContainer{
+			width: 100% !important;
+			height: 274px !important;
+		}
+		.content p {
+			display: inline-block;
+		}
+		.foot{
+			color: white;
+			box-shadow: -16px 10px 46px black;
+			width: 100%;
+			bottom: 0px;
+			height: 60px;
+			background: #0f1432;
+			position: fixed;
+		}
+
+		.foot li {
+			width: 20%;
+			text-align: center;
+			float: left;
+			padding:7.5px 0;
+		}
+		/*页面加载中*/
+		.spinner {
+			margin: 100px auto 0;
+			width: 150px;
+			text-align: center;
+		}
+		.body{
+			opacity: 0;
+		}
+		.spinner > div {
+			width: 30px;
+			height: 30px;
+			background-color:black;
+
+			border-radius: 100%;
+			display: inline-block;
+			-webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+			animation: bouncedelay 1.4s infinite ease-in-out;
+			/* Prevent first frame from flickering when animation starts */
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+		}
+		.spinner .bounce1 {
+			-webkit-animation-delay: -0.32s;
+			animation-delay: -0.32s;
+		}
+
+		.spinner .bounce2 {
+			-webkit-animation-delay: -0.16s;
+			animation-delay: -0.16s;
+		}
+
+		@-webkit-keyframes bouncedelay {
+			0%, 80%, 100% { -webkit-transform: scale(0.0) }
+			40% { -webkit-transform: scale(1.0) }
+		}
+
+		@keyframes bouncedelay {
+			0%, 80%, 100% {
+				transform: scale(0.0);
+				-webkit-transform: scale(0.0);
+			} 40% {
+				  transform: scale(1.0);
+				  -webkit-transform: scale(1.0);
+			  }
+		}
+		.table5 td span{
+			width: 48px;
+			margin: 0 auto;
+			height: 42px;
+			background: #1f5d1c;
+			border-radius: 5px;
+			color: white;
+			display: block;
+			border: 1px solid #f9e436;
+		}
+		.table5 td{
+			height:10px;
+			text-align: center;
+		}
+		table5 tr{
+			padding-bottom: 20px;
+		}
+	</style>
+	<div class="ingame" style="    text-align: center;margin-top: 45%;left: 50%;position: fixed;width: 150px;margin-left: -75px;">
+		<div class="spinner">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+		</div>
+		正在进入游戏
+	</div>
+	<body onload="connect()">
+	<div class="body">
+		<div class="tab-content">
+			<div class="tab-box dh d1" data-img='0' style="height: 274px;background-color: #ccc;">
+				<div id="canvas" style="text-align: center; font-size: 0">
+					<canvas id="gameCanvas" width="1136" height="640" style="width:117%;height:274px"></canvas>
+				</div>
+			</div>
+			
+			<div class="tab-box wz d2" data-img='1'>
+				<table border="" cellspacing="" cellpadding="">
+					<thead>
+						<tr>
+							<th>期号</th>
+							<th>开奖时间</th>
+							<th>开奖号码</th>
+							<th>特码</th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="list" id="vo">
+							<tr>
+								<td>{$vo.periodnumber}</td>
+								<td>{$vo.awardtime|strtotime|date="Y.m.d",###}<br />{$vo.awardtime|strtotime|date="H:i:s",###}</td>
+								<td class="ft-sz-0">
+									<?php
+										$number = unserialize($vo['number']);
+										$lh = unserialize($vo['lh']);
+										?>
+									<volist name="number" id="t" key="k">
+										<span class="shuzi shuzi_{$t}">{$t}</span>
+									</volist>
+									<br />
+									<strong class="longhu cl-red">{$lh[0]}</strong>
+									<strong class="longhu cl-blue2">{$lh[1]}</strong>
+									<strong class="longhu cl-red">{$lh[2]}</strong>
+									<strong class="longhu cl-blue2">{$lh[3]}</strong>
+									<strong class="longhu cl-blue2">{$lh[4]}</strong>
+								</td>
+								<td class="txt-al-c ft-sz-0">
+									<span class="tm">{$vo.tema}</span>
+									<span class="tm cl-blue2">{$vo.tema_dx}</span>
+									<span class="tm cl-red">{$vo.tema_ds}</span><br />
+									<span class="tm cl-blue2">{$vo.zx}</span>
+									<span class="tm">{$vo.tema_dw}</span>
+								</td>
+							</tr>
+						</volist>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!--<span style="width: 100%;height: 1px ;background-color: #d8d8d8;position: fixed;bottom: 39px"></span>-->
+		<div class="main-box">
+			<div class="leftRight">
+				<span style="width: 10px"></span>
+				<div class="nav" style="display: none">
+					<div class="portrait no"><img src="{$userinfo.headimgurl}" /></div>
+					<div style="text-align: center">id:{$userinfo.id}</div>
+					<a href="{:U('Home/select/index')}" class="portrait"  data-height="20"><img
+							src="/Public/Home/img/zhuye.png"></a>
+					<a href="{:U('Home/Circle/kefu')}" class="portrait active" target="myIframe" data-height='100'><img src="__PUBLIC__/Home/img/0.png" /></a>
+					<a href="{:U('Home/Circle/jincai')}" class="portrait" target="myIframe" data-height='240'><img src="__PUBLIC__/Home/img/1.png" /></a>
+					<a href="javascript:showBg();" class="portrait active" target="myIframe" data-height="100"><img src="/Public/Home/img/8.png"></a>
+					<a href="{:U('Home/Circle/record')}?t=1" class="portrait" target="myIframe" data-height='150'><img src="__PUBLIC__/Home/img/2.png" /></a>
+					<div class="portrait tab-bt" data-bt="0"><img src="__PUBLIC__/Home/img/7_01.png" /></div>
+					<div class="portrait tab-bt" data-bt="1"><img src="__PUBLIC__/Home/img/4.png" /></div>
+					<a onclick="javascript:window.location.href=window.location.href;" class="portrait shuax" target="myIframe"><img src="__PUBLIC__/Home/img/5.png" /></a>
+					<a href="{:U('Home/Circle/rule')}" class="portrait" target="myIframe" data-height='720'><img src="__PUBLIC__/Home/img/6.png" /></a>
+					<a href="{:U('Home/Circle/tuiguang')}" class="portrait" target="myIframe"><img src="__PUBLIC__/Home/img/9.png"/></a>
+				</div>
+				<div class="content" style="height: 358px;">
+					<!--iframe-->
+					<div class="iframewp dd">
+						<div class="main-box" style="
+padding-top: 7px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 99;
+
+
+">
+							<!--第一行（表单、积分在线人数）-->
+							<div style=" width: 100%;height: 28px;border-bottom: 1px solid #d6d6d6;position: relative;color: #656565;margin-bottom: 0px;">
+								<table width="100%" style="text-align: center">
+									<tr>
+										<td style="width: 20%">
+											<span><img src="__PUBLIC__/Home/img/image/id.png" style="width: 18px;height: 18px;"></span><span style="font-size: 13px;line-height:19px;margin-left:10px;position: relative"><span style="position: absolute;" id=>{$userinfo.id}</span></span>
+										</td>
+										<td style="width: 30%">
+											<span><img src="__PUBLIC__/Home/img/image/jine.png" style="width: 18px;height: 18px;"></span><span style="font-size: 13px;line-height:19px;margin-left:10px; position: relative;"><span style="position: absolute;" id="sy">{$userinfo.points}</span></span>
+										</td>
+										<td style="width: 25%">
+											<span><img src="__PUBLIC__/Home/img/image/renshu.png" style="width: 18px;height: 18px;position: relative;"><span style="position: absolute;" id="xs"></span></span>
+										</td>
+										<td style="width: 25%">
+											<div onclick="javascript:window.location.href=window.location.href;" style="display: inline;width: 67px"><img src="__PUBLIC__/Home/img/image/sx.png" style="width: 18px;height: 18px;"></span><span style="line-height: 18px;margin-left:10px;font-size: 13px">刷新</span></div>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<!--<div class="info">-->
+							<!--<p>剩余点数：<span id="sy">{$userinfo.points}</span>点</p>-->
+							<!--<p>线上人数：<span id="xs"></span>人</p>-->
+							<!--</div>-->
+						</div>
+						<!--<div id="load" style="text-align: center;font-size: 14px;">加载中...</div>-->
+						<div class="top"style="
+    width: 100%;
+    top: 27px;
+    left: 0;
+    background: #fff;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #e6e6e6;
+    z-index: 99;
+    border-top: 1px solid #e6e6e6;
+"
+						>
+							<input id="textarea" type="text" required style="
+	       width: 81%;
+	   border: 0px;
+    "placeholder="例：10/大/50 、2/大双/50" />
+							<button onclick="jianpan(); return false;" style="background-color: #569660; height: 28px;line-height: 18px;width: 69px;-webkit-border-radius: 5px;-moz-border-radius:5px ;border-radius: 5px;border: 1px solid #ffffff;color: white;">键盘</button>
+							<button onclick="onSubmit(); return false;" style="
+	background-color: #569660;
+    height: 28px;
+    line-height: 18px;
+    width: 15%;
+    border: 1px solid #ffffff;
+      -webkit-border-radius: 5px;-moz-border-radius:5px ;border-radius: 5px;
+    color: white;">发送</button>
+						</div>
+						<!--聊天記錄開始-->
+				<div class="chatting2">
+						<div class="chatting" style="width: 100%;overflow-y: auto;height:500px;top: 0;bottom: 0;-webkit-overflow-scrolling: touch;   /*这句是为了滑动更顺畅*/">
+							<volist name="lists" id="vo">
+								<if condition="$vo['type'] eq 'admin'">
+									<div <if condition="$vo.uid eq $userinfo['id']">class="chatting-li qtr green"<else/>class="chatting-li qtr orange"</if> >
+									<div class="portrait"><img src="{$vo.head_img_url}"/></div>
+									<div class="content">
+										<small><span class="name">{$vo.from_client_name}</span><time>{$vo.time}</time></small>
+										<p>{$vo.content|htmlspecialchars_decode|stripcslashes}</p>
+									</div>
+						</div>
+						</if>
+						<if condition="$vo['type'] eq 'system'">
+							<div class="chatting-li qtr pink">
+								<div class="portrait"><img src="{$vo.head_img_url}"/></div>
+								<div class="content">
+									<small><span class="name">{$vo.from_client_name}</span><time>{$vo.time}</time></small>
+									<p>{$vo.content|htmlspecialchars_decode|stripcslashes}。</p>
+								</div>
+							</div>
+						</if>
+						<if condition="$vo['type'] eq 'say'">
+							<div <if condition="$vo.uid eq $userinfo['id']">class="chatting-li green"<else/>class="chatting-li"</if> >
+							<div class="portrait"><img src="{$vo.head_img_url}"/></div>
+							<div class="content">
+								<small><span class="name">{$vo.from_client_name}</span><time>{$vo.time}</time></small>
+								<p>{$vo.content|htmlspecialchars_decode|stripcslashes}</p>
+							</div>
+					</div>
+					</if>
+					<if condition="$vo['type'] eq 'error' && $userinfo['id'] eq $vo['uid']">
+						<div class="chatting-li qtr green">
+							<div class="portrait"><img src="{$vo.head_img_url}"/></div>
+							<div class="content">
+								<small><span class="name">{$vo.from_client_name}</span><time>{$vo.time}</time></small>
+								<p>{$vo.content|htmlspecialchars_decode|stripcslashes}</p>
+							</div>
+						</div>
+					</if>
+					<if condition="$vo['type'] eq 'say_error' && $userinfo['id'] eq $vo['uid']">
+						<div class="chatting-li green">
+							<div class="portrait"><img src="{$vo.head_img_url}"/></div>
+							<div class="content">
+								<small><span class="name">{$vo.from_client_name}</span><time>{$vo.time}</time></small>
+								<p>{$vo.content|htmlspecialchars_decode|stripcslashes}</p>
+							</div>
+						</div>
+					</if>
+					</volist>
+
+				</div>
+
+				<!--聊天記錄結束-->
+					</div>
+				<div class="chatting3" style="display: none">
+					<div style="padding-top: 20px">
+						<table style="text-align: center" class="table5">
+							<tr>
+								<td  neirong = '大'><span><br/>大</span></td>
+								<td  neirong = '小'><span><br/>小</span></td>
+								<td  neirong = '豹子'><span><br/>豹子</span></td>
+								<td  neirong = '单'><span><br/>单</span></td>
+								<td  neirong = '双'><span><br/>双</span></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+		</div>
+
+			<div  style="display: none;" class="record dd" style="-webkit-overflow-scrolling:touch; padding-top :10px;">
+				<iframe name="ifrmname" src="{:U('Home/Circle/record')}?t=1" style="height: 500px;"></iframe>
+			</div>
+			<div  style="display: none;" class="dd">121222222222222</div>
+			<div  style="display: none;" class="dd"><iframe src="{:U('Home/Circle/kefu')}" style="height: 500px;"></iframe></div>
+				</div>
+			</div>
+		</div>
+		<style>
+			#dialog {
+				background-color: #fff;
+				/*border: 5px solid rgba(0, 0, 0, 0.4);*/
+				height: 250px;
+				left: 50%;
+				margin: -200px 0 0 -100px;
+				padding: 1px;
+				position: fixed !important; /* 浮动对话框 */
+				position: absolute;
+				top:60%;
+				width: 200px;
+				box-shadow: 7px 5px 66px black;
+				z-index: 5;
+				border-radius: 3px;
+				display: none;
+			}
+
+			#dialog p {
+				margin: 0 0 12px;
+				height: 24px;
+				line-height: 24px;
+				/*background: #CCCCCC;*/
+			}
+
+			#dialog p.close {
+				text-align: right;
+				padding-right: 10px;
+			}
+
+			#dialog p.close a {
+				color: #fff;
+				text-decoration: none;
+			}
+		</style>
+	<div id="dialog" style=" ">
+		<a href="#"style="   float: right;font-size: 17px;" onclick="closeBg();"><i style="padding-right: 8px;color: black;" class="fa fa-close fa-1x"></i></a>
+		</p>
+		<div style="text-align: center">选择位置</div>
+		<div style="text-align: center;padding-top: 10px"><input class="input2" placeholder="1~5" style="border: 1px solid #d4d4d4;width: 63px;border-radius: 2px;height: 30px;" type="text" name="weizhi"></div>
+		<div style="text-align: center">下注金额</div>
+		<div style="text-align: center;padding-top: 10px"><input class="input" style="border: 1px solid #d4d4d4;width: 63px;border-radius: 2px;height: 30px;" type="text" name="jine"></div>
+		<div style="text-align: center;padding-top: 20px"><span class="weizhi2"></span><span class="leixing"></span><span class="xiazhujine"></span></div>
+		<div style="text-align: center;padding-top: 30px;">
+			<button style="    background: #42b33c;
+    height: 35px;
+    width: 112px;color: white; border-radius: 3px;"onclick="onSubmit()">提交</button>
+		</div>
+	</div>
+	<div class="foot">
+		<ul>
+			<li class="onjincai cc"><span><i class="fa fa-gamepad fa-2x"></i><br/>竞猜</span></li>
+			<li class="onrecord cc"><span><i class="fa fa-calendar-plus-o fa-2x"></i><br/>记录</span></li>
+			<a href="{:U('Home/select/index')}"><li style="padding: 2px 0;color: white"><span><i class="fa fa-home fa-3x"></i><br/>主页</span></li></a>
+			<li class="cc"><span><i class="fa fa-comments fa-2x"></i><br/>客服</span></li>
+			<li class="donghua"><span><i class="fa fa-video-camera fa-2x"></i><br/>动画</span></li>
+
+		</ul>
+	</div>
+		<script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
+		<script src="__PUBLIC__/layer/layer.js"></script>
+		<script src="__PUBLIC__/menu/dist/mfb.js"></script>
+		<script type="text/javascript">
+            //键盘选项：
+
+            //点击动画时候效果：
+			function showBg() {
+				$("#dialog").show();
+			}
+            var height =0  ;
+            var ifermeheight =0;
+            height = document.body.scrollHeight;
+            //  ifreme 的高度：
+            ifermeheight = height - 267 - 20;
+
+
+
+			$(function() {
+				/*------- 声明对象、参数 -----------*/
+				var wp = $('.main-box .leftRight'),
+					nav = wp.children('.nav'),
+					navli = nav.children('a'),
+					con = wp.children('.content'),
+//					iframe = wp.find('.iframewp');
+				var num_hei = 0,
+					h = 100;
+				/*绑定事件*/
+				navli.on('click', function() {
+					var _ = $(this);
+					navli.removeClass('active').filter(_).addClass('active');
+					h = get_dataHei(_);
+					alertHei();
+					navli.filter('.shuax').attr('href', _.attr('href'));
+					navli.filter('.shuax').attr('data-height', _.attr('data-height'));
+				});
+				/*初始化*/
+				//navli.filter('.active').eq(0).children().trigger('click');
+				navli.eq(2).children().trigger('click');
+				windowAlter(alertHei);
+				/*公共方法*/
+
+				function get_dataHei(obj) {
+					var _ = obj;
+					if(typeof(_.attr('data-height')) != "undefined" && $.trim(_.attr('data-height')).length > 0 && parseInt($.trim(_.attr('data-height'))) > 100) {
+						return parseInt($.trim(_.attr('data-height')));
+					} else {
+						return 100;
+					}
+				}
+				function alertHei() {
+					num_hei = nav.outerHeight();
+					num_hei = num_hei * (h / 100);
+					con.css({
+						'height': ifermeheight + 'px'
+					});
+					num_hei = num_hei - parseFloat(con.css('padding-top')) - parseFloat(con.css('padding-bottom'));
+					if(con.children('.top').is(':visible')) {
+						var iframe_hei = num_hei - con.children('.top').outerHeight(true);
+					} else {
+						var iframe_hei = num_hei;
+					}
+					iframe.css({
+						'height': ifermeheight + 'px'
+					});
+				}
+
+				function getIndexing(obj) {
+					var i = $.inArray(obj[0], navli);
+					return 'go' + (i + 1);
+				}
+
+				function windowAlter(fun) {
+					fun();
+					$(window).resize(fun);
+				}
+
+				function imgloadstate(imgs, fun, Time) {
+					var ys, boole,
+						time = Time || 500,
+						img = imgs[0];
+
+					function pd() {
+						boole = img.complete;
+						if(boole) {
+							fun();
+							clearTimeout(ys);
+						} else {
+							ys = setTimeout(pd, time);
+						}
+					}
+					pd();
+				}
+
+				/*-------------选项卡（hover切换）----------*/
+				tab_hover($('.leftRight .nav'), $('.tab-content'));
+
+				function tab_hover(bt, content) {
+					bt.each(function(i, e) {
+						var _ = $(e);
+						var _c = $(content);
+						var _bt = _.children('.tab-bt'),
+							_box = _c.children('.tab-box');
+
+						_bt.on('click', function() {
+							if(!$(this).hasClass('on')) {
+								var j = $(this).data('bt'),
+									_img = _box.filter('[data-img=' + j + ']');
+								if(_img.length > 0) {
+									_bt.removeClass('on');
+									$(this).addClass('on');
+									_box.stop(true, false).hide().removeClass('on').filter('[data-img=' + j + ']').addClass('on').fadeIn().css("display", "block");
+								}
+							}
+						});
+					})
+				};
+                //        泡泡类型的动画和文字切换 - ------------------------
+                tab2_hover($('.mfb-component__list li '), $('.tab-content'));
+                function tab2_hover(bt, content) {
+                    bt.each(function (i, e) {
+                        var _ = $(e);
+                        var _c = $(content);
+                        var _bt = _.children('.tab-bt'),
+                            _box = _c.children('.tab-box');
+                        _bt.on('click', function () {
+                            if (!$(this).hasClass('on')) {
+                                var j = $(this).data('bt'),
+                                    _img = _box.filter('[data-img=' + j + ']');
+                                if (_img.length > 0) {
+                                    _bt.removeClass('on');
+                                    $(this).addClass('on');
+                                    _box.stop(true, false).hide().removeClass('on').filter('[data-img=' + j + ']').addClass('on').fadeIn().css("display", "block");
+                                }
+                            }
+                        });
+                    })
+                };
+			})
+		</script>
+		
+		<!--视频-->
+		<script src="__PUBLIC__/main/mbase.js"></script>
+		<script src="__PUBLIC__/main/cocos2d.js"></script>
+		
+		<script type="text/javascript">
+
+			var acontainer = $('#acontainer');
+			var hasData = false;
+	
+			function AddList(data) {
+				if(data.length > 0) {
+					hasData = true;
+					acontainer.html(data[0].data);
+					acontainer.show();
+				}
+			}
+			function beforeStartRunning() {
+				acontainer.hide();
+			}
+	
+			function afterEndRunning() {
+				if(hasData) acontainer.show();
+			}
+		</script>
+		<!--提交数据-->
+		<script type="text/javascript">
+
+            setTimeout(function() {
+                $('#load').css('display','none');
+                $('.chatting').css('display','block');
+            }, 1500);
+
+            document.onkeydown=function(event){
+                e = event ? event :(window.event ? window.event : null);
+                if(e.keyCode==13){
+                    onSubmit(); return false;
+                }
+            }
+
+            if(typeof console == "undefined") {
+                this.console = {
+                    log: function(msg) {}
+                };
+            }
+            WEB_SOCKET_SWF_LOCATION = "__PUBLIC__/worker/swf/WebSocketMain.swf";
+            WEB_SOCKET_DEBUG = true;
+            var ws, name;
+            // 连接服务端
+            function connect(){
+                // 创建websocket
+
+                ws = new WebSocket("ws://" + document.domain + ":{:C('worker_port')}");
+
+                // 当socket连接打开时，发送登录信息
+                ws.onopen = function(){
+                    var name = "{$userinfo.nickname}";
+                    // 登录
+                    var userid = "{$userinfo.id}";
+                    var login_data = '{"type":"login_pk10","client_name":"' + name.replace(/"/g, '\\"') + '","client_id":"'+userid+'"}';
+                    console.log("websocket握手成功，发送登录数据{:C('worker_port')}:" + login_data);
+                    ws.send(login_data);
+                };
+                // 当有消息时根据消息类型显示不同信息
+                ws.onmessage = onmessage;
+                ws.onclose = function(){
+                    console.log("连接关闭，定时重连");
+                    connect();
+                };
+                ws.onerror = function() {
+                    console.log("出现错误");
+                    connect();
+                };
+            }
+            // 服务端发来消息时
+            var inte = parseInt(Math.random()*12+1);
+            function onmessage(e) {
+                var data = eval("(" + e.data + ")");
+                switch(data['type']) {
+                    // 服务端ping客户端
+                    case 'ping':
+                        $('#xs').html(data.content+{:C('jnd_online')});
+                break;
+                // 登录 更新用户列表
+            case 'login':
+                console.log(data['client_name'] + "登录成功");
+                break;
+                // 发言
+            case 'say':
+                if (data['send_type'] ==='pk10'){
+                    say(data['uid'],data['from_client_name'], data['head_img_url'], data['content'], data['time']);
+                }
+
+                break;
+                // 用户退出 更新用户列表
+            case 'logout':
+                break;
+            case 'broadcast':
+                //alert('client');
+
+                //房管
+            case 'admin':
+                if (data['send_type'] ==='pk10'){
+                    if($(".chatting2").css("display")=='none'){
+                        layer.msg(data["content"]);
+                    }
+                    if('{$userinfo.id}'==data['uid']){
+                        $(".chatting").prepend('<div class="chatting-li qtr green"><div class="portrait"><img src="'+data['head_img_url']+'"/></div><div class="content"><small><span class="name">' + data["from_client_name"] +'</span><time>'+data["time"] +'</time></small><p>' + data["content"] + '</p></div></div>');
+                    }else{
+                        $(".chatting").prepend('<div class="chatting-li qtr orange"><div class="portrait"><img src="'+data['head_img_url']+'"/></div><div class="content"><small><span class="name">' + data["from_client_name"] +'</span><time>'+data["time"] +'</time></small><p>' + data["content"] + '</p></div></div>');
+                    }
+                }
+                break;
+                //系统
+            case 'system':
+                if('{$userinfo.id}'==data['uid']){
+                    $(".chatting").prepend('<div class="chatting-li qtr green"><div class="portrait"><img src="'+data['head_img_url']+'"/></div><div class="content"><small><span class="name">' + data["from_client_name"] +'</span><time>'+data["time"] +'</time></small><p>' + data["content"] + '</p></div></div>');
+                }else{
+                    $(".chatting").prepend('<div class="chatting-li qtr orange"><div class="portrait"><img src="'+data['head_img_url']+'"/></div><div class="content"><small><span class="name">' + data["from_client_name"] +'</span><time>'+data["time"] +'</time></small><p>' + data["content"] + '</p></div></div>');
+                }
+                break;
+                //积分减
+            case 'points':
+                $('#sy').html((parseFloat($('#sy').html())-data['content']).toFixed(1));
+                break;
+                //积分加
+            case 'pointsadd':
+                $('#sy').html((parseFloat($('#sy').html())+data['points']).toFixed(1));
+                parent.layer.msg('恭喜竞猜成功');
+                break;
+                //重载
+            case 'reload':
+                if('{$userinfo.id}'==9){
+                    window.location.href=window.location.href;
+                }
+                break;
+                //切换
+            case 'switch':
+                parent.location.reload();
+                break;
+            }
+            }
+            // 提交对话
+            function onSubmit() {
+                $(".xiazhujine").text("");
+                $(".input2").val("");
+                $(".input").val("");
+                $("#dialog").hide();
+                var headimgurl = '{$userinfo.headimgurl}';
+                var input = document.getElementById("textarea");
+                var from_client_name = '{$userinfo.nickname}';
+                if(input.value==''){
+                    $('#textarea').focus();
+                    return false;
+                }
+                ws.send('{"type":"say_pk10","client_name":"'+from_client_name+'","headimgurl":"'+headimgurl+'","content":"' + input.value.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r') + '"}');
+                $('#textarea').val('').focus();
+                //$('#dialog').scrollTop(0);
+            }
+            // 发言
+            function say(uid, from_client_name, head_img_url, content, time) {
+                if('{$userinfo.id}'==uid){
+                    $(".chatting").prepend('<div class="chatting-li green"><div class="portrait"><img src="'+head_img_url+'"/></div><div class="content"><small><span class="name">' + from_client_name +'</span><time>'+time +'</time></small><p>' + content + '</p></div></div>');
+                }else{
+                    $(".chatting").prepend('<div class="chatting-li"><div class="portrait"><img src="'+head_img_url+'"/></div><div class="content"><small><span class="name">' + from_client_name +'</span><time>'+time +'</time></small><p>' + content + '</p></div></div>');
+                }
+            }
+
+		</script>
+		<!--聊天-->
+
+		<!--推送-->
+		<script src='//cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+		<script>
+            var uid = '{$userinfo.id}';
+		</script>
+		<script>
+            //关闭灰色 jQuery 遮罩
+            function closeBg() {
+                $("#dialog").hide();
+            }
+
+            function jianpan() {
+                if($(".chatting2").css("display")=='none'){
+                    $('.chatting2').show();
+                }else {
+                    $('.chatting2').hide();
+                    $('.chatting3').show();
+                }
+            }
+            function escape2Html(str) {
+                var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+                return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
+            }
+            $(document).ready(function() {
+//        输入位置触发js
+                $(".input2").keyup(function(){
+                    jine = $(this).val();
+                    if(jine<= 5 ){
+                        jine = jine+'/';
+                        $(".weizhi2").text(jine);
+                        jincaiall = $(".weizhi2").text()+$(".leixing").text()+$(".xiazhujine").text();
+                        $("#textarea").val(jincaiall);
+                    }
+                });
+                //输入触发的js
+                $(".input").keyup(function(){
+                    jine = $(this).val();
+                    if(jine.length<7){
+                        $(".xiazhujine").text(jine);
+                        jincaiall = $(".weizhi2").text()+$(".leixing").text()+$(".xiazhujine").text();
+                        $("#textarea").val(jincaiall);
+                    }
+                });
+
+                $(".table5").find("td").click(function(){
+                    zj = $(this);
+                    sum = zj.attr('neirong');
+                    $(".leixing").text(sum+"/");
+                    $("#dialog").removeClass('swoopOutTop');
+                    $("#dialog").addClass("swoopInBottom");
+                    $("#dialog").show();
+                    $(".input").focus();
+                });
+                //动画
+                $(".donghua").click(function () {
+                    if($(".d2").css("display")=='none' ){
+                        $(".d2").css('display','block');
+                        $(".d1").css('display','none');
+                    }else {
+                        $(".d2").css('display','none');
+                        $(".d1").css('display','block');
+                    }
+                });
+				//动画结束
+                $('.body').css('opacity','1');
+                $('.ingame').css('display','none');
+                //切换效果
+                $(".foot ul .cc").click(function(){
+                    $(".foot ul .cc").eq($(this).index()).addClass("cur").siblings().removeClass('cur');
+                    $(".content").children('.dd').hide().eq($(this).index()).show();
+                    if($(this).index() ==3){
+                        $(".content").children('.dd').removeClass('swoopInBottom').eq($(this).index()).addClass('swoopInBottom');
+                    }
+
+                    //另一种方法: $("div").eq($(".tab li").index(this)).addClass("on").siblings().removeClass('on');
+                });
+                //结束切换效果
+                // 连接服务端
+                var socket = io('http://' + document.domain + ':{:C("puish_port")}');
+                // 连接后登录
+                socket.on('connect', function() {
+                    socket.emit('login', uid);
+                });
+                // 后端推送来消息时
+                socket.on('new_msg', function(msg) {
+                    var data = eval("(" + escape2Html(msg) + ")");
+                    console.log(escape2Html(msg));
+                    var time = data['time'];
+                    var content = data['content'];
+                    if(data['points'] && data['to']=='{$userinfo.id}'){
+                        var points = parseFloat($('#sy').html())+parseFloat(data['points']);
+                        $('#sy').html(points);
+                    }
+                    $(".chatting").prepend('<div class="chatting-li qtr pink"><div class="portrait"><img src="/Public/main/img/system.jpg"/></div><div class="content"><small><span class="name">客服</span><time>'+time+'</time></small><p>' + content + '</p></div></div>');
+                });
+            });
+		</script>
+		<!--提交数据结束-->
+		<!--微信分享-->
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			// 微信JSSDK异常处理
+		    wx.error(function(e){
+		        console.log(e);
+		    });
+		    // 注入JSSDK配置参数，默认开启所有接口权限
+		    wx.config({$options|json_encode});
+		    // 当JSSDK初始化完成后，再执行相关操作
+		    wx.ready(function(){
+				var host=document.domain+"?t="+'{$userinfo.id}';
+				//分享到朋友圈
+		        wx.onMenuShareTimeline({
+				    title: '北京赛车pk10', // 分享标题
+				    link: host, // 分享链接
+				    imgUrl: '{$userinfo.qrcode}', // 分享图标
+				    success: function () { 
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+				//分享给朋友
+				wx.onMenuShareAppMessage({
+				    title: '北京赛车pk10', // 分享标题
+				    desc: '北京赛车pk10', // 分享描述
+				    link: host, // 分享链接
+				    imgUrl: '{$userinfo.qrcode}', // 分享图标
+				    type: '', // 分享类型,music、video或link，不填默认为link
+				    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+				    success: function () { 
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+				//分享到QQ
+				wx.onMenuShareQQ({
+				    title: '北京赛车pk10', // 分享标题
+				    desc: '北京赛车pk10', // 分享描述
+				    link:host, // 分享链接
+				    imgUrl: '{$userinfo.qrcode}', // 分享图标
+				    success: function () { 
+				       // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				       // 用户取消分享后执行的回调函数
+				    }
+				});
+				//分享到腾讯微博
+				wx.onMenuShareWeibo({
+				    title: '北京赛车pk10', // 分享标题
+				    desc: '北京赛车pk10', // 分享描述
+				    link:host, // 分享链接
+				    imgUrl: '{$userinfo.qrcode}', // 分享图标
+				    success: function () { 
+				       // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+				//分享到QQ空间
+				wx.onMenuShareQZone({
+				    title: '北京赛车pk10', // 分享标题
+				    desc: '北京赛车pk10', // 分享描述
+				    link:host, // 分享链接
+				    imgUrl: '{$userinfo.qrcode}', // 分享图标
+				    success: function () { 
+				       // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+		    });
+		</script>
+		<!--微信分享-->
+		
+		
+	</div>
+		
+	</body>
+
+</html>

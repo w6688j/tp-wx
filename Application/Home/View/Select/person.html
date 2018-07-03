@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/iconfont.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/common.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/style.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/emoji.css">
+    <link rel="stylesheet" type="text/css" href="//res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css">
+    <style type="text/css"></style>
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript">
+        var puri = "http://v4.dgtztz.com";
+    </script>
+    <script src="__PUBLIC__/Home/Carhome/js/layer.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/layer/layer.js"></script>
+    <link href="__PUBLIC__/Home/Carhome/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
+    <script src="__PUBLIC__/Home/Carhome/js/xsapp.js?v=20171101" type="text/javascript" charset="utf-8"></script>
+    <title>个人中心</title>
+    <SCRIPT language=javascript>
+        <!--
+        window.onerror=function(){return true;}
+        // -->
+    </SCRIPT>
+</head>
+<body class="graybg">
+<section class="main">
+    <div class="mem-info">
+        <div class="pic">
+            <p class="img fl"><img src="{$userinfo.headimgurl}"></p>
+            <p class="text fl">
+                {$userinfo.nickname}<br>
+                <font style="font-size: 1.2rem;">帐号:</font>
+                <font style="font-family:arial;">
+                    {$userinfo.username}								</font><br>
+                <font style="font-size: 1.2rem;">&nbsp;UID:</font>
+                <font style="font-family:arial;"> {$userinfo.id}</font><br>
+                <empty name="tname">
+                    <else/>
+                    <font style="font-size: 1.2rem;">推荐人:</font>
+                    <font style="font-size: 1.2rem;"> {$tname.nickname}</font>
+                </empty>
+            </p>
+        </div>
+        <div class="total" style="text-align: center;">
+            <if  condition="C('is_sign') neq 1">
+                <dl style="width: 50%">
+                    <dt style="color: #efc944;">{$userinfo.points}</dt>
+                    <dd style="color: #efc944;">余额</dd>
+                </dl>
+                <dl style="width: 50%">
+                    <dt>{$userinfo.commission}</dt>
+                    <dd>佣金</dd>
+                </dl>
+                <else/>
+                <dl style="width: 33%">
+                    <dt style="color: #efc944;">{$userinfo.points}</dt>
+                    <dd style="color: #efc944;">余额</dd>
+                </dl>
+                <dl style="width: 33%">
+                    <dt>{$userinfo.commission}</dt>
+                    <dd>佣金</dd>
+                </dl>
+                <dl style="width: 33%">
+                    <if condition="$datt['qiandao'] neq 1">
+                        <button  style="width: 70%;background-color: #E6C170;" onclick="qiandao()">签到</button>
+                        <else/>
+                        <button  style="width: 70%;background-color: #E6C170;">已签到</button>
+                    </if>
+                    <dd>连续签到 <if condition="$datt['qiandaonum'] neq 1">{$userinfo.sign_number} <else/>0</if>天</dd>
+                </dl>
+            </if>
+        </div>
+    </div>
+    <div class="mem-list" style="padding-bottom: 7.5rem;">
+        <ul>
+            <li>
+                <a href="/Home/Select/sxselect.html">
+                    <i class="iconfont"></i> 上下分
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/toprecord.html" class="show_load">
+                    <i class="iconfont"></i>
+                    上分记录
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/downrecord.html" class="show_load">
+                    <i class="iconfont"></i>
+                    下分记录
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/quizrecord.html" class="show_load"><i class="iconfont"></i> 竞猜记录</a>
+            </li>
+            <li>
+                <a href="/Home/Select/commission.html" class="show_load"><i class="iconfont"></i>佣金明细</a>
+            </li>
+            <!--<li>-->
+                <!--<a href="/Home/Select/wallet.html" class="show_load">-->
+                    <!--<i class="iconfont"></i> 我的钱包-->
+                <!--</a>-->
+            <!--</li>-->
+            <li>
+                <empty name="userinfo.username">
+                    <a href="/Home/Select/binding.html" class="show_load">
+                        <i class="iconfont"></i> 帐户设置
+                    </a>
+                    <else/>
+                    <a href="/Home/Select/account.html" class="show_load">
+                        <i class="iconfont"></i> 修改密码
+                    </a>
+                </empty>
+            </li>
+            <li>
+                <a href="/Home/Select/photo/uid/{$userinfo.id}" class="show_load">
+                    <i class="iconfont"></i>修改资料
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/team.html" class="show_load">
+                    <i class="iconfont"></i> 我的团队
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/liuyan.html" class="show_load">
+                    <i class="iconfont"></i>留言列表
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/defection.html" class="show_load">
+                    <i class="iconfont"></i>返水明细
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="ajax_load" data-uri="/Home/Select/caiwukefu.html">
+                    <i class="iconfont"></i>
+                    财务客服
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/zuhanhuan.html" class="show_load">
+                    <i class="iconfont"></i>佣金转余额
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/query.html" class="show_load">
+                    <i class="iconfont"></i>开奖查询
+                </a>
+            </li>
+            <if  condition="$status neq 1">
+                <li>
+                    <a href="javascript:void(0)" class="logout">
+                        <i class="iconfont"></i>
+                        退出系统
+                    </a>
+                </li>
+            </if>
+        </ul>
+    </div>
+</section>
+<script type="text/javascript">
+    $(function(){
+        $(".logout").click(function(){layer.open({content: '确定要退出吗？',btn: ['确定', '关闭'],yes: function(index){
+            layer.close(index),$.get('/home/select/logout').then(function(res){location.href = res.url ? res.url : '/home/publics/login';})}})
+        });
+    });
+    function qiandao() {
+//        $.get('/home/select/qiandao').then(function(res){
+//            layer.msg(res['msg']);
+//            setTimeout(function() {
+//                window.location.href="{:U('Home/Select/person')}"
+//            }, 1000);
+//        })
+        $.post('/home/select/qiandao',{},function(result){
+            var obj= JSON.parse(result);
+            if(obj.status == 1){
+                layer.msg(obj.msg);
+            }else{
+                layer.msg(obj.msg);
+                setTimeout(function() {
+                    window.location.href="{:U('Home/Select/person')}"
+                }, 1000);
+            }
+        });
+    }
+</script>
+<footer>
+    <ul>
+        <li class="">
+            <a href="/Home/Select/spread.html">
+                <i class="iconfont"></i>推广
+            </a>
+        </li>
+        <li>
+            <a href="/Home/Select/sxselect.html">
+                <i class="iconfont"></i> 上下分
+            </a>
+        </li>					<li class="home ">
+        <a href="/?lottery=mall">
+            <i class="iconfont"></i> 大厅
+        </a>
+    </li>
+        <li class="on">
+            <a href="/Home/Select/person.html">
+                <i class="iconfont"></i> 个人中心
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" data-css="bottom:0;" class="kefu ajax_load" data-uri="/Home/Select/kefu.html">
+                <i class="iconfont"></i> 客服
+            </a>
+        </li>
+    </ul>
+</footer>		<script src="//res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>后台 - 节点管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+<style>
+    /*分页样式*/
+    .pages a,.pages span {
+        display:inline-block;
+        padding:4px 7px;
+        margin:0 2px;
+        border:1px solid #D5D4D4;
+        -webkit-border-radius:1px;
+        -moz-border-radius:1px;
+        border-radius:1px;
+    }
+    .pages a,.pages li {
+        display:inline-block;
+        list-style: none;
+        text-decoration:none; color:#3399ff;
+    }
+
+    .pages a:hover{
+        border-color:#3399ff;
+    }
+    .pages span.current{
+        background:#3399ff;
+        color:#FFF;
+        font-weight:700;
+        border-color:#3399ff;
+    }
+    .pages{
+        text-align: center;
+    }
+    /*分页样式*/
+
+    .layui-layer{
+        top:48px !important;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <!--<h5>用户管理</h5>-->
+                    <button class="btn btn-primary" type="submit" onclick="location.reload()">刷新</button>
+                </div>
+                <div class="ibox-content">
+                    <div class="" >
+                        <table class="table table-striped table-hover table-bordered" style="width:auto;overflow:auto;display:inline-block;">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>名称</th>
+                                <th>规则</th>
+                                <th>权限分类</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo">
+                                <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.title}</td>
+                                <td>{$vo.name}</td>
+                                <td>{$vo.type}</td>
+                                <td>{$vo.status}</td>
+                                <td>
+                                    <a href="{:U('admin/jurisdiction/editnode',array('id'=>$vo['id']))}">编辑</a>|
+                                    <a href="{:U('admin/jurisdiction/deletenode',array('id'=>$vo['id']))}">删除</a>
+                                </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pages">
+                        {$show}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".i-checks").iCheck({
+            checkboxClass: "icheckbox_square-green",
+            radioClass: "iradio_square-green",
+        })
+    });
+</script>
+<script>
+
+</script>
+</body>
+
+
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/iconfont.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/common.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/style.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/emoji.css">
+    <link rel="stylesheet" type="text/css" href="//res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css">
+    <style type="text/css"></style>
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript">
+        var puri = "http://v4.dgtztz.com";
+    </script>
+    <script src="__PUBLIC__/Home/Carhome/js/layer.js" type="text/javascript" charset="utf-8"></script>
+    <link href="__PUBLIC__/Home/Carhome/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
+    <script src="__PUBLIC__/Home/Carhome/js/xsapp.js?v=20171101" type="text/javascript" charset="utf-8"></script>
+    <title>个人中心</title>
+    <SCRIPT language=javascript>
+        <!--
+        window.onerror=function(){return true;}
+        // -->
+    </SCRIPT>
+    <style>
+        /*.page{margin:5px; padding-bottom:20px; padding-top:20px;}*/
+        /*.page a{border:1px solid #003399;padding:5px;margin:2px;background-color:#FFFFFF;color:#003300;height:18px; }*/
+        /*.page a:hover{font-size:14px; color:#FFFFFF; background-color:#003399;padding:5px;margin:2px;height:20px;}*/
+    </style>
+</head>
+<body class="graybg">
+<section class="main">
+    <div class="play-log">
+        <h3 class="game-tit game-tit-bg" style="border-radius: 0;">
+            <i class="iconfont"></i>
+            <if condition="$type==1">
+                按月统计
+                <elseif condition="$type==2" />
+                按周统计
+                <else/>
+                按日统计
+            </if>
+            <a href="/Home/Select/quizrecord/type/1" class="hu1">按月</a>
+            <a href="/Home/Select/quizrecord/type/2" class="hu2">按周</a>
+            <a href="/Home/Select/quizrecord/type/3" class="hu3">按日</a>
+        </h3>
+        <script>
+            var ss='{$type}';
+            if (ss==1){
+                $(".hu1").addClass("on");
+            }else if(ss==2){
+                $(".hu2").addClass("on");
+            }else {
+                $(".hu3").addClass("on");
+            }
+        </script>
+        <div class="mem-tab">
+            <ul>
+                <li>
+                    <if condition="$type==1">
+                        <a href="/Home/Select/quizrecord/type/1/time/{$time-86400}.html"><i class="iconfont"></i>前一个月</a>
+                        <elseif condition="$type==2" />
+                        <a href="/Home/Select/quizrecord/type/2/time/{$time-86400}.html"><i class="iconfont"></i>  前一周</a>
+                        <else/>
+                        <a href="/Home/Select/quizrecord/type/3/time/{$time-86400}.html"><i class="iconfont"></i>  前一天</a>
+                    </if>
+                </li>
+                <li class="on">
+                    <a href="">
+                        <if condition="$type==1">
+                            {$time|date='Y-m',###}
+                            <elseif condition="$type==2" />
+                            {$time|date='Y-m-d',###}&nbsp;&nbsp;&nbsp;{$time2|date='Y-m-d',###}
+                            <else/>
+                            <i class="iconfont"></i>{$time|date='Y-m-d',###}
+                        </if>
+                    </a>
+                </li>
+                <li>
+                        <if condition="$state==1">
+                            <if condition="$type==1">
+                                <a style="color: #999;">后一个月</a>
+                                <elseif condition="$type==2" />
+                                <a style="color: #999;">后一周</a>
+                                <else/>
+                                <a style="color: #999;">后一天</a>
+                            </if>
+                            <else/>
+                            <if condition="$type==1">
+                                <a href="/Home/Select/quizrecord/type/1/time/{$time2+86400}.html">后一个月<i class="iconfont"></i></a>
+                                <elseif condition="$type==2" />
+                                <a href="/Home/Select/quizrecord/type/2/time/{$time2+86400}.html">后一周<i class="iconfont"></i></a>
+                                <else/>
+                                <a href="/Home/Select/quizrecord/type/3/time/{$time+86400}.html">后一天<i class="iconfont"></i></a>
+                            </if>
+                        </if>
+            </ul>
+        </div>
+        <div class="log-list">
+            <table border="1" cellspacing="0" cellpadding="0" class="table table-tongji">
+                <tbody>
+                <tr>
+                    <if condition="$type==3">
+                    <th>类型</th>
+                    <th>期号</th>
+                    <th>下注</th>
+                    <th>派奖</th>
+                    <th>盈亏</th>
+                        <elseif condition="$type==2" />
+                        <th>类型</th>
+                        <th>下注</th>
+                        <th>派奖</th>
+                        <th>盈亏</th>
+                        <else/>
+                        <th>类型</th>
+                        <th>下注</th>
+                        <th>派奖</th>
+                        <th>盈亏</th>
+                    </if>
+                </tr>
+
+                    <empty name="list">
+                        <tr class="ajax_page">
+                        <td colspan="6" style="height: 30rem;" class="text-center">
+                            <div class="zyui-nodata">
+                                <i class="icon"><img src="__PUBLIC__/Home/Carhome/images/nodata.png" alt="暂无数据"></i>
+                                <h3>无记录</h3>
+                            </div>
+                        </td>
+                        </tr>
+                        <else/>
+                            <if condition="$type==3">
+                                <volist name="list" id="vo" mod="5" >
+                                    <tr class="ajax_page">
+                                        <td class="text-center">{$game[$vo['game']]}</td>
+                                        <!--<td class="text-center">{$vo['time']|date='Y-m-d',###}</td>-->
+                                        <td class="text-center">{$vo['number']}</td>
+                                        <td class="text-center">{$vo['del_points']}</td>
+                                        <td class="text-center">{$vo['add_points']}</td>
+                                        <td class="text-center">{$vo['add_points']-$vo['del_points']}</td>
+                                    </tr>
+                                </volist>
+                                <tr class="ajax_page">
+                                    <td>数据总计</td>
+                                    <td>共{$date['num']}条记录</td>
+                                    <td>{$date['xiazhu']}</td>
+                                    <td>{$date['pai']}</td>
+                                    <td>{$date['yk']}</td>
+
+                                </tr>
+                                <elseif condition="$type==2" />
+                                <volist name="list" id="vo" mod="4" >
+                                    <tr class="ajax_page">
+                                        <td class="text-center">{$game[$vo['game']]}</td>
+                                    <td>{$vo['del_points']}</td>
+                                    <td>{$vo['add_points']}</td>
+                                    <td>{$vo['add_points']-$vo['del_points']}</td>
+
+                                    </tr>
+                                </volist>
+                                <tr class="ajax_page">
+                                    <td>共{$date['num']}条记录</td>
+                                    <td>{$date['xiazhu']}</td>
+                                    <td>{$date['pai']}</td>
+                                    <td>{$date['yk']}</td>
+                                </tr>
+                                <else/>
+                                <volist name="list" id="vo" mod="4" >
+                                    <tr class="ajax_page">
+                                        <td class="text-center">{$game[$vo['game']]}</td>
+                                    <td class="text-center">{$vo['del_points']}</td>
+                                    <td class="text-center">{$vo['add_points']}</td>
+                                    <td class="text-center">{$vo['add_points']-$vo['del_points']}</td>
+
+                                    </tr>
+                                </volist>
+                                <tr class="ajax_page">
+                                    <td>共{$date['num']}条记录</td>
+                                    <td>{$date['xiazhu']}</td>
+                                    <td>{$date['pai']}</td>
+                                    <td>{$date['yk']}</td>
+                                </tr>
+                            </if>
+                    </empty>
+
+                </tbody>
+            </table>
+            <div class="page" style="float:right;margin-right: 20px;font-size: 18px">
+                {$show}
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <ul>
+        <li class="">
+            <a href="/Home/Select/spread.html">
+                <i class="iconfont"></i>推广
+            </a>
+        </li>
+        <li>
+            <a href="/Home/Select/sxselect.html">
+                <i class="iconfont"></i> 上下分
+            </a>
+        </li>					<li class="home ">
+        <a href="/?lottery=mall">
+            <i class="iconfont"></i> 大厅
+        </a>
+    </li>
+        <li class="on">
+            <a href="/Home/Select/person.html">
+                <i class="iconfont"></i> 个人中心
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" data-css="bottom:0;" class="kefu ajax_load" data-uri="/Home/Select/kefu.html">
+                <i class="iconfont"></i> 客服
+            </a>
+        </li>
+    </ul>
+</footer>		<script src="//res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

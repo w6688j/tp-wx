@@ -1,0 +1,7 @@
+<?php 
+return array (
+  "worker_port"=>'8086',
+    "push_port"=>'2095',
+  'push_api_url' => 'http://127.0.0.1:2095/',
+  'dh_url'=>'http://auth.a.com//home/to/wx?url=',
+);

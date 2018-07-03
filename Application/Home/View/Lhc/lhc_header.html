@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Lhc/css/gdklsf.css?v=201712221618" />
+    <link rel="stylesheet" href="__PUBLIC__/Home/Lhc/fonts/fonts.css" />
+    <script src="__PUBLIC__/Home/Lhc/js/jquery-1.11.0.js"></script>
+    <script src="__PUBLIC__/Home/Lhc/js/gdklsf.js"></script>
+</head>
+<style>
+    .result_boxs{
+        position: relative;
+        top: 40px;
+        left: 250px;
+        margin-left: 100px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        var h = window.parent.document.body.clientWidth;
+        var rate = h / 1125;
+        console.log("rate" + rate);
+        $(".video_box").css("transform", "scale(" + rate + ")");
+        $(".video_box").css("transform-origin", 'left top');
+        var obj = window.parent.document.getElementById("idiframe"); //取得父页面IFrame对象
+        obj.height = 750 * rate; //调整父页面中IFrame的高度为此页面的高度
+    });
+</script>
+<body>
+<div class="video_box">
+    <div class="center_box">
+        <div>
+            <ul id="rethtml">
+                <!--<li class="blue ball">10</li>
+                <li class="blue ball">08</li>
+                <li class="blue ball">06</li>
+                <li class="blue ball">20</li>
+                <li class="blue ball">25</li>
+                <li class="blue ball">16</li>
+                <li class="red ball">46</li>
+                <li class="blue ball">23</li>-->
+            </ul>
+        </div>
+        <p class="ThisIssue">当前期 : <span id="thisIss"> </span></p>
+        <div class="opening opentyle" style="display: none;">开奖中...</div>
+        <div class="Time_box">00:00:00 </div>
+    </div>
+    <div class="right_box">
+        <div class="btnBox">
+            <button  id="btnsound"></button>
+        </div>
+        <div class="Tibox">
+            <p>下期：<span id="nextIssue">455745</span></p>
+            <p>开奖： <span id="nextOpTime"> </span></p>
+        </div>
+    </div>
+    <div class="middle_box">
+        <ul class="move_ballUl ">
+            <li class="ball light_skyblue 1" style="top: 254px; left: 111px; z-index: 15;">01</li>
+            <li class="ball light_skyblue 2" style="top: 254px; left: 74px; z-index: 1;">02</li>
+            <li class="ball light_skyblue 3" style="top: 254px; left: 254px; z-index: 7;">03</li>
+            <li class="ball light_skyblue 4" style="top: 255px; left: 202px; z-index: 14;">04</li>
+            <li class="ball light_skyblue 5" style="top: 254px; left: 205px; z-index: 19;">05</li>
+            <li class="ball light_skyblue 6" style="top: 255px; left: 123px; z-index: 9;">06</li>
+            <li class="ball light_skyblue 7" style="top: 253px; left: 199px; z-index: 0;">07</li>
+            <li class="ball light_skyblue 8" style="top: 253px; left: 228px; z-index: 9;">08</li>
+            <li class="ball light_skyblue 9" style="top: 253px; left: 233px; z-index: 1;">09</li>
+            <li class="ball light_skyblue 10" style="top: 254px; left: 81px; z-index: 9;">10</li>
+            <li class="ball light_skyblue 11" style="top: 254px; left: 268px; z-index: 5;">11</li>
+            <li class="ball light_skyblue 12" style="top: 254px; left: 237px; z-index: 15;">12</li>
+            <li class="ball light_skyblue 13" style="top: 254px; left: 249px; z-index: 4;">13</li>
+            <li class="ball light_skyblue 14" style="top: 255px; left: 63px; z-index: 14;">14</li>
+            <li class="ball light_skyblue 15" style="top: 254px; left: 265px; z-index: 15;">15</li>
+            <li class="ball light_skyblue 16" style="top: 254px; left: 168px; z-index: 9;">16</li>
+            <li class="ball light_skyblue 17" style="top: 253px; left: 253px; z-index: 5;">17</li>
+            <li class="ball light_skyblue 18" style="top: 255px; left: 183px; z-index: 6;">18</li>
+            <!--<li class="ball red 19" style="top: 254px; left: 94px; z-index: 13;">19</li>-->
+        </ul>
+    </div>
+    <div class="posBG"></div>
+    <div class="bottom_box">
+        <button class="kaiBtn"></button>
+        <div class="result_box">
+            <ul>
+                <!--<li class="ball blue ">12</li>
+                <li class="ball blue">03</li>
+                <li class="ball blue">05</li>
+                <li class="ball blue">66</li>
+                <li class="ball blue">78</li>
+                <li class="ball blue">21</li>
+                <li class="ball blue">22</li>
+                <li class="ball blue">56</li>-->
+            </ul>
+        </div>
+    </div>
+    <div class="bottom_box">
+        <button class="kaiBtn"></button>
+        <div class="result_boxs">
+            <ul class ="shengxiao">
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="soundbox">
+    <audio src="sound/klsf-1.mp3" id="bgsound" loop="loop"></audio>
+    <audio src="sound/klsf-2.mp3" id="kaisound" loop="loop"></audio>
+</div>
+</body>
+<script>
+    var bgsound = document.getElementById("bgsound"), kaisound = document.getElementById("kaisound"), kaiing = bgsound,
+        ifopen = !1, fun = {}, interInt = !1, addint, fillTime;
+    fun.createNum = function (e, n) {
+        var t = n - e, u = Math.random();
+        return e + Math.round(u * t)
+    }, fun.createArr = function () {
+        for (var e = [], n = 0; n < 8; n++) {
+            var t = fun.createNum(1, 20);
+            if (0 != n)for (var u = 0, i = e.length - 1; u < e.length; u++) {
+                if (t == e[u]) {
+                    n--;
+                    break
+                }
+                if (u == i) {
+                    e.push(t);
+                    break
+                }
+            } else e.push(t)
+        }
+        return e
+    }, fun.createtwoArr = function () {
+        for (var e = [], n = [], t = 0; t < 20; t++)(n = []).push(fun.createNum(253, 255), fun.createNum(55, 274)), e.push(n);
+        return e
+    }, fun.soundrevsion = function () {
+        $("#btnsound").hasClass("off") || (kaiing.pause(), kaiing.play())
+    }, fun.ballStatic = function () {
+        clearInterval(initf), kaiing.pause(), kaiing = bgsound, fun.soundrevsion();
+        for (var e = fun.createtwoArr(), n = $(".move_ballUl>li"), t = 0; t < n.length; t++)$(n[t]).css({
+            top: e[t][0] + "px",
+            left: e[t][1] + "px",
+            "z-index": fun.createNum(0, 20)
+        })
+    };
+    var initf, moveIn = !1, inttime = 10;
+    fun.moveBall = function () {
+        $(".video_box .middle_box li").show(), clearInterval(initf), kaiing.pause(), kaiing = kaisound, fun.soundrevsion(), $(".result_box>ul").html("");
+        var e = $(".move_ballUl>li");
+        moveIn = !0, initf = setInterval(function () {
+            for (var n = 0; n < e.length; n++)$(function () {
+                var t = e[n];
+                setTimeout(function () {
+                    var e = fun.createNum(0, 256), n = fun.createNum(0, 325);
+                    e < 10 ? n = fun.createNum(55, 255) : e < 15 && e > 10 ? n = fun.createNum(45, 300) : e < 20 && e > 10 ? n = fun.createNum(35, 295) : e < 25 && e > 15 ? n = fun.createNum(30, 300) : e < 30 && e > 20 ? n = fun.createNum(25, 305) : e < 45 && e > 30 ? n = fun.createNum(20, 315) : e < 55 && e > 45 ? n = fun.createNum(15, 320) : e < 70 && e > 55 ? n = fun.createNum(10, 325) : e < 90 && e > 70 ? n = fun.createNum(5, 325) : e < 110 && e > 90 ? n = fun.createNum(0, 325) : e < 130 && e > 110 ? n = fun.createNum(5, 325) : e < 150 && e > 130 ? n = fun.createNum(10, 325) : e < 165 && e > 150 ? n = fun.createNum(15, 325) : e < 175 && e > 165 ? n = fun.createNum(20, 325) : e < 190 && e > 175 ? n = fun.createNum(25, 315) : e < 200 && e > 190 ? n = fun.createNum(35, 310) : e < 210 && e > 200 ? n = fun.createNum(45, 300) : e < 220 && e > 200 ? n = fun.createNum(55, 290) : e > 220 && (n = fun.createNum(30, 290)), $(t).css({
+                        top: e + "px",
+                        left: n + "px",
+                        "z-index": fun.createNum(0, 20)
+                    })
+                }, fun.createNum(100, 500))
+            })
+        }, inttime)
+    }, fun.addresulthtml = function (e, n) {
+        var t = e.length, u = "", i = 0, l = "blues";
+        if ($(".result_box>ul").html(""), interInt)return clearInterval(addint), !1;
+        addint = setInterval(function () {
+            interInt = !0, l = 888;
+            var a = "<li class='ball small " + l + "'>" + e[i] + "</li>";
+            n && (u += a), $(".result_box>ul").append(a), ++i >= t && (interInt = !1, clearInterval(addint)), setTimeout(function () {
+                $(".small").removeClass("small")
+            }, 100), n && 8 == i && $("#rethtml").html(u)
+        }, 300)
+    }, fun.Trueresult = function (e) {
+        fun.addresulthtml(e, !0), setTimeout(function () {
+            $(".video_box .middle_box li").css("transition", "all 10ms"), clearInterval(initf), setTimeout(function () {
+                fun.ballStatic(), $(".video_box .middle_box li").css("transition", "0"), moveIn = !1
+            }, 500)
+        }, 1e3)
+    };
+    var timer;
+    fun.cutTime = function (e) {
+        null != timer && clearInterval(timer);
+        var e = e;
+        timer = setInterval(function () {
+            if (e >= 1) {
+                e -= 1;
+                var n = Math.floor(e / 3600), t = Math.floor(e / 60 % 60), u = Math.floor(e % 60), i = "";
+                if (i = (n < 10 ? "0" + n : n) + ":", i = i + "" + (t < 10 ? "0" + t : t) + ":" + (u < 10 ? "0" + u : u), $(".Time_box").text(i), e < 10) {
+                    var l = $(".linelist").find("li");
+                    $(l).eq(e).addClass("redli")
+                }
+            } else clearInterval(timer), $(".Time_box").hide(), $(".opening").show(), fun.moveBall()
+        }, 1e3)
+    }, fun.clearTime = function () {
+        clearInterval(timer)
+    }, fun.getSecond = function (e) {
+        var n = e.split(":"), t = n[0], u = n[1], i = n[2];
+        return 3600 * (t = t < 10 ? t.substring(t.length - 1, t.length) : t) + 60 * (u = u < 10 ? u.substring(u.length - 1, u.length) : u) + 1 * (i = i < 10 ? i.substring(i.length - 1, i.length) : i)
+    }, fun.fillHtml = function (e, n, t, u, i) {
+        if (void 0 != i && (clearInterval(addint), clearTimeout(fillTime)), $(".result_box>ul").html(""), $(".Time_box").show(), $(".opening").hide(), $("#nextIssue").html(n), $("#nextOpTime").html(t), $("#thisIss").html(e), fun.cutTime(u), fun.ballStatic(), void 0 != i) {
+            for (var l = "blue", a = "", o = 0; o < i.length; o++)l = 19 == i[o] || 20 == i[o] ? "red" : "blue", i[o] < 10 ? /*i[o] = "0" + */i[o] : i[o], a += "<li class='ball " + panduan_color(i[o])+ "'>" + i[o] + "</li>";
+            $("#rethtml").html(a), $(".result_box>ul").html(a)
+        }
+    }, fun.onPcFillHtml = function (e, n, t, u) {
+        if ($(".Time_box").hide(), $(".opening").show(), $("#nextIssue").html(n), $("#nextOpTime").html(t), $("#thisIss").html(e), void 0 != u) {
+            for (var i = "blue", l = "", a = 0; a < u.length; a++)i = 19 == u[a] || 20 == u[a] ? "red" : "blue", u[a] < 10 ? u[a] = "0" + u[a] : u[a], l += "<li class='ball " + i + "'>" + u[a] + "</li>";
+            $("#rethtml").html(l), $(".result_box>ul").html(l)
+        }
+    }, fun.stateSound = function () {
+        bgsound.play(), kaisound.play(), bgsound.pause(), kaisound.pause()
+    }, $(function () {
+        bgsound = document.getElementById("bgsound"), kaisound = document.getElementById("kaisound"), kaiing = bgsound, $("#btnsound").on("click", function () {
+            $(this).hasClass("off") ? (kaiing.play(), $(this).removeClass("off")) : (kaiing.pause(), $(this).addClass("off"))
+        }), $(".kaiBtns").click(function () {
+            if (moveIn)return !1;
+            moveIn = !0, $(".video_box .middle_box li").show();
+            var e = $(".result_box>ul").html();
+            fun.moveBall(), setTimeout(function () {
+                var e = fun.createArr();
+                fun.addresulthtml(e)
+            }, 3e3), setTimeout(function () {
+                $(".video_box .middle_box li").css("transition", "all 10ms")
+            }, 5e3), setTimeout(function () {
+                clearInterval(initf), setTimeout(function () {
+                    fun.ballStatic(), setTimeout(function () {
+                        $(".video_box .middle_box li").show(), $(".result_box>ul").html(e), $(".video_box .middle_box li").css("transition", "0"), moveIn = !1
+                    }, 4e3)
+                }, 500)
+            }, 6e3)
+        })
+    });
+    //定時操作
+    //初始化数据
+    var csh =0;
+    var dsoff = 0;
+    var ckj ='';
+    var nownumber ='';
+    var nextnumber='';
+    var sytime ='';
+    var time = '';
+    var data  =[];
+    //    getdata();
+    //定时操作
+    funkaishi();
+    var i = 4;
+    var intervalid;
+    function funkaishi() {
+        getdata();
+        intervalid = setInterval('funs()', 1000);
+    }
+    function funs() {
+        if (i == 0) {
+            clearInterval(intervalid);
+            i = 5;
+            funkaishi();
+            //五秒后的响应的动作
+        }
+        time--;
+
+        //每秒改变时间
+        i--;
+        // console.log(i);
+    }
+    // var ifopen ='';
+    //后台拿数据
+    function getdata() {
+        $.ajax({
+            url: '/home/api/lhc',
+            type: "post",
+            data:{'msg':55},
+            dataType:'json',
+            success:function(res){
+                //如果不相等，更新数据
+
+                var kjh= nownumber.toString().substr(-3);
+                $('.nowDraw').text(kjh);
+                nextawardNumbers = res.next.awardTime;
+                nowkj = res.current.awardNumbers;
+                var strs= new Array(); //定义一数组
+                var strs=nowkj.split(',');
+                time =res.next.awardTimeInterval/1000;
+                nextnumber = res.next.periodNumber;
+                csh=1;
+                if(nownumber !== res.current.periodNumber){
+                    updata(res.current.periodNumber,strs,res.current.shengxiao);
+                }
+                nownumber = res.current.periodNumber;
+            }
+        });
+    }
+    function updata(data,stada,nowkj) {
+        var html='';
+        nowkj.forEach(function ($key) {
+            html+='	<li class="ball" style="    color: #ffb020;">'+$key+'</li>'
+        })
+        $('.shengxiao').html(html);
+        fun.fillHtml(data,nextnumber,nextawardNumbers,time,stada);
+    }
+    /*
+     判断色波
+     */
+    function panduan_color($sum) {
+        var $sebo = '';
+        var $redbo = '1,2,7,8,12,13,18,19,23,24,29,30,34,35,40,45,46';
+        var $bluebo ='3,4,9,10,14,15,20,25,26,31,36,37,41,42,47,48';
+        if(in_array($sum,$redbo.split(','))){
+            $sebo= "red";
+        }else if (in_array($sum,$bluebo.split(','))){
+            $sebo= 'blue';
+        }else{
+            $sebo= "green";
+        }
+        return $sebo;
+    }
+    function in_array(search,array){
+        for(var i in array){
+            if(array[i]==search){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+</script>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>后台 - pk10配置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <form action="{:U('Admin/Site/config_set')}" method="post" class="form-horizontal signform">
+        <div class="row">
+            <div class="col-sm-3">
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>游戏开关</h5>
+                    </div>
+                    <div class="ibox-content">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">pk赛车</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="a_1" value="{$pk10['on_off']}"
+                                           placeholder="0为关闭，1位开放" class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">加拿大28</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="a_2" value="{$jnd28['on_off']}"
+                                           placeholder="0为关闭，1位开放" class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">北京28</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="a_3" value="{$bj28['on_off']}"
+                                           placeholder="0为关闭，1位开放" class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">时时彩</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="a_4" value="{$ssc['on_off']}" placeholder="0为关闭，1位开放"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">快3</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="a_5" value="{$kuai3['on_off']}"
+                                           placeholder="0为关闭，1位开放" class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">飞艇</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="a_6" value="{$fei['on_off']}" placeholder="0为关闭，1位开放"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4">极速时时彩</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="a_7" value="{$jsssc['on_off']}"
+                                           placeholder="0为关闭，1位开放" class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">极速赛车</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="a_8" value="{$jscar['on_off']}" placeholder="0为关闭，1位开放"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">六合彩</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="a_9" value="{$lhc['on_off']}" placeholder="0为关闭，1位开放"
+                                           class="form-control">
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>机器人开关</h5>
+                </div>
+                <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">机器人</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="b_1" value="{$pk10['robot_on_off']}"
+                                       placeholder="0为关闭，1位开放" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">机器人</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="b_2" value="{$jnd28['robot_on_off']}"
+                                       placeholder="0为关闭，1位开放" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">机器人</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="b_3" value="{$bj28['robot_on_off']}"
+                                       placeholder="0为关闭，1位开放" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">机器人</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="b_4" value="{$ssc['robot_on_off']}" placeholder="0为关闭，1位开放"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">机器人</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="b_5" value="{$kuai3['robot_on_off']}"
+                                       placeholder="0为关闭，1位开放" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">机器人</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="b_6" value="{$fei['robot_on_off']}" placeholder="0为关闭，1位开放"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">机器人</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="b_7" value="{$jsssc['robot_on_off']}"
+                                       placeholder="0为关闭，1位开放" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">机器人</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="b_8" value="{$jscar['robot_on_off']}" placeholder="0为关闭，1位开放"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">机器人</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="b_9" value="{$lhc['robot_on_off']}" placeholder="0为关闭，1位开放"
+                                       class="form-control">
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+            <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>封盘时间</h5>
+                </div>
+                <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="c_1" value="{$pk10['status_off']}"
+                                       placeholder="时间(秒)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="c_2" value="{$jnd28['status_off']}" placeholder="时间(秒)"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="c_3" value="{$bj28['status_off']}" placeholder="时间(秒)"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="c_4" value="{$ssc['status_off']}"
+                                       placeholder="时间(秒)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="c_5" value="{$kuai3['status_off']}"
+                                       placeholder="时间(秒)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="c_6" value="{$fei['status_off']}"
+                                       placeholder="时间(秒)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="c_7" value="{$jsssc['status_off']}" placeholder="时间(秒)"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="c_8" value="{$jscar['status_off']}"
+                                       placeholder="时间(秒)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="c_9" value="{$lhc['status_off']}" placeholder="时间(秒)"
+                                       class="form-control">
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>机器人下注频率</h5>
+                </div>
+                <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="d_1" value="{$pk10['robo_suiji']}"
+                                       placeholder="时间(秒)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="d_2" value="{$jnd28['robo_suiji']}" placeholder="时间(秒)"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="d_3" value="{$bj28['robo_suiji']}" placeholder="时间(秒)"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="d_4" value="{$ssc['robo_suiji']}"
+                                       placeholder="时间(秒)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="d_5" value="{$kuai3['robo_suiji']}"
+                                       placeholder="时间(秒)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="d_6" value="{$fei['robo_suiji']}" placeholder="时间(秒)"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="d_7" value="{$jsssc['robo_suiji']}"
+                                       placeholder="时间(秒)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="d_8" value="{$jscar['robo_suiji']}" placeholder="时间(秒)"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">时间/秒</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="d_9" value="{$lhc['robo_suiji']}" placeholder="时间(秒)"
+                                       class="form-control">
+                            </div>
+                        </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-sm-12" style="text-align: center">
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="__PUBLIC__/Admin/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".i-checks").iCheck({
+            checkboxClass: "icheckbox_square-green",
+            radioClass: "iradio_square-green",
+        })
+    });
+</script>
+<script>
+    $(function(){
+        $('#signform').ajaxForm({
+            success: complete,
+            dataType: 'json'
+        });
+        function complete(data){
+            if(data.status==1){
+                $('.btn-primary').attr('disabled','disabled');
+                layer.msg(data.info, function(index){
+                    layer.close(index);
+                    window.location.href=data.url;
+                });
+            }else{
+                layer.msg(data.info);
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

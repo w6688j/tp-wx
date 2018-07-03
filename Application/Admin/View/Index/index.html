@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<title>后台管理</title>
+
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+
+		<!--[if lt IE 9]>
+	    <meta http-equiv="refresh" content="0;ie.html" />
+	    <![endif]-->
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+	</head>
+
+	<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+
+		<div id="wrapper">
+			<!--左侧导航开始-->
+			<nav class="navbar-default navbar-static-side" role="navigation">
+				<div class="nav-close"><i class="fa fa-times-circle"></i>
+				</div>
+				<div class="sidebar-collapse">
+					<ul class="nav" id="side-menu">
+						<li class="nav-header">
+							<!--<span style="color:white;padding-bottom:20px;: ">留言未处理</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="liuyan" style="background: red; border-radius: 10px; color: white; padding: 4px;">加载中</span><br><br>-->
+							<!--<span style="color:white;padding-bottom:20px;: ">上下分未处理</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="weichuli" style="background: red; border-radius: 10px; color: white; padding: 4px;">加载中</span>-->
+							<div class="dropdown profile-element">
+								<span><img alt="image" class="img-circle" src="__PUBLIC__/Admin/img/profile_small.jpg" /></span>
+								<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+									<span class="clear">
+                               			<span class="block m-t-xs"><strong class="font-bold">{$Think.session.admin.username}</strong></span>
+									<span class="text-muted text-xs block">超级GM管理员<b class="caret"></b></span>
+									</span>
+								</a>
+								<ul class="dropdown-menu animated fadeInRight m-t-xs">
+									<li>
+										<a class="J_menuItem" href="{:U('Admin/Index/pwd')}">修改密码</a>
+									</li>
+									<li>
+										<a href="{:U('Admin/Index/del')}">清理缓存</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="{:U('Admin/Login/logout')}">安全退出</a>
+									</li>
+								</ul>
+							</div>
+							<div class="logo-element">M</div>
+						</li>
+						<!--<li>-->
+							<!--<a class="J_menuItem" href="{:U('Admin/Site/fanshui')}"onclick="liuyan()">昨日返水</a>-->
+						<!--</li>-->
+
+						<!--<li>-->
+							<!--<a class="J_menuItem" href="{:U('Admin/Member/message')}">留言管理 <span class="weichuli" style="background: red; border-radius: 10px; color: white; padding: 4px;">加载中</span></a>-->
+						<!--</li>-->
+						<li>
+							<a class="J_menuItem" href="{:U('Admin/Member/shenhe')}">上:<span class="weichuli" style="background: red; border-radius: 10px; color: white; padding: 4px;"></span>下:<span class="weichuli2" style="background: red; border-radius: 10px; color: white; padding: 4px;"></span>佣:<span class="weichuli3" style="background: red; border-radius: 10px; color: white; padding: 4px;"></span></a>
+						</li>
+						<li>
+							<a class="J_menuItem" href="{:U('Admin/Site/liuyan')}">聊天室</a>
+						</li>
+						<li>
+							<a href="{:U('Admin/Index/index')}">
+								<i class="fa fa-home"></i>
+								<span class="nav-label">主页</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa fa-bar-chart-o"></i>
+								<span class="nav-label">上下分管理</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Member/shenhe')}">上分管理</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Member/shenhex')}">下分审核</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Member/yonjin')}">佣金提现审核</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Member/liuyanlist')}">留言管理</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Integral/lists')}">上下分流水</a>
+								</li>
+							</ul>
+						</li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa fa-bar-chart-o"></i>
+                                <span class="nav-label">会员管理</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/Member/index')}">会员管理</a>
+                                </li>
+                                <li>
+                                <a class="J_menuItem" href="{:U('Admin/Member/liuyanlist')}">留言管理</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/Member/shenhe')}">上下分审核</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/Member/yongjin')}">佣金管理</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa fa-bar-chart-o"></i>
+                                <span class="nav-label">流水管理</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/Order/overtime')}">游戏明细</a>
+                                </li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Order/game_all_data')}">开奖数据</a>
+								</li>
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/Order/index')}">竞猜流水</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/Order/win_lose')}">平台输赢</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/Order/user_win_lose')}">客户输赢</a>
+                                </li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Order/dali_win_lose')}">代理输赢</a>
+								</li>
+								<li>
+                                    <a class="J_menuItem" href="{:U('Admin/Order/hongbao')}">红包领取记录</a>
+                                </li>
+								<li>
+                                    <a class="J_menuItem" href="{:U('Admin/Order/yonjin')}">佣金转余额记录</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa fa-bar-chart-o"></i>
+                                <span class="nav-label">机器人管理</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/robot/index')}">机器人管理</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/robot/message',array('game'=>'pk10'))}">赛车飞艇竞猜</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/robot/message',array('game'=>'jnd28'))}">PC蛋蛋竞猜</a>
+                                </li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/robot/message',array('game'=>'lhc'))}">六合彩竞猜</a>
+								</li>
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/robot/message',array('game'=>'kuai3'))}">快三竞猜</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="{:U('Admin/Robot/message',array('game'=>'ssc'))}">时时彩竞猜</a>
+                                </li>
+                            </ul>
+                        </li>
+						<li>
+							<a href="#">
+								<i class="fa fa fa-bar-chart-o"></i>
+								<span class="nav-label">代理管理</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/agent/index')}">添加总代理</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/agent/zongdaili')}">总代理列表</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa fa-bar-chart-o"></i>
+								<span class="nav-label">网站管理</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level">
+
+								<li>
+								<a class="J_menuItem" href="{:U('Admin/Site/index')}">网站设置</a>
+								</li>
+								<!--<li>
+									<a class="J_menuItem" href="{:U('Admin/Index/back_task')}">后台任务控制</a>
+								</li>-->
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/huodong')}">发布活动</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Robot/kefu')}">微信客服</a>
+								</li>
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Robot/zhuche')}">注册二维码</a>-->
+								<!--</li>-->
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Robot/weixin')}">微信账户</a>
+								</li>
+
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Robot/zhifubao')}">支付宝账户</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Robot/yinghangka')}">银行卡账户</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/honbao')}">发布红包</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/liuyan')}">聊天管理</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Integral/gonggao')}">
+										<span class="nav-label">发布公告</span>
+									</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/lunbotu')}">
+										<span class="nav-label">轮播图设置</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa fa-bar-chart-o"></i>
+								<span class="nav-label">手动补期</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/pk10sd')}">pk10手动开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/jnd28sd')}">加拿大28手动开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/bj28sd')}">北京28手动开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/feisd')}">幸运飞艇手动开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/sscsd')}">时时彩手动开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/kuai3sd')}">快3手动开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/jssscsd')}">极速时时彩手动开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/jscarsd')}">极速赛车手动开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/lhcsd')}">六合彩手动开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/kjbf')}">游戏前开奖</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/shoudongjs')}">结算游戏</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa fa-bar-chart-o"></i>
+								<span class="nav-label">游戏配置</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/game_config_pk10')}">pk10配置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/game_config_fei')}">飞艇配置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/game_config_bj28')}">北京28配置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/game_config_ssc')}">时时彩配置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/game_config_jsssc')}">极速时时彩配置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/game_config_jscar')}">极速赛车配置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/game_config_jnd28')}">加拿大28配置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/game_config_kuai3')}">快3配置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/game_config_lhc')}">六合彩配置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/config_set')}">游戏配置</a>
+								</li>
+
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Robot/index')}">机器人管理</a>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Robot/add')}">添加机器人</a>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Robot/message')}">机器人竞猜</a>-->
+								<!--</li>-->
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa fa-bar-chart-o"></i>
+								<span class="nav-label">返水管理</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/Site/fanshui')}">昨日返水</a>
+								</li>
+								<!--<li>-->
+								<!--<a class="J_menuItem" href="{:U('Admin/Site/fanshuishezhi')}">返水设置</a>-->
+								<!--</li>-->
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa fa-bar-chart-o"></i>
+								<span class="nav-label">飞单设置</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/flying/index')}">飞单设置</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/flying/lists')}">飞单历史</a>
+								</li>
+
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa fa-bar-chart-o"></i>
+								<span class="nav-label">权限管理</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/jurisdiction/addgroup')}">角色添加</a>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/jurisdiction/addnode')}"> 添加权限</a>-->
+								<!--</li>-->
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/jurisdiction/addpowers')}">添加管理员</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/jurisdiction/backups')}">角色管理</a>
+								</li>
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/jurisdiction/node')}">节点管理</a>-->
+								<!--</li>-->
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/jurisdiction/powers')}">用户管理</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/jurisdiction/clear_index')}">清理数据</a>
+								</li>
+								<li>
+									<a class="J_menuItem" href="{:U('Admin/jurisdiction/operation')}">后台操作日志</a>
+								</li>
+							</ul>
+						</li>
+						<!--<li>-->
+							<!--<a href="#">-->
+								<!--<i class="fa fa fa-bar-chart-o"></i>-->
+								<!--<span class="nav-label">幸运飞艇配置</span>-->
+								<!--<span class="fa arrow"></span>-->
+							<!--</a>-->
+							<!--<ul class="nav nav-second-level">-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Site/fei')}">飞艇配置</a>-->
+								<!--</li>-->
+							<!--</ul>-->
+						<!--</li>-->
+
+						<!--<li>-->
+							<!--<a href="#">-->
+								<!--<i class="fa fa fa-bar-chart-o"></i>-->
+								<!--<span class="nav-label">北京28配置</span>-->
+								<!--<span class="fa arrow"></span>-->
+							<!--</a>-->
+							<!--<ul class="nav nav-second-level">-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Site/Bj28')}">北京28配置</a>-->
+								<!--</li>-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/danindex')}">北京28机器人管理</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/danadd')}">pc28添加机器人</a>&ndash;&gt;-->
+							<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/kefu')}">微信客服</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/danmessage')}">pc28机器人竞猜</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+							<!--</ul>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<a href="#">-->
+								<!--<i class="fa fa fa-bar-chart-o"></i>-->
+								<!--<span class="nav-label">时时彩配置</span>-->
+								<!--<span class="fa arrow"></span>-->
+							<!--</a>-->
+							<!--<ul class="nav nav-second-level">-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Site/ssc')}">时时彩配置</a>-->
+								<!--</li>-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/sscindex')}">时时彩机器人管理</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/sscadd')}">时时彩添加机器人</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/kefu')}">微信客服</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/sscmessage')}">时时彩机器人竞猜</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+							<!--</ul>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<a href="#">-->
+								<!--<i class="fa fa fa-bar-chart-o"></i>-->
+								<!--<span class="nav-label">极速时时彩配置</span>-->
+								<!--<span class="fa arrow"></span>-->
+							<!--</a>-->
+							<!--<ul class="nav nav-second-level">-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Site/jsssc')}">时时彩配置</a>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Robot/sscindex')}">时时彩机器人管理</a>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Robot/sscadd')}">时时彩添加机器人</a>-->
+								<!--</li>-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Robot/sscmessage')}">时时彩机器人竞猜</a>-->
+								<!--</li>-->
+							<!--</ul>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<a href="#">-->
+								<!--<i class="fa fa fa-bar-chart-o"></i>-->
+								<!--<span class="nav-label">加拿大28配置</span>-->
+								<!--<span class="fa arrow"></span>-->
+							<!--</a>-->
+							<!--<ul class="nav nav-second-level">-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Site/Jnd28')}">加拿大28配置</a>-->
+								<!--</li>-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/danindex')}">pc28机器人管理</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/danadd')}">pc28添加机器人</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/kefu')}">微信客服</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--&lt;!&ndash;<li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a class="J_menuItem" href="{:U('Admin/Robot/danmessage')}">pc28机器人竞猜</a>&ndash;&gt;-->
+								<!--&lt;!&ndash;</li>&ndash;&gt;-->
+							<!--</ul>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<a href="#">-->
+								<!--<i class="fa fa fa-bar-chart-o"></i>-->
+								<!--<span class="nav-label">快3配置</span>-->
+								<!--<span class="fa arrow"></span>-->
+							<!--</a>-->
+							<!--<ul class="nav nav-second-level">-->
+								<!--<li>-->
+									<!--<a class="J_menuItem" href="{:U('Admin/Site/kuai3')}">快3配置</a>-->
+								<!--</li>-->
+							<!--</ul>-->
+						<!--</li>-->
+
+
+
+                      </ul>
+				</div>
+			</nav>
+			<!--左侧导航结束-->
+			<!--右侧部分开始-->
+			<div id="page-wrapper" class="gray-bg dashbard-1">
+				<div class="row border-bottom">
+					<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+						<div class="navbar-header" style="width: 10%;">
+							<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+						</div>
+					</nav>
+				</div>
+
+				<div class="row content-tabs">
+					<button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
+                </button>
+					<nav class="page-tabs J_menuTabs">
+						<div class="page-tabs-content">
+							<a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+						</div>
+					</nav>
+					<button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i></button>
+					<div class="btn-group roll-nav roll-right">
+						<button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span></button>
+						<ul role="menu" class="dropdown-menu dropdown-menu-right">
+							<li class="J_tabShowActive">
+								<a>定位当前选项卡</a>
+							</li>
+							<li class="divider"></li>
+							<li class="J_tabCloseAll">
+								<a>关闭全部选项卡</a>
+							</li>
+							<li class="J_tabCloseOther">
+								<a>关闭其他选项卡</a>
+							</li>
+						</ul>
+					</div>
+					<a href="{:U('Admin/Login/logout')}" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+				</div>
+				<div class="row J_mainContent" id="content-main">
+					<iframe id="iframe_default" src="{:U('Admin/Order/index')}" class="J_iframe" name="iframe0" width="100%" height="100%" frameborder="0" data-id="default" seamless></iframe>
+				</div>
+				<div class="footer">
+					<div class="pull-right">&copy; 2017-2027
+						<a href="" target="_blank">111111.com</a>
+					</div>
+				</div>
+			</div>
+			<!--右侧部分结束-->
+			<audio style="display: none" id="music1" src="__PUBLIC__/Admin/js/tip.mp3" controls="controls">
+			</audio>
+			<audio style="display: none" id="music2" src="__PUBLIC__/Admin/js/tip2.mp3" controls="controls">
+			</audio>
+		</div>
+		<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+		<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/layer/layer.min.js"></script>
+		<script src="__PUBLIC__/Admin/js/hplus.min.js?v=4.1.0"></script>
+		<script type="text/javascript" src="__PUBLIC__/Admin/js/contabs.min.js"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/pace/pace.min.js"></script>
+	</body>
+<script>
+    var pointx=0;
+	var points=0;
+	var xinxi =0;
+	var pointsy=0;
+    hello();
+
+    function hello(){
+        $.ajax({
+            url: "{:U('Admin/Index/getmsg')}",
+            type: "post",
+            dataType:'json',
+            success:function(res){
+                $(".weichuli").html(res.points);
+                $(".weichuli2").html(res.pointsx);
+                $(".weichuli3").html(res.pointsy);
+                $(".liuyan").html(res.liuyan);
+                if(res.points ==0 &&res.pointsx==0){
+                    //不响起
+                }else {
+                    if (points < res.points){
+                        //响起
+						bf();
+
+					}else if( pointx < res.pointsx){
+                      //响起
+                      bf2()
+					}else if(pointsy <res.pointsy){
+                      bf2()
+					}
+
+				}
+				pointsy =res.pointsy;
+                pointx=res.pointsx;
+                xinxi =res.liuyan;
+                points =res.points;
+
+            }
+        });
+    }
+    //重复执行某个方法
+    var t1 = window.setInterval(hello,1000);
+    var t2 = window.setInterval("hello()",5000);
+    //去掉定时器的方法
+    window.clearInterval(t1);
+	function bf() {
+        var audio = document.getElementById('music1');
+        if(audio.paused){
+            audio.play();
+        }else{
+            audio.pause();// 这个就是暂停
+        }
+    }
+    function bf2() {
+        var audio = document.getElementById('music2');
+        if(audio.paused){
+            audio.play();
+        }else{
+            audio.pause();// 这个就是暂停
+        }
+    }
+//    function liuyan(){
+//	    alert();
+//        $(window.parent.document).find(".J_iframe").attr("src", "9999");
+//    }
+
+</script>
+</html>

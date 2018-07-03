@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html id="iframe">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{:C('sitename')}</title>
+    <meta name="keywords" content="{:C('keyword')}">
+    <meta name="description" content="{:C('content')}">
+
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="telephone=no"  content="format-detection">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/lib.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/page.css"/>
+
+</head>
+<body>
+<div class="container" style="position:absolute;stext-align:center;width:85%;float:right;margin-top:10px;">
+    <span style="font-weight:700;font-size:20px;margin-top:10px;">当前得到佣金:{$user.t_add} 推广用户充值金额5%(100以上)</span>
+    <p><span style="font-weight:700;font-size:12px;margin-top:10px;">推广链接:http://{$_SERVER['SERVER_NAME']}/?t={$user.id}</span>
+    <p><span style="font-weight:700;font-size:14px;margin-top:10px;">长按保存二维码发给客户，再接再厉！</span>
+    <img src="{$user.qrcode}" style="width:80%;margin-bottom:10px;z-index:9999;"/>
+</div>
+<!--<div class="main-box">
+    <div class="top">
+        <input id="textarea" type="text" required/>
+        <button onclick="onSubmit(); return false;">发送</button>
+        <div class="info">
+            <p>剩余点数：<span id="sy">{$userinfo.points}</span>点</p>
+            <p>线上人数：<span id="xs"></span>人</p>
+        </div>
+    </div>
+</div>
+<div id="load" style="text-align: center;font-size: 14px;">loading...</div>
+<div class="chatting" style="display: none;">
+    <div class="chatting-li qtr blue">
+        <div class="portrait"><img src="/Public/main/img/system.jpg"/></div>
+        <div class="content">
+            <small><span class="name">客服</span><time>15:00:00</time></small>
+            <p>大傻蛋啥大所</p>
+        </div>
+    </div>
+    <div class="chatting-li blue">
+        <div class="portrait"><img src="/Public/main/img/system.jpg"/></div>
+        <div class="content">
+            <small><span class="name">客服</span><time>15:00:00</time></small>
+            <p>大傻蛋啥大所</p>
+        </div>
+    </div>
+</div>-->
+</body>
+</html>

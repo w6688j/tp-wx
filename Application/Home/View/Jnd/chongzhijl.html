@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html id="iframe">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{:C('sitename')}</title>
+    <meta name="keywords" content="{:C('keyword')}">
+    <meta name="description" content="{:C('content')}">
+
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="telephone=no"  content="format-detection">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/lib.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/page.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Select/css/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/Select/css/font-awesome-4.7.0/css/font-awesome.css">
+    <load href=" !-PUBLIC-!/Css/page.css" />
+</head>
+<style>
+    .pager{
+        padding-top: 20px;
+        text-align: center;
+    }
+    .pager span {
+        background: #8FC41F;
+        color: #fff;
+        border: 1px solid #8FC41F;
+        padding: 3px 10px;
+        margin-left: 8px;
+    }
+    .pager a {
+        border: 1px solid #666666;
+        padding: 3px 10px;
+        margin-left: 8px;
+        text-decoration: none;
+        color: #333;
+        outline: none;
+    }
+</style>
+<body style="background: #efefef">
+<div style="background: black;color: white;height: 38px; text-align: center">
+    <a style="color: white" href="#"onClick="javascript :history.back(-1);"><i style="    line-height: 38px;float: left;padding-left: 10px;" class=" fa fa-angle-left fa-2x"></i></a><h3 style="font-size: 15px;    line-height: 38px;">充值记录</h3>
+</div>
+<volist name="list" id="list">
+
+<div style="height: 40px; text-align: center;background: white;border-bottom: 1px solid #c7c7c7" >
+     <span style="line-height: 40px;"><if condition="$list['type2'] eq 1"><span style="color: green">充值+</span><else /><span style="color: red">提现-</span></if>{$list.points}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<if condition="$list['status'] eq 0"><span style="color: black">审核中</span></if><if condition="$list['status'] eq 1"><span style="color: green">通过</span></if></if><if condition="$list['status'] eq 2"><span style="color: green">不通过</span></if><if condition="$list['status'] eq 5"><span style="color: green">系统上分</span></if><if condition="$list['status'] eq 6"><span style="color: green">系统下分</span></if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$list.time|date="Y-m-d H:i:s",###}</span>
+</div>
+
+</volist>
+<div class="pager">
+    {$show}
+</div>
+<div style="    text-align: center;padding-top: 20px;">
+  <a href="{:U('Home/Dan/index')}">  <button style="    background: #4baf19;
+    color: white;
+    padding: 5px;
+    width: 68%;
+    height: 35px;
+    border-radius: 5px;">返回游戏</button>
+  </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/iconfont.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/common.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/style.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/emoji.css">
+    <link rel="stylesheet" type="text/css" href="//res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css">
+    <style type="text/css"></style>
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript">
+        var puri = "http://v4.dgtztz.com";
+    </script>
+    <script src="__PUBLIC__/Home/Carhome/js/layer.js" type="text/javascript" charset="utf-8"></script>
+    <link href="__PUBLIC__/Home/Carhome/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
+    <script src="__PUBLIC__/Home/Carhome/js/xsapp.js?v=20171101" type="text/javascript" charset="utf-8"></script>
+    <title>个人中心</title>
+    <SCRIPT language=javascript>
+        <!--
+        window.onerror = function () {
+            return true;
+        }
+        // -->
+    </SCRIPT>
+</head>
+<body class="graybg">
+<section class="main">
+    <div class="play-log">
+        <div class="log-list">
+            <!--<div>我的推广收入：{$mytg}</div>-->
+            <table border="1" cellspacing="0" cellpadding="0" class="table table-tongji">
+                <tbody>
+                <tr>
+                    <th>留言内容</th>
+                    <th>时间</th>
+                </tr>
+                <empty name="list">
+                    <tr class="ajax_page">
+                        <td colspan="6" style="height: 30rem;" class="text-center">
+                            <div class="zyui-nodata">
+                                <i class="icon"><img src="__PUBLIC__/Home/Carhome/images/nodata.png" alt="暂无数据"></i>
+                                <h3>无记录</h3>
+                            </div>
+                        </td>
+                    </tr>
+                    <else/>
+                    <volist name="list" id="vo">
+                        <tr class="ajax_page">
+                            <td>{$vo['content']}</td>
+                            <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                        </tr>
+                    </volist>
+                </empty>
+
+                </tbody>
+            </table>
+            <div class="pages" style="float:right;margin-right: 20px;font-size: 18px">
+                {$show}
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <ul>
+        <li class="">
+            <a href="/Home/Select/spread.html">
+                <i class="iconfont"></i>推广
+            </a>
+        </li>
+        <li>
+            <a href="/Home/Select/sxselect.html">
+                <i class="iconfont"></i> 上下分
+            </a>
+        </li>
+        <li class="home ">
+            <a href="/?lottery=mall">
+                <i class="iconfont"></i> 大厅
+            </a>
+        </li>
+        <li class="on">
+            <a href="/Home/Select/person.html">
+                <i class="iconfont"></i> 个人中心
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" data-css="bottom:0;" class="kefu ajax_load" data-uri="/Home/Select/kefu.html">
+                <i class="iconfont"></i> 客服
+            </a>
+        </li>
+    </ul>
+</footer>
+<script src="//res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>飞单设置 - 网站设置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="">
+        <div class="col-sm-5">
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>飞单设置</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form action="{:U('Admin/Site/set_config')}" method="post" class="form-horizontal signform">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">盘口类型</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="handicap">
+                                        <option>飞单关闭</option>
+                                        <option value="1">潮丰彩票 - http://www.1388770.com/</option>
+                                        <option value="2">美的彩票 - http://65b.91cid.com/</option>
+                                    </select>
+                                    <script>
+                                        var handicap = parseInt("{:C('handicap')}",10);
+                                        if ( handicap > 0)
+                                        {
+                                            $("select[name=handicap]").val(handicap)
+                                            //$("select[name=handicap]").find("option:contains("+handicap+")").attr("selected",true);
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">飞单网址:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="handicap_url" value="{:C('handicap_url')}" placeholder="输入飞单地址" class="form-control">
+                                    <!--例如：5即为充1000返利50-->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">飞单账号:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="handicap_user" value="{:C('handicap_user')}" placeholder="输入飞单账号" class="form-control">
+                                    <!--例如：5即为充1000返利50-->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">飞单密码:</label>
+                                <div class="col-sm-8">
+                                    <input type="password" name="handicap_pass" value="{:C('handicap_pass')}" placeholder="输入飞单密码" class="form-control">
+                                    <!--例如：5即为充1000返利50-->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">安全码{:C('handicap')}:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="safecode" value="{:C('safecode')}" placeholder="输入安全码" class="form-control">
+                                    <!--例如：5即为充1000返利50-->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-12">
+                                    飞单网址请输入多个地址使用英文小写的逗号间隔,系统会自动选择速度最快线路<br /><br />
+                                    单个网址格式:<span class="label label-danger">http://www.a.com</span><br /><br />
+                                    多个网址格式:<span  class="label label-primary">http://www.a.com,http://www.b.com</span><br />
+                                    <!--<a href="/flying.zip" target="_blank" >点我下载飞单程序</a>-->
+                                    <!--<a href="http://www.greenxf.com/soft/131028.html" target="_blank" >风林进程守护</a><br />-->
+                                </label>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-danger" href="{:U('Index/index')}">取消</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="__PUBLIC__/Admin/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script>
+    $(function () {
+        $('.signform').ajaxForm({
+            success: complete,
+            dataType: 'json'
+        });
+        function complete(data) {
+            if (data.status == 1) {
+                $('.btn-primary').attr('disabled', 'disabled');
+                layer.msg(data.info, function (index) {
+                    layer.close(index);
+                    window.location.href = data.url;
+                });
+            } else {
+                layer.msg(data.info);
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

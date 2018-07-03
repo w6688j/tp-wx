@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html id="iframe">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{:C('sitename')}</title>
+    <meta name="keywords" content="{:C('keyword')}">
+    <meta name="description" content="{:C('content')}">
+
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="telephone=no"  content="format-detection">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/lib.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/page.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Select/css/font-awesome-4.7.0/css/font-awesome.css">
+</head>
+<body style="background: #efefef">
+<div style="background: black;color: white;height: 38px; text-align: center">
+    <a style="color: white" href="#"onClick="javascript :history.back(-1);">返回</a><h3 style="font-size: 15px;    line-height: 38px;">上分</h3>
+</div>
+<div style="height: 40px;">
+    <span style="padding-left:25px;font-size: 15px;line-height: 40px;">线下充值</span>
+</div>
+<style>
+.dabiaoge{
+   padding-left: 25px;
+    padding-right: 25px;
+    text-align: center  ;
+}
+    .dabiaoge li {
+        height: 50px;border-bottom: 1px solid #d4d4d4;
+    }
+</style>
+<div style="width: 100%;height: 127px;background:white">
+    <ul class="dabiaoge" >
+        <li><a href="{:U('Home/Dan/weixin')}" style=" color:black;line-height: 46px;"><img src="/Public/Home/img/wx.png" style="width:34px;    vertical-align: middle;">微信转账 (1-2w)</a></li>
+        <li><a href="{:U('Home/Dan/zhifubao')}"style="color: black; line-height: 46px;"><img src="/Public/Home/img/zfb.png" style="width: 34px;    vertical-align: middle;">支付宝转账 (1-2w)</a></li>
+    </ul>
+</div>
+<div style="    background: white;
+    text-align: center;
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+    height: 39px;
+    line-height: 39px;
+    margin-bottom: 15px;
+    color: #006cb5;">
+    微信转账会延迟，推荐添加好友直接转账
+</div>
+<div>
+<img style="    width: 100%;padding: 23px 48px;
+margin-bottom: 15px;
+" src="__ROOT__/Uploads{$kefu.kefu}" />
+</div>
+<div style="text-align: center;padding-bottom: 40px;">
+   <a href="{:U('Home/Dan/chongzhijl')}"> <span style="    width: 70px;
+    height: 30px;
+    border: 1px solid red;
+    color: red;
+    padding: 7px;
+    border-radius: 5px;">转账记录</span></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>后台 - 网站设置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="">
+        <div class="col-sm-4">
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>网站设置</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form action="{:U('Admin/Site/set_config')}" method="post" class="form-horizontal signform">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">网站是否开放</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="is_open" value="{:C('is_open')}" placeholder="0为关闭，1位开放"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">1 为外国不能访问，反之为0</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="is_wai" value="{:C('is_wai')}" placeholder="0为关闭，1位开放"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">是否开放注册</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="is_open_reg" value="{:C('is_open_reg')}"
+                                           placeholder="0为关闭，1位开放" class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">网站名称</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="sitename" value="{:C('sitename')}" placeholder="输入网站名称"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">游戏顶部通知</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="youxitoptongzhi" value="{:C('youxitoptongzhi')}"
+                                           placeholder="发言" class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">欢迎信息</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="welcome" value="{:C('welcome')}" placeholder="发言"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">客服微信（登录界面）</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="kefu_weixin" value="{:C('kefu_weixin')}" placeholder="客服微信"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">虚拟在线人数</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="online" value="{:C('online')}" placeholder="输入虚拟人数"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-danger" href="{:U('Index/index')}">取消</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>推荐返利设置</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form action="{:U('Admin/Site/set_config')}" method="post" class="form-horizontal signform">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">二级邀请返利（百分点）</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="fenxiao" value="{:C('fenxiao')}" placeholder="输入邀请返利点"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">三级邀请返利（百分点）</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="fenxiaosan" value="{:C('fenxiaosan')}" placeholder="输入邀请返利点" class="form-control">
+                                    <!--例如：5即为充1000返利50-->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-danger" href="{:U('Index/index')}">取消</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>游戏开关设置</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form action="{:U('Admin/Site/set_config')}" method="post" class="form-horizontal signform">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">聊天室开关</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="chat_on_off" value="{:C('chat_on_off')}" placeholder="0为关闭，1位开放"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">是否开启签到</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="is_sign" value="{:C('is_sign')}" placeholder="0为关闭，1位开放"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">首页轮播图是否开启(1为开启)</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="is_lunbo" value="{:C('is_lunbo')}" placeholder="首页轮播图是否开启(1为开启)"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-danger" href="{:U('Index/index')}">取消</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>微信短信设置</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                        <div class="ibox-content">
+                            <form action="{:U('Admin/Site/set_config')}" method="post" class="form-horizontal signform">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">微信AppId</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="weixin_appid" value="{:C('weixin_appid')}"
+                                               placeholder="http://www.baidu.com" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">微信AppSecret</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="weixin_appsecret" value="{:C('weixin_appsecret')}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">微信授权地址</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="weixin_url" value="{:C('weixin_url')}"
+                                               placeholder="http://www.baidu.com" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">短信id</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="sms_id" value="{:C('sms_id')}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">短信key</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="sms_key" value="{:C('sms_key')}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">七牛 accessKey</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="qiniu_ak" value="{:C('qiniu_ak')}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">七牛 secretKey</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="qiniu_sk" value="{:C('qiniu_sk')}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">七牛域名</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="qiniu_url" value="{:C('qiniu_url')}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">七牛空间名称</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="qiniu_zone" value="{:C('qiniu_zone')}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12 col-sm-offset-2">
+                                        <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+                                        <a class="btn btn-danger" href="{:U('Index/index')}">取消</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>游戏基础设置</h5>
+                </div>
+                <div class="ibox-content">
+                    <form action="{:U('Admin/Site/set_config')}" method="post" class="form-horizontal signform">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">最低上分金额</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="upper_money" value="{:C('upper_money')}"
+                                       placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">最低提现</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="zuiditixian" value="{:C('zuiditixian')}"
+                                       placeholder="0为关闭，1位开放" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">流水不够行政费用设置</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="xingzheng" value="{:C('xingzheng')}" placeholder="流水不够行政费用"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">流水达到百分比可免费下分%</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="liushuib" value="{:C('liushuib')}" placeholder="流水不够行政费用"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">聊天室发言条件,几天之内（0为当天）</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="saycondition_day" value="{:C('saycondition_day')}"
+                                       placeholder="聊天室发言条件,几天之内（0为当天）" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">上分达到多少可进行发言</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="sayconditon_shangfen" value="{:C('sayconditon_shangfen')}"
+                                       placeholder="上分达到多少可进行发言" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">上分分组</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="shangfen_zu" value="{:C('shangfen_zu')}"
+                                       placeholder="上分达多少进入该组" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">推荐分组(人)</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="tuijian_zu" value="{:C('tuijian_zu')}" placeholder="上分达多少进入该组"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">流水分组</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="liushui_zu" value="{:C('liushui_zu')}" placeholder="流水达多少进入该组"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">中奖封顶</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="add_fengding" value="{:C('add_fengding')}" placeholder="游戏中奖最高封顶"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-4 control-label">聊天室每天限制条数</label>-->
+                            <!--<div class="col-sm-8">-->
+                                <!--<input type="text" name="chart_say_sum" value="{:C('chart_say_sum')}" placeholder="0为不限制"-->
+                                       <!--class="form-control">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+                                <a class="btn btn-danger" href="{:U('Index/index')}">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="__PUBLIC__/Admin/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script>
+    $(function () {
+        $('.signform').ajaxForm({
+            success: complete,
+            dataType: 'json'
+        });
+        function complete(data) {
+            if (data.status == 1) {
+                $('.btn-primary').attr('disabled', 'disabled');
+                layer.msg(data.info, function (index) {
+                    layer.close(index);
+                    window.location.href = data.url;
+                });
+            } else {
+                layer.msg(data.info);
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

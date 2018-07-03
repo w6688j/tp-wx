@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+    <meta name="format-detection" content="telephone=no" />
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/ssc/css/style.css" />
+    <link rel="stylesheet" href="__PUBLIC__/ssc/css/animateTool.css" />
+</head>
+<body>
+<div class="cqsscAnimate" id="cqSsc">
+    <div class="bodybg"><img src="__PUBLIC__/ssc/img/cqssc/bodybg.jpg" /></div>
+    <div class="content">
+        <div class="nameLogo nameLogo_cq"></div>
+        <div class="coderbox">
+            <div class="codeboxl">
+                <div class="line tl">
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip bigbg"></span>
+                    </div>
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip smallbg"></span>
+                    </div>
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip bigbg"></span>
+                    </div>
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip smallbg"></span>
+                    </div>
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip bigbg"></span>
+                    </div>
+                </div>
+                <div class="line ml" id="numBig">
+                    <div class="box beforebg">
+                        <span class="num2"></span>
+                    </div>
+                    <div class="box beforebg">
+                        <span class="num1"></span>
+                    </div>
+                    <div class="box beforebg">
+                        <span class="num0"></span>
+                    </div>
+                    <div class="box beforebg">
+                        <span class="num9"></span>
+                    </div>
+                    <div class="box beforebg">
+                        <span class="num6"></span>
+                    </div>
+                </div>
+                <div class="line bl">
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip singlebg"></span>
+                    </div>
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip doublebg"></span>
+                    </div>
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip doublebg"></span>
+                    </div>
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip singlebg"></span>
+                    </div>
+                    <div class="box perspectiveView">
+                        <span class="flip afterbg"></span>
+                        <span class="flip doublebg"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="codeboxr">
+                <div class="heiban">
+                    <div class="line1" id="qishu">
+                        本期：<span class="redfont" id="preDrawIssue">2016054848</span>期
+                    </div>
+                    <div class="line1" id="nexttime">
+                        <span>下期开奖：</span><span class="redfont" id="drawTime">18:30:47</span>
+                    </div>
+                    <div class="line1">
+                        <div class="oping">
+                            <div class="cuttimetitle">正在开奖...</div>
+                        </div>
+                        <div class="djs">
+                            <span class="cuttimetitle" id="cuttime">倒计时：</span>
+                            <span class="bluefont"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="heibanb">
+                    <div class="bckj">
+                        <span id="sumNum">16</span><span id="sumSingleDouble">双</span><span id="sumBigSmall">小</span><span id="dragonTiger">虎</span>
+                    </div>
+                    <div class="smallnum" id="litNum">
+                        <div class="box beforebg">
+                            <span class="num2"></span>
+                        </div>
+                        <div class="box beforebg">
+                            <span class="num1"></span>
+                        </div>
+                        <div class="box beforebg">
+                            <span class="num0"></span>
+                        </div>
+                        <div class="box beforebg">
+                            <span class="num9"></span>
+                        </div>
+                        <div class="box beforebg">
+                            <span class="num6"></span>
+                        </div>
+                    </div>
+                    <!--<div class="smallnum line" id="btnbox">
+                        <div class="box">
+                            <div class="orbtn">两面路珠</div>
+                        </div>
+                        <div class="box">
+                            <div class="orbtn"> 开奖历史</div>
+                        </div>
+                        <div class="box">
+                            <div class="orbtn"> 走势分析</div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="disnone">
+            <audio  autoplay="autoplay" id="bgsound" src=""></audio>
+        </div>
+    </div>
+</div>
+<input type="hidden" class="nextIssue" value=""/>
+</body>
+<script type="text/javascript" src="__PUBLIC__/ssc/js/jquery-1.9.1.js"></script>
+<script>
+    var tingzi=0;
+    //初始化数据
+    var nownumber ='';
+    var sytime ='';
+    var time = '';
+    //定时操作
+    $(function () {
+        funkaishi();
+    })
+    var i = 4;
+    var intervalid;
+    function funkaishi() {
+        getdata();
+        intervalid = setInterval("fun()", 1000);
+    }
+    function fun() {
+        if (i == 0) {
+            clearInterval(intervalid);
+            i = 5;
+            funkaishi();
+            //五秒后的响应的动作
+        }
+        time--;
+        //每秒改变时间
+        changetime(time);
+        i--;
+//        console.log(i);
+    }
+
+    //后台拿数据
+    function getdata() {
+        $.ajax({
+            url: '/home/api/getssc',
+            type: "post",
+            data:{'msg':55},
+            dataType:'json',
+            success:function(res){
+                //如果不相等，更新数据
+                if(nownumber !== res.current.periodNumber){
+                    clearInterval(tingzi);
+                    updata(res.current.periodNumber,res.current.awardNumbers,res.current.awardTime,res.next.periodNumber);
+
+                }
+                nownumber = res.current.periodNumber;
+                time =res.next.awardTimeInterval/1000;
+                if(time<=0){
+                    donghua();
+                }
+//                console.log(res);
+            }
+        });
+    }
+    //时间 每秒中
+    function changetime(time){
+        if(time<=0){
+            $(".oping").show();
+            $(".djs").hide();
+        }else {
+            clearInterval(tingzi);
+            $(".oping").hide();
+            $(".djs").show();
+        }
+        var hour = Math.floor(time / (60 * 60));
+        var minute = Math.floor((time / (60)) % 60);
+        var second = Math.floor((time) % 60);
+        if(hour<10){
+            hour="0"+hour;
+        }
+        if(minute<10){
+            minute="0"+minute;
+        }
+        if(second<10){
+            second="0"+second;
+        }
+        $(".bluefont").html(hour+":"+minute+":"+second);
+    }
+    //更新数据操作
+    function updata(dqqs,dqhm,kjtime,nextper) {
+        var strs=dqhm.split(",");
+        $("#preDrawIssue").html(dqqs);
+        var stime=kjtime.substr(kjtime.length-8)
+        $("#drawTime").html(stime);
+        //更新档期的五和情况
+        var zh = Number(strs[0])+Number(strs[1])+Number(strs[2])+Number(strs[3])+Number(strs[4]);
+        //大小单双
+        var dx = '';
+        if(zh >=23){ dx = '大'}else {dx ='小'}
+        var ds = '';
+        if(zh %2==0){ ds = '双'}else {ds ='单'}
+        //更新龙虎
+        var lh = '';
+        var lhj ='';
+        lhj= strs[0]-strs[4];
+        if(lhj<0){lh ='虎';}if(lhj>0){lh ='龙';}if(lhj ==0){lh ='和';}
+        var spanobj = $("#numBig").find(".box");
+        var litNum = $("#litNum").find(".box");
+        var spanObj = [];
+        $(spanobj).each(function(i) {
+            $(this).find("span").text("");
+            $(this).find("span").removeClass().addClass("num" + strs[i]);
+            spanObj.push($(this).find("span"));
+        });
+        $(litNum).each(function(i) {
+            $(this).find("span").text("");
+            $(this).find("span").removeClass().addClass("num" + strs[i]);
+        });
+        var tl = $(".tl .perspectiveView");
+        var bl = $(".bl .perspectiveView");
+        for(var i = 0, time = 0; i < 5; i++) {
+            time += 150;
+            if(i >= 4) {
+                var count = 0;
+            }
+            setTimeout(function() {
+                anmiate(spanObj[count]);
+                xz3D(tl[count], true);
+                xz3D(bl[count], true);
+                count++;
+            }, time);
+        }
+        $(".tl").find(".box").each(function(i) {
+            var numstr = '';
+            var ifex = $(this).find("span").eq(1).attr("class");
+            if(strs[i] >= 5) {
+                numstr = "bigbg";
+                if(ifex.indexOf(numstr) != -1) {} else {
+                    ifex = ifex.replace("smallbg", numstr);
+                }
+            } else {
+                numstr = "smallbg";
+                if(ifex.indexOf(numstr) != -1) {} else {
+                    ifex = ifex.replace("bigbg", numstr);
+                }
+            }
+            $(this).find("span").eq(1).removeAttr("class").attr("class", ifex);
+        });
+        $(".bl").find(".box").each(function(i) {
+            var numstr = '';
+            var ifex = $(this).find("span").eq(1).attr("class");
+            if(strs[i] % 2 == 0) {
+                numstr = "doublebg";
+                if(ifex.indexOf(numstr) != -1) {} else {
+                    ifex = ifex.replace("singlebg", numstr);
+                }
+            } else {
+                numstr = "singlebg";
+                if(ifex.indexOf(numstr) != -1) {} else {
+                    ifex = ifex.replace("doublebg", numstr);
+                }
+            }
+            $(this).find("span").eq(1).removeAttr("class").attr("class", ifex);
+        });
+        $("#sumNum").html(zh);
+        $("#sumSingleDouble").html(ds);
+        $("#sumBigSmall").html(dx);
+        $("#dragonTiger").html(lh);
+    }
+    function anmiate(obj) {
+        $(obj).css({
+            backgroundPositionY: '28px',
+            backgroundPositionX: '26px',
+            backgroundSize: "10%"
+        });
+        $(obj).stop().animate({
+            backgroundPositionY: '-18px',
+            backgroundPositionX: '-16px',
+            backgroundSize: "150%"
+        }, 200, function() {
+            $(obj).stop().animate({
+                backgroundPositionY: '0',
+                backgroundPositionX: '0',
+                backgroundSize: "100%"
+            }, 200);
+        });
+
+    }
+    //    判断大小
+    function panduandx(sum) {
+        if(sum >=5){
+            return 'r0';
+        }else {
+            return 'r1';
+        }
+    }
+    //判断单双
+    function panduands(sum) {
+        if(sum%2 ==0){
+            return 'r3';
+        }else {
+            return 'r2';
+        }
+    }
+
+</script>
+<script>
+    $(document).ready(function () {
+        var h = window.parent.document.body.clientWidth;
+        var rate = h / 450;
+        $("#chungking").css("transform", "scale(" + rate + ")");
+        $("#chungking").css("transform-origin", 'left top');
+        var obj = window.parent.document.getElementById("idiframe"); //取得父页面IFrame对象
+        obj.height = 300 * rate; //调整父页面中IFrame的高度为此页面的高度
+    });
+    function donghua() {
+        var intervalSsc = setInterval(function() {
+            var spanobj = $("#numBig").find(".box");
+            var lilength = $(spanobj).find("span").length;
+            for(var i = 0; i < lilength; i++) {
+                $(spanobj).find("span").eq(i).removeClass().addClass("num" + $(spanobj).find("span").eq(i).text());
+                //还原上次的定位
+                $(spanobj).find("span").eq(i).css({
+                    backgroundPositionY: "0",
+                    backgroundPositionX: "0",
+                    backgroundSize: "100%"
+                });
+                //为li产生随机数字
+                //追加动画
+                var runspac = excutenum();
+                $(spanobj).find("span").eq(i).stop().animate({
+                    backgroundPositionY: '-30',
+                    backgroundPositionX: '67px',
+                    backgroundSize: "50%"
+                }, runspac * 50 == "0" ? "100" : runspac * 50);
+                $(spanobj).find("span").eq(i).text(excutenum());
+            }
+            if(time>0){
+                clearInterval(intervalSsc);
+            }
+        }, 100);
+        //开始翻转
+        var regularlyItems = $(".codeboxl .perspectiveView");
+        $(regularlyItems).each(function(i) {
+            xz3D(regularlyItems[i], false);
+        });
+        //显示开奖中
+        $(".oping").show();
+        $(".djs").hide();
+        tingzi=intervalSsc;
+    }
+    function xz3D(obj,flag) {
+        var obj = $(obj);
+        if(flag) {
+            $(obj).children(".flip").eq(0).addClass("out").removeClass("in");
+            setTimeout(function() {
+                $(obj).find(".flip").show().eq(1).addClass("in").removeClass("out");
+                $(obj).children(".flip").eq(0).hide();
+            }, 225);
+        } else {
+            $(obj).children(".flip").eq(1).addClass("out").removeClass("in");
+            setTimeout(function() {
+                $(obj).find(".flip").show().eq(0).addClass("in").removeClass("out");
+                $(obj).children(".flip").eq(1).hide();
+            }, 225);
+        }
+    }
+    function excutenum() {
+        var j = Math.floor(Math.random() * 10); //得到0到9的随机数
+        //var j = Math.ceil(Math.random()*10);//得到0到10的随机数
+        return j;
+    }
+</script>
+</html>

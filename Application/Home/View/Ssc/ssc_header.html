@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>时时彩</title>
+    <meta content="width=device-width, minimum-scale=1,initial-scale=1, maximum-scale=1, user-scalable=0"
+          name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <script type="text/javascript" src="__PUBLIC__/Home/Carhome/js/mootools.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/Carhome/js/mootools-more.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/Carhome/js/betwin.js"></script>
+    <script src="__PUBLIC__/Home/Carhome/js/game.js?v=20171101"></script>
+    <link href="__PUBLIC__/Home/Carhome/css/common.css?v=20171101" rel="stylesheet">
+    <link href="__PUBLIC__/Home/Carhome/css/chungking.css?v=20171101" rel="stylesheet">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var h = window.parent.document.body.clientWidth;
+            var rate = h / 450;
+            $("#chungking").css("transform", "scale(" + rate + ")");
+            $("#chungking").css("transform-origin", 'left top');
+            var obj = window.parent.document.getElementById("idiframe"); //取得父页面IFrame对象
+            obj.height = 335 * rate; //调整父页面中IFrame的高度为此页面的高度
+        });
+    </script>
+    <style type="text/css">
+        body, html {
+            height: 100%;
+        }
+        .xiaohu {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    !function () {
+        type = "chungking";media_path = "chungking";
+        var lottery = new Element("div", {
+            "id": "lottery",
+            "data-bind-action": "/play/chungking.html",
+            "data-bind-type": "control",
+            "data-bind-callback": "lottery-chungking"
+        });
+        lottery.inject(document.body);
+    }();
+</script><div id="lottery" data-bind-action="/play/chungking.html" data-bind-type="control" data-bind-callback="lottery-chungking" class="" style="height: 238px;"><div class="lottery chungking status-show" id="chungking" style="transform: scale(2.2);" data-show="true">
+    <div class="top">
+        <div class="bet">
+            第<em data-dom="betindex" class="dqqs">171114036</em>期
+        </div>
+        <div class="number">
+            <em class="n9"></em>
+            <em class="n6"></em>
+            <em class="n2"></em>
+            <em class="n4"></em>
+            <em class="n8"></em>
+        </div>
+        <div class="lottery" data-dom="lottery">重庆时时彩</div>
+        <div class="sound"><img src="__PUBLIC__/Home/Carhome/images/v14.png"><img class="m2" src="__PUBLIC__/Home/Carhome/images/v15.png"></div>
+    </div>
+    <div class="content">
+        <ul class="loading">
+            <li class="index0">
+                <label class="r0"></label>
+                <em class="n0"></em>
+                <label class="r2"></label>
+            </li>
+            <li class="index1">
+                <label class="r0"></label>
+                <em class="n0"></em>
+                <label class="r3"></label>
+            </li>
+            <li class="index2">
+                <label class="r1"></label>
+                <em class="n0"></em>
+                <label class="r3"></label>
+            </li>
+            <li class="index3">
+                <label class="r1"></label>
+                <em class="n0"></em>
+                <label class="r3"></label>
+            </li>
+            <li class="index4">
+                <label class="r0"></label>
+                <em class="n0"></em>
+                <label class="r3"></label>
+            </li>
+        </ul>
+    </div>
+    <div class="countdown" data-length="3">
+        <label class="xia"></label>
+        <label class="qi"></label>
+        <span>
+        <i class="i1"></i>
+        <i class="i7"></i>
+        <i class="i1"></i>
+        <i class="i1"></i>
+        <i class="i1"></i>
+        <i class="i4"></i>
+        <i class="i0"></i>
+        <i class="i3"></i>
+        <i class="i7"></i>
+        <i class="i3"></i>
+        <i class="i7"></i>
+            </span>
+        <sub></sub>
+        <div class="timedown">
+            <em data-index="0" class="t0"></em>
+            <em data-index="1" class="t0"></em>
+            <em data-index="2" class="t0"></em>
+            <em data-index="3"></em>
+            <em data-index="4"></em>
+        </div>
+    </div>
+    <div class="resultdata">
+        <div class="r_data">
+            <em class="i0"><i>2017-11-14 12:00:00</i><i>036</i></em>
+            <em class="i1"><i>29</i><i>大</i><i>单</i><i>B</i></em>
+            <em class="i2">龙</em>
+            <em class="i3">杂六</em>
+            <em class="i4">杂六</em>
+            <em class="i5">杂六</em>
+        </div>
+    </div>
+</div></div>
+<audio id="UI_Sound_Player" autoplay="" src="__PUBLIC__/Home/Carhome/images/show.mp3"></audio></body>
+<script>
+    //    $(".chungking").removeattr("style");
+
+    //    $(".content").css("animation-play-state","paused");
+    //$(".xiaohu").css("background-color","yellow");
+    //    $(".xiaohu").css("animation-play-state","paused");
+    //var obj = document.getElementsByClassName("xiaohu");
+    //    obj.style.cssText = "animation-play-state: paused;";
+</script>
+<script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
+<script>
+    //初始化数据
+    var nownumber ='';
+    var sytime ='';
+    var time = '';
+    //定时操作
+    $(function () {
+        funkaishi();
+    })
+    var i = 4;
+    var intervalid;
+    function funkaishi() {
+        getdata();
+        intervalid = setInterval("fun()", 1000);
+    }
+    function fun() {
+        if (i == 0) {
+            clearInterval(intervalid);
+            i = 5;
+            funkaishi();
+            //五秒后的响应的动作
+        }
+        time--;
+        //每秒改变时间
+        changetime(time);
+        i--;
+//        console.log(i);
+    }
+    //后台拿数据
+    function getdata() {
+        $.ajax({
+            url: '/home/api/getssc',
+            type: "post",
+            data:{'msg':55},
+            dataType:'json',
+            success:function(res){
+                //如果不相等，更新数据
+                if(nownumber !== res.current.periodNumber){
+                    updata(res.current.periodNumber,res.current.awardNumbers,res.current.awardTime,res.next.periodNumber);
+                }
+                nownumber = res.current.periodNumber;
+                time =res.next.awardTimeInterval/1000;
+//                console.log(res);
+            }
+        });
+    }
+
+    //时间 每秒中
+    function changetime(time){
+        if(time<20){
+            $(".status-show").attr('class','lottery chungking status-loading')
+        }else {
+            $(".status-loading").attr('class','lottery chungking status-show')
+        }
+        if(time<100){
+            $(".countdown").show();
+            time ='0'+time
+        }
+        if(time<10){
+            time ='00'+time
+        }
+        if(time<0 ||time>600){
+            $(".countdown").hide();
+        }
+        var arr =String(time).split('');
+        var aa  =$('.timedown em');
+        aa.eq(0).attr('class','t'+arr[0]);
+        aa.eq(1).attr('class','t'+arr[1]);
+        aa.eq(2).attr('class','t'+arr[2]);
+    }
+    //更新数据操作
+    function updata(dqqs,dqhm,kjtime,nextper) {
+        //当前期数
+        $(".dqqs").text(dqqs);
+        //当前的开奖号码
+        strs=dqhm.split(","); //字符分割
+        var dq = $(".number em");
+        dq.eq(0).attr('class','n'+strs[0]);
+        dq.eq(1).attr('class','n'+strs[1]);
+        dq.eq(2).attr('class','n'+strs[2]);
+        dq.eq(3).attr('class','n'+strs[3]);
+        dq.eq(4).attr('class','n'+strs[4]);
+        //更新开奖号码
+        var zj =$(".loading li");
+        zj.eq(0).children('em').attr('class','n'+strs[0]);
+        zj.eq(1).children('em').attr('class','n'+strs[1]);
+        zj.eq(2).children('em').attr('class','n'+strs[2]);
+        zj.eq(3).children('em').attr('class','n'+strs[3]);
+        zj.eq(4).children('em').attr('class','n'+strs[4]);
+        //更新大小
+        zj.eq(0).children('label').eq(0).attr('class',panduandx(strs[0]));
+        zj.eq(1).children('label').eq(0).attr('class',panduandx(strs[1]));
+        zj.eq(2).children('label').eq(0).attr('class',panduandx(strs[2]));
+        zj.eq(3).children('label').eq(0).attr('class',panduandx(strs[3]));
+        zj.eq(4).children('label').eq(0).attr('class',panduandx(strs[4]));
+//        更新单双
+        zj.eq(0).children('label').eq(1).attr('class',panduands(strs[0]));
+        zj.eq(1).children('label').eq(1).attr('class',panduands(strs[1]));
+        zj.eq(2).children('label').eq(1).attr('class',panduands(strs[2]));
+        zj.eq(3).children('label').eq(1).attr('class',panduands(strs[3]));
+        zj.eq(4).children('label').eq(1).attr('class',panduands(strs[4]));
+        //更新下一期
+
+        var nextsum =nextper;
+
+        var nextarr=String(nextsum).split(""); //字符分割
+        // alert(nextarr[0])
+//        console.log(nextarr[0]);
+        var cd =$('.countdown');
+        cd.children('span').children('i').eq(0).attr('class','i'+nextarr[0]);
+        cd.children('span').children('i').eq(1).attr('class','i'+nextarr[1]);
+        cd.children('span').children('i').eq(2).attr('class','i'+nextarr[2]);
+        cd.children('span').children('i').eq(3).attr('class','i'+nextarr[3]);
+        cd.children('span').children('i').eq(4).attr('class','i'+nextarr[4]);
+        cd.children('span').children('i').eq(5).attr('class','i'+nextarr[5]);
+        cd.children('span').children('i').eq(6).attr('class','i'+nextarr[6]);
+        cd.children('span').children('i').eq(7).attr('class','i'+nextarr[7]);
+        cd.children('span').children('i').eq(8).attr('class','i'+nextarr[8]);
+        cd.children('span').children('i').eq(9).attr('class','i'+nextarr[9]);
+        cd.children('span').children('i').eq(10).attr('class','i'+nextarr[10]);
+        //更新这期开奖的时间
+        $('.i0').children('i').eq(0).text(kjtime);
+        //今天第几期了
+        var qgeqihao = String(dqqs).substr('-3',3);
+        $('.i0').children('i').eq(1).text(qgeqihao);
+        //更新档期的五和情况
+        var zh = Number(strs[0])+Number(strs[1])+Number(strs[2])+Number(strs[3])+Number(strs[4]);
+        $('.i1').children('i').eq(0).text(zh);
+        //大小单双
+        var dx = '';
+        if(zh >=23){ dx = '大'}else {dx ='小'}
+        $('.i1').children('i').eq(1).text(dx);
+        var ds = '';
+        if(zh %2==0){ ds = '双'}else {ds ='单'}
+        $('.i1').children('i').eq(2).text(ds);
+        //更新abc
+        var abc ='';
+        if(zh <=15){abc ='A';}if(zh>=16 &&zh<=29){abc ="B";}if(zh>=30 &&zh<45){abc ="C"}
+        $('.i1').children('i').eq(3).text(abc);
+        //更新龙虎
+        var lh = '';
+        var lhj ='';
+        lhj= strs[0]-strs[4];
+        if(lhj<0){lh ='虎';}if(lhj>0){lh ='龙';}if(lhj ==0){lh ='和';}
+        $('.r_data').children('em').eq(2).text(lh);
+        //前三中三后三
+        //前三
+        var qsan ='';
+        var bb =0;
+        if(Number(strs[0]) ==Number(strs[1]) &&Number(strs[0]) ==Number(strs[2])&& Number(strs[1]) ==Number(strs[2])){
+            qsan ='豹子';
+        }else {
+            var dz ='';
+            if(Number(strs[0]) ==Number(strs[1])){
+                dz++;
+            }
+            if(Number(strs[0])==Number(strs[2])){
+                dz++;
+            }
+            if(Number(strs[1]) ==Number(strs[2])){
+                dz++
+            }
+            if(dz ==1){
+                qsan ='对子';
+            }else {
+                if(Math.abs(Number(strs[0])-Number(strs[1])) ==1){
+                    bb++;
+                }
+                if (Math.abs(Number(strs[0])-Number(strs[2])) ==1){
+                    bb++;
+                }
+                if(Math.abs(Number(strs[1])-Number(strs[2])) ==1){
+                    bb++;
+                }
+                if(bb ==0){
+                    qsan ='杂六';
+                }if(bb==1){
+                    qsan ='半顺'
+                }if(bb==2){
+                    qsan ='顺子'
+                }
+            }
+        }
+        $('.r_data').children('em').eq(3).text(qsan);
+        //第二个判断类型
+        var qsan ='';
+        var bb =0;
+        if(Number(strs[1]) ==Number(strs[2]) &&Number(strs[1]) ==Number(strs[3])&& Number(strs[2]) ==Number(strs[3])){
+            qsan ='豹子';
+        }else {
+            var dz ='';
+            if(Number(strs[1]) ==Number(strs[2])){
+                dz++;
+            }
+            if(Number(strs[1])==Number(strs[3])){
+                dz++;
+            }
+            if(Number(strs[2]) ==Number(strs[3])){
+                dz++
+            }
+            if(dz ==1){
+                qsan ='对子';
+            }else {
+                if(Math.abs(Number(strs[1])-Number(strs[2])) ==1){
+                    bb++;
+                }
+                if (Math.abs(Number(strs[1])-Number(strs[3])) ==1){
+                    bb++;
+                }
+                if(Math.abs(Number(strs[2])-Number(strs[3])) ==1){
+                    bb++;
+                }
+                if(bb ==0){
+                    qsan ='杂六';
+                }if(bb==1){
+                    qsan ='半顺'
+                }if(bb==2){
+                    qsan ='顺子'
+                }
+            }
+        }
+        $('.r_data').children('em').eq(4).text(qsan);
+        //第三个判断类型234
+        var qsan ='';
+        var bb =0;
+        if(Number(strs[2]) ==Number(strs[3]) &&Number(strs[2]) ==Number(strs[4])&& Number(strs[3]) ==Number(strs[4])){
+            qsan ='豹子';
+        }else {
+            var dz ='';
+            if(Number(strs[2]) ==Number(strs[3])){
+                dz++;
+            }
+            if(Number(strs[2])==Number(strs[4])){
+                dz++;
+            }
+            if(Number(strs[3]) ==Number(strs[4])){
+                dz++
+            }
+            if(dz ==1){
+                qsan ='对子';
+            }else {
+                if(Math.abs(Number(strs[2])-Number(strs[3])) ==1){
+                    bb++;
+                }
+                if (Math.abs(Number(strs[2])-Number(strs[4])) ==1){
+                    bb++;
+                }
+                if(Math.abs(Number(strs[3])-Number(strs[4])) ==1){
+                    bb++;
+                }
+                if(bb ==0){
+                    qsan ='杂六';
+                }if(bb==1){
+                    qsan ='半顺'
+                }if(bb==2){
+                    qsan ='顺子'
+                }
+            }
+        }
+        $('.r_data').children('em').eq(5).text(qsan);
+    }
+    //    判断大小
+    function panduandx(sum) {
+        if(sum >=5){
+            return 'r0';
+        }else {
+            return 'r1';
+        }
+    }
+    //判断单双
+    function panduands(sum) {
+        if(sum%2 ==0){
+            return 'r3';
+        }else {
+            return 'r2';
+        }
+    }
+
+</script>
+
+</html>

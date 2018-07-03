@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/iconfont.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/common.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/style.css?v=20171101">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/emoji.css">
+    <link rel="stylesheet" type="text/css" href="//res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css">
+    <style type="text/css"></style>
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript">
+        var puri = "http://v4.dgtztz.com";
+    </script>
+    <script src="__PUBLIC__/Home/Carhome/js/layer.js" type="text/javascript" charset="utf-8"></script>
+    <link href="__PUBLIC__/Home/Carhome/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
+    <script src="__PUBLIC__/Home/Carhome/js/xsapp.js?v=20171101" type="text/javascript" charset="utf-8"></script>
+    <title>个人中心</title>
+    <SCRIPT language=javascript>
+        <!--
+        window.onerror=function(){return true;}
+        // -->
+    </SCRIPT>
+</head>
+<body class="graybg">
+<section class="main" style="padding-bottom: 6rem;">
+    <div class="team" style="padding-top: 5rem;">
+        <h3 style="position: fixed; left: 0; top: 0; width: 95%;border-radius: 0; z-index: 999;" class="game-tit game-tit-bg">
+            <i class="iconfont"></i> 帐户设置			<i class="iconfont fr ajax_uri" data-uri="/Home/Select/person.html" style="font-size: 2.5rem;"></i>
+        </h3>
+        <div class="weui-cells__title">登陆设置</div>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">登陆帐号</label></div>
+                <div class="weui-cell__bd">
+                    {$userinfo.username} <font color="#999" style="font-size: 1rem;">(不可以修改)</font>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">当前密码</label></div>
+                <div class="weui-cell__bd">
+                    <input name="oldpwd" placeholder="当前的登陆密码" class="weui-input" type="password">
+                </div>
+            </div>		    <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">登陆密码</label></div>
+            <div class="weui-cell__bd">
+                <input name="passwd" placeholder="长度必须6位以上" class="weui-input" type="password">
+            </div>
+        </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">确认密码</label></div>
+                <div class="weui-cell__bd">
+                    <input name="passwd2" placeholder="重复上面的密码" class="weui-input" type="password">
+                </div>
+            </div>
+            <div class="weui-btn-area">
+                <a class="weui-btn weui-btn_primary" href="javascript:">
+                    修改密码			    </a>
+            </div>
+            <label class="weui-agree" style="padding-bottom: 2rem;">
+			    <span class="weui-agree__text">
+			    		<i class="iconfont"></i> 登陆帐号设置成功后不可以修改 。<br>
+			    		<i class="iconfont"></i> 账号设置成功后，可在APP或者手机浏览器登陆平台，数据同步。<br>
+			    		<i class="iconfont"></i> 微信不能正常打开时，请使用APP或者手机浏览器登陆，数据同步<br>
+                         <i class="iconfont"></i> 请牢记您的账号密码，忘记密码请联系客服<br>
+			    </span>
+            </label>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    $(function(){
+        $(".weui-btn_primary").click(function(){
+            var d = {};
+            d.oldpwd = $("input[name='oldpwd']").val();
+            if(d.oldpwd == "") return zy.alert("请输入当前登陆密码");			d.passwd = $("input[name='passwd']").val();
+            if(d.passwd=="" || d.passwd.length < 6){
+                return zy.alert("登陆密码必须是6位上！");
+            }
+            if(d.passwd != $("input[name='passwd2']").val()){
+                return zy.alert("两次密码输入不一致");
+            }
+            $.ajax({
+                type:"post",
+                url:"/Home/Select/accountdo",
+                dataType: "json",
+                data:d,
+                success:function(res){
+                    zy.msg(res.info);
+                    if(res.status == 1){
+                        setTimeout(function(){
+                            location.href = '/Home/Select/person.html';
+                        },1000);
+                    }
+                },
+                error:function(){
+                    zy.alert("网络出错，请稍候重试！");
+                }
+            });
+        });
+    })
+</script>
+<footer>
+    <ul>
+        <li class="">
+            <a href="/Home/Select/spread.html">
+                <i class="iconfont"></i>推广
+            </a>
+        </li>
+        <li>
+            <a href="/Home/Select/sxselect.html">
+                <i class="iconfont"></i> 上下分
+            </a>
+        </li>					<li class="home ">
+        <a href="/?lottery=mall">
+            <i class="iconfont"></i> 大厅
+        </a>
+    </li>
+        <li class="on">
+            <a href="/Home/Select/person.html">
+                <i class="iconfont"></i> 个人中心
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" data-css="bottom:0;" class="kefu ajax_load" data-uri="/Home/Select/kefu.html">
+                <i class="iconfont"></i> 客服
+            </a>
+        </li>
+    </ul>
+</footer>		<script src="//res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

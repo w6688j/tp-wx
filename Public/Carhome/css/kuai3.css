@@ -1,0 +1,1453 @@
+.infuse {
+    text-align: center;
+    padding: 20px 0;
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 99999999;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#4f3d2c), to(rgba(31, 17, 8, 1)));
+    width: 100%;
+    display: none;
+}
+.infuse a.getkeybord {
+    width: 50px;
+    margin-right: 30px;
+    vertical-align: bottom;
+    background: url("./public/Carhome/images/keybord2.png");
+    background-size: 100% 100%;
+}
+.infuse a.clearnum,  .infuse a.confirm-pour {
+    background: #999;
+}
+.infuse a {
+    width: 240px;
+    height: 90px;
+    line-height: 90px;
+    color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 32px;
+    background: #F13131;
+}
+
+.infuse a.on, .game-hd .infuse a.clearnum.on {
+    background: #f24256;
+    background: -moz-linear-gradient(top, #f75164, rgba(230, 27, 50, 1));
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f75164), to(rgba(230, 27, 50, 1)));
+    background: -o-linear-gradient(top, #f75164, rgba(5230, 27, 50, 1));
+}
+
+.infuse a {
+    width: 240px;
+    height: 90px;
+    line-height: 90px;
+    color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 32px;
+    background: #F13131;
+}
+
+.infuse em {
+    letter-spacing: 5px;
+    color: #fff;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    margin: 0 2%;
+    width: 180px;
+    display: inline-block;
+}
+.infuse a {
+    width: 240px;
+    height: 90px;
+    line-height: 90px;
+    color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 32px;
+    background: #F13131;
+}
+.bieren{
+    margin-left: 1em;
+    /* background: white; */
+    cursor: pointer;
+    text-align: left;
+    background-color: white;
+    font-size: 35px;
+    padding: 3% 4%;
+    border-radius: 7px;
+    float: left;
+    max-width: 85%;
+    box-shadow: 3px 3px 5px #888888;
+    margin-bottom: 3%;
+    word-break: normal;
+    width: auto;
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: hidden;
+    width: 419px;
+}
+.ziji{
+    background-color: #98E165;
+    font-size: 28px;
+    padding: 3% 3%;
+    border-radius: 7px;
+    float: right;
+    max-width: 80%;
+    box-shadow: -2px 3px 5px #888888;
+    margin-bottom: 3%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    width: 576px;
+}
+
+ .header {
+     position: relative;
+     width: 100%;
+     left: 0;
+     top: 0;
+     border-radius: 0 0 7px 7px;
+     line-height: 100%;
+ }
+
+.header .user-info {
+    height: 100%;
+    width: 100%;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.header .user-info .user-profile {
+    margin: 4px 0 4px 4px;
+    width: 0%;
+    overflow: hidden;
+}
+
+.header .user-info .user-profile .profile-pic {
+    max-width: 100%;
+}
+
+.header .user-info .form-message {
+    margin: 4px 4px 4px 0;
+    border-radius: 0 6px 6px 0;
+    position: relative;
+    width: 100%;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.header .user-info .form-message .bet-amount {
+    -ms-flex: 0 1 10%;
+    flex: 0 1 10%;
+    position: relative;
+    height: 100%;
+    line-height: 2.5rem;
+    padding: 0 5px 0 12px;
+}
+
+.header .user-info .form-message .bet-amount span {
+    color: #fc0d1b;
+}
+
+.header .user-info .form-message .bet-input {
+    position: relative;
+    -ms-flex: 1 1 50%;
+    flex: 0 1 60%;
+}
+
+.header .user-info .form-message .bet-input .bet-value {
+    position: absolute;
+    border: 2px solid green;
+    height: 2.5rem;
+    padding-left: 8px;
+}
+
+.header .user-info .form-message .bet-btn {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.header .user-info .form-message .bet-btn button {
+    cursor: pointer;
+}
+
+.header .user-info .form-message .bet-btn button.bet-send {
+    -ms-flex: 1 0 50%;
+    flex: 1 0 70%;
+    position: relative;
+    width: 3rem;
+    height: 2.5rem;
+    right: 0;
+    padding: 0 5px;
+    font-size: 12px;
+    line-height: 11px;
+    top: 0;
+    border: 3px solid #00C67E !important;
+    border: 0;
+    background-color: white;
+    background: -webkit-gradient(linear, left top, left bottom, from(#00C67E), to(#00C67E));
+    background: -webkit-linear-gradient(top, #00C67E 0%, #00C67E 100%);
+    background: -o-linear-gradient(top, #00C67E 0%, #00C67E 100%);
+    background: linear-gradient(to bottom, #00C67E 0%, #00C67E 100%);
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+@media screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    .header .user-info .form-message .bet-btn button.bet-send {
+        line-height: 10px;
+    }
+}
+
+.header .user-info .form-message .bet-btn button.bet-send-closed {
+    -ms-flex: 1 0 35%;
+    flex: 1 0 35%;
+    position: relative;
+    margin: 2px 0;
+    width: 34px;
+    right: 0;
+    padding: 0 5px;
+    font-size: 10px;
+    line-height: 11px;
+    top: 0;
+    border: 0;
+    background: #808080;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+}
+
+@media screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    .header .user-info .form-message .bet-btn button.bet-send-closed {
+        line-height: 10px;
+    }
+}
+
+.header .user-info .form-message .bet-btn button.bet-reset {
+    -ms-flex: 1 0 25%;
+    flex: 1 0 30%;
+    position: relative;
+    margin: 2px;
+    right: 0;
+    font-size: 18px;
+    line-height: 11px;
+    top: 0;
+    border-top: 3px solid #f2665e !important;
+    border: 0;
+    background: -webkit-gradient(linear, left top, left bottom, from(#e2461b), to(#c82931));
+    background: -webkit-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: -o-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: linear-gradient(to bottom, #e2461b 0%, #c82931 100%);
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.header .user-info .form-message .bet-btn .bet-x {
+    flex: 1 0 30%;
+    position: relative;
+    right: 0;
+    font-size: 40px;
+    line-height: 2.5rem;
+    top: 0;
+}
+
+@media screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    .header .user-info .form-message .bet-btn button.bet-reset {
+        font-size: 18px;
+        line-height: 10px;
+    }
+}
+
+.header .user-info .count-message {
+    width: 38.8%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: 6px;
+    white-space: nowrap;
+}
+
+.header .user-info .count-message .count-display {
+    margin-right: 40px;
+    height: 100%;
+}
+
+.header .user-info .count-message .count-display ul {
+    list-style: none;
+    height: 100%;
+}
+
+.header .user-info .count-message .count-display ul li {
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 2px;
+}
+
+.header .user-info .count-message .count-display h3 {
+    margin: 0;
+    font-size: 9px;
+    color: #f8ae4c;
+}
+
+.header .user-info .count-message .count-display span {
+    font-size: 9px;
+    background-color: #fff;
+    width: 100%;
+    margin-left: 4px;
+    text-align: center;
+}
+
+.header .user-info .count-message .count-action ul {
+    list-style: none;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.header .user-info .count-message .count-action ul li {
+    -ms-flex: 1 0 50%;
+    flex: 1 0 50%;
+    position: relative;
+}
+
+.header .user-info .count-message .count-action a {
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    width: 91%;
+    height: 13px;
+    padding-left: 4px;
+    line-height: 12px;
+    font-size: 9px;
+    margin: 2px;
+    position: absolute;
+    background-color: #064377;
+    border-radius: 6px;
+    border-top: 2px solid #178fd8;
+}
+
+.header .user-info .count-message .count-action a.topup {
+    margin-left: 0;
+}
+
+.header .user-info .count-message .count-action a.topup:before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 5px solid #f8ae4c;
+}
+
+.header .user-info .count-message .count-action a.withdraw {
+    margin-right: 0;
+}
+
+.header .user-info .count-message .count-action a.withdraw:before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 5px solid #f8ae4c;
+}
+
+.header .refresh {
+    font-size: 0;
+    right: 6px;
+    top: 20%;
+    position: absolute;
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    width: 25px;
+    height: 25px;
+    background: url("./img/refresh.svg") no-repeat;
+    background-size: 15px;
+    background-position: 4px 4px;
+}
+
+.header .refresh.active {
+    -webkit-animation: rotate 400ms linear;
+    animation: rotate 400ms linear;
+}
+
+.header .collapsed-toggle {
+    position: absolute;
+    left: 3%;
+    top: -2.8rem;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    width: 20px;
+    height: 24px;
+    background-color: #178fd8;
+}
+
+.content {
+    width: 100%;
+    position: relative;
+    z-index: 0;
+    padding-top: 2%;
+}
+
+.content .individual-content-wrapper {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 8px 10px 14px;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    -webkit-transition: height 400ms ease-in-out;
+    -o-transition: height 400ms ease-in-out;
+    transition: height 400ms ease-in-out;
+    height: 100%;
+}
+
+.content .chat .chat-list {
+    position: fixed;
+    width: 100%;
+    right: 0;
+    height: 50%;
+    overflow: auto;
+}
+
+.content .chat .chat-list .chat-item {
+    width: 100%;
+    position: relative;
+}
+
+.content .chat .chat-list .chat-item .chat-component {
+    display: -ms-flexbox;
+    display: flex;
+    width: 80%;
+    margin: 6px 0;
+}
+
+.content .chat .chat-list .chat-item .chat-component .profile-picture {
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    min-width: 40px;
+    margin: 0px 16px 4px 0;
+    border-radius: 2px;
+    background-color: #fff;
+    overflow: hidden;
+    text-align: center;
+    background: url("./img/user.svg") no-repeat;
+    background-color: #929497;
+    background-size: 40px;
+}
+
+.content .chat .chat-list .chat-item .chat-component .profile-picture img {
+    max-width: 100%;
+    min-width: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.content .chat .chat-list .chat-item .chat-component .chat-history {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #f6f6f6;
+    border-radius: 0 0 4px 4px;
+    padding: 0.25rem 0.5rem 0.25rem 1rem;
+    max-width: 100%;
+}
+
+.content .chat .chat-list .chat-item .chat-component .chat-history:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 0 solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 12px solid #fff;
+    position: absolute;
+    left: -12px;
+    top: -1px;
+}
+
+.content .chat .chat-list .chat-item .chat-component .chat-history .chat-info {
+    display: table;
+}
+
+.content .chat .chat-list .chat-item .chat-component .chat-history .chat-info .user-name {
+    color: #616161;
+    display: table-cell;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.content .chat .chat-list .chat-item .chat-component .chat-history .chat-info .chat-time {
+    display: table-cell;
+    font-size: 10px;
+    line-height: 12px;
+    padding-left: 10px;
+    color: #929497;
+}
+
+.content .chat .chat-list .chat-item .chat-component .chat-history .chat-record {
+    margin-top: 4px;
+}
+
+.content .chat .chat-list .chat-item .chat-component .chat-history .chat-record p {
+    color: #616161;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+
+.content .chat .chat-list .chat-item.me {
+    margin-bottom: 10px;
+}
+
+.content .chat .chat-list .chat-item.me .chat-component {
+    min-height: 50px;
+}
+
+.content .chat .chat-list .chat-item.me .chat-component .profile-picture {
+    position: absolute;
+    margin: 0px 4px 4px 16px;
+    right: 0;
+}
+
+.content .chat .chat-list .chat-item.me .chat-component .chat-history {
+    position: relative;
+    left: 0;
+    width: 100%;
+    right: 56px;
+    border: 1px solid #12679f;
+    background-color: #12679f;
+    padding: 0.25rem 1rem 0.25rem 0.5rem;
+}
+
+.content .chat .chat-list .chat-item.me .chat-component .chat-history:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-left: 12px solid #12679f;
+    position: absolute;
+    right: -22px;
+    left: initial;
+}
+
+.content .chat .chat-list .chat-item.me .chat-component .chat-history .chat-info .user-name {
+    display: none;
+}
+
+.content .chat .chat-list .chat-item.me .chat-component .chat-history .chat-info .chat-time {
+    padding-left: 0;
+    color: #fff;
+}
+
+.content .chat .chat-list .chat-item.me .chat-component .chat-history .chat-record p {
+    color: #fff;
+    text-align: right;
+}
+
+.content .bet-panel {
+    position: relative;
+    width: 100%;
+}
+
+.content .bet-panel ul {
+    height: 2.5rem;
+    display: -ms-flexbox;
+    display: flex;
+    margin-left: -3%;
+}
+
+.content .bet-panel ul li {
+    position: relative;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 15px;
+    border-left: 5px solid #ebebeb;
+    background: #707070;
+    border-right: 1px solid #707070;
+    background: -webkit-gradient(linear, left top, left bottom, from(#707070), to(#707070));
+    background: -webkit-linear-gradient(top, #707070 0%, #707070 100%);
+    background: -o-linear-gradient(top, #707070 0%, #707070 100%);
+    background: linear-gradient(to bottom, #707070 0%, #707070 100%);
+}
+
+.content .bet-panel ul li.active {
+    border-top: 3px solid #f2665e;
+    font-weight: bold;
+    background: #e2461b;
+    background: -webkit-gradient(linear, left top, left bottom, from(#e2461b), to(#c82931));
+    background: -webkit-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: -o-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: linear-gradient(to bottom, #e2461b 0%, #c82931 100%);
+}
+
+.content .bet-panel ul li.active a {
+    color: #f8ae4c;
+}
+
+.content .bet-panel ul li .more-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    width: 165px;
+    top: 45px;
+    z-index: 99;
+}
+
+.content .bet-panel ul li .more-menu.active {
+    display: block;
+}
+
+.content .bet-panel ul li .more-menu.active.guanya ul {
+    border-top: 3px solid #f2665e;
+}
+
+.content .bet-panel ul li .more-menu ul {
+    display: block;
+    height: initial;
+    border-radius: 7px;
+    border-top: 3px solid #178fd8;
+    background: #12679f;
+    background: -webkit-gradient(linear, left top, left bottom, from(#12679f), to(#064377));
+    background: -webkit-linear-gradient(top, #12679f 0%, #064377 100%);
+    background: -o-linear-gradient(top, #12679f 0%, #064377 100%);
+    background: linear-gradient(to bottom, #12679f 0%, #064377 100%);
+}
+
+.content .bet-panel ul li .more-menu ul li {
+    max-width: initial;
+    border-radius: initial;
+    border-top: initial;
+    background: initial;
+    font-size: 12px;
+    text-align: left;
+    padding-left: 10px;
+    border-right: 0;
+    height: 25px;
+}
+
+.content .bet-panel ul li .more-menu ul li:not(:last-child) {
+    border-bottom: 1px solid #292526;
+}
+
+.content .bet-panel ul li .more-menu ul li.active {
+    font-weight: bold;
+    background: #e2461b;
+    background: -webkit-gradient(linear, left top, left bottom, from(#e2461b), to(#c82931));
+    background: -webkit-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: -o-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: linear-gradient(to bottom, #e2461b 0%, #c82931 100%);
+}
+
+.content .bet-panel ul li .more-menu ul li.active a {
+    color: #f8ae4c;
+}
+
+.content .bet-panel ul li .more-menu ul li a {
+    display: block;
+    text-decoration: none;
+    font-size: 12px;
+    color: #20c0f0;
+}
+
+.content .bet-panel ul li a {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 13px;
+    padding: 0.25rem 0.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.content .bet-panel ul li a > div {
+    display: table;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+    padding: 0 9px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@media only screen and (max-width: 320px) {
+    .content .bet-panel ul li a > div {
+        padding: 0;
+        font-size: 11px;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .content .bet-panel ul li a > div {
+        padding: 0 5px;
+    }
+}
+
+.content .bet-panel ul li a > div span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.content .ssc .bet-panel > ul li a {
+    padding: 0;
+}
+
+.content .ssc .bet-panel > ul li a div {
+    padding: 0;
+}
+
+.content .bet-option {
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    position: inherit;
+    height: calc(60% - 50px);
+    overflow: auto;
+    z-index: -1;
+    padding-bottom: 1rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-left: -3%;
+
+}
+
+.content .bet-option .bet-info {
+    width: inherit;
+    text-align: left;
+    color: #064377;
+}
+
+.content .bet-option .bet-info span {
+    font-size: 12px;
+}
+
+.content .bet-option .bet-choice ul {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.content .bet-option .bet-choice ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.content .bet-option .bet-choice .bet-game-label {
+    text-align: center;
+    font-size: 20px;
+    padding: 8px 0;
+    color: #064377;
+    border-radius: 4px;
+    background-color: rgba(32, 192, 240, 0.5);
+}
+
+.content .bet-option .bet-choice .bet-game-label .odds {
+    font-size: 10px;
+}
+
+.content .bet-option .bet-choice .top-bar ul li {
+    border-top: 2px solid #178fd8;
+    border-radius: 5px;
+    display: block;
+    background-color: #064377;
+    -ms-flex: 1 0 18%;
+    flex: 1 0 18%;
+    margin: 2px;
+    text-align: center;
+}
+
+.content .bet-option .bet-choice .top-bar ul li.active {
+    background-color: #e2461b;
+    border-top: 2px solid #f2665e;
+}
+
+.content .bet-option .bet-choice .top-bar ul li a {
+    font-size: 12px;
+    display: block;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 1% auto;
+    height: 26px;
+    background: url("./img/cars.png");
+    background-size: 196px;
+    background-position: 0px 0px;
+    z-index: 1;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:after {
+    content: "";
+    position: absolute;
+    background-color: rgba(55, 55, 55, 0.2);
+    height: 10px;
+    margin: auto;
+    right: 0;
+    bottom: 24%;
+    left: 0;
+    width: 90px;
+    border-radius: 50%;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:nth-child(2):before {
+    background-position: 100px 0px;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:nth-child(3):before {
+    background-position: 0px -30px;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:nth-child(4):before {
+    background-position: 100px -30px;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:nth-child(5):before {
+    background-position: 0px -60px;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:nth-child(6):before {
+    background-position: 100px -60px;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:nth-child(7):before {
+    background-position: 0px -87px;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:nth-child(8):before {
+    background-position: 100px -87px;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:nth-child(9):before {
+    background-position: 0px -116px;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li:nth-child(10):before {
+    background-position: 100px -116px;
+}
+
+.content .bet-option .bet-choice .bottom-bar.cars ul li a {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    left: 0;
+}
+
+.content .bet-option .bet-choice .bottom-bar ul li {
+    -ms-flex: 1 0 48%;
+    flex: 1 0 47%;
+    position: relative;
+    height: 4.5rem;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 5rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar ul li.active {
+    background: #707070;
+    background: -webkit-gradient(linear, left top, left bottom, from(#707070), to(#707070));
+    background: -webkit-linear-gradient(top, #707070 0%, #707070 100%);
+    background: -o-linear-gradient(top, #707070 0%, #707070 100%);
+    background: linear-gradient(to bottom, #707070 0%, #707070 100%);
+}
+
+.content .bet-option .bet-choice .bottom-bar ul li a {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    line-height: 1.6rem;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    left: 0;
+}
+
+.content .bet-option .bet-choice .four-bar ul {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.content .bet-option .bet-choice .four-bar ul.single-row li {
+    -ms-flex: 1 0 99%;
+    flex: 1 0 99%;
+}
+
+.content .bet-option .bet-choice .four-bar ul li {
+    -ms-flex: 1 0 48%;
+    flex: 1 0 48%;
+    position: relative;
+    margin: 2px;
+    border-radius: 5px;
+    text-align: center;
+    background: #12679f;
+    background: -webkit-gradient(linear, left top, left bottom, from(#12679f), to(#064377));
+    background: -webkit-linear-gradient(top, #12679f 0%, #064377 100%);
+    background: -o-linear-gradient(top, #12679f 0%, #064377 100%);
+    background: linear-gradient(to bottom, #12679f 0%, #064377 100%);
+    color: #fff;
+    padding: 6px 0;
+}
+
+.content .bet-option .bet-choice .four-bar ul li.active {
+    background: #e2461b;
+    background: -webkit-gradient(linear, left top, left bottom, from(#e2461b), to(#c82931));
+    background: -webkit-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: -o-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: linear-gradient(to bottom, #e2461b 0%, #c82931 100%);
+}
+
+.content .bet-option .bet-choice .four-bar ul li h1 {
+    font-size: 20px;
+    color: #fff;
+}
+
+.content .bet-option .bet-choice .four-bar ul li p {
+    font-size: 10px;
+}
+
+.content .bet-option .bet-choice .four-bar ul li a {
+    font-size: 10px;
+    display: block;
+}
+
+.content .bet-option .bet-choice .two-bar ul {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.content .bet-option .bet-choice .two-bar ul li {
+    -ms-flex: 1 0 48%;
+    flex: 1 0 48%;
+}
+
+.content .bet-option .bet-choice .two-panel ul li {
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 30px;
+}
+
+.content .bet-option .bet-choice .two-panel ul li > span {
+    -ms-flex: 1 0 40%;
+    flex: 1 0 40%;
+    border-top: 2px solid #178fd8;
+    border-radius: 5px;
+    display: block;
+    background-color: #064377;
+    margin: 2px;
+    text-align: center;
+}
+
+.content .bet-option .bet-choice .two-panel ul li > span a {
+    font-size: 12px;
+    display: block;
+    line-height: 25px;
+}
+
+.content .bet-option .bet-choice .two-panel ul li .label {
+    -ms-flex: 1 0 56%;
+    flex: 1 0 56%;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px;
+    color: #064377;
+    border-radius: 4px;
+    margin: 2px 5px;
+    background-color: rgba(32, 192, 240, 0.5);
+    height: 26px;
+}
+
+.content .bet-option .bet-choice .two-panel ul li .label span {
+    -ms-flex: 1 0 50%;
+    flex: 1 0 50%;
+    text-align: center;
+    line-height: 22px;
+}
+
+.content .bet-option .bet-choice .two-panel ul li.active > span {
+    background-color: #e2461b;
+    border-top: 2px solid #f2665e;
+}
+
+.content .bet-option .bet-choice .small-choice {
+    margin-top: 4px;
+}
+
+.content .bet-option .bet-choice .small-choice ul {
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.content .bet-option .bet-choice .small-choice ul.small-margin li {
+    margin: 2px;
+}
+
+.content .bet-option .bet-choice .small-choice ul li {
+    -ms-flex: 0 0 18%;
+    flex: 0 0 18%;
+    margin: 2px;
+    height: 40px;
+    font-size: 12px;
+    line-height: 12px;
+    margin: 2px 2px 5px;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    background: #12679f;
+    background: -webkit-gradient(linear, left top, left bottom, from(#12679f), to(#064377));
+    background: -webkit-linear-gradient(top, #12679f 0%, #064377 100%);
+    background: -o-linear-gradient(top, #12679f 0%, #064377 100%);
+    background: linear-gradient(to bottom, #12679f 0%, #064377 100%);
+    color: #fff;
+}
+
+.content .bet-option .bet-choice .small-choice ul li.active {
+    background: #e2461b;
+    background: -webkit-gradient(linear, left top, left bottom, from(#e2461b), to(#c82931));
+    background: -webkit-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: -o-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: linear-gradient(to bottom, #e2461b 0%, #c82931 100%);
+}
+
+.content .bet-option .bet-choice .small-choice ul li a {
+    display: block;
+    line-height: 38px;
+}
+
+.content .bet-option .bet-choice .small-choice ul li .odds {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -14px;
+    font-size: 10px;
+    color: #064377;
+}
+
+.content .bet-option .closed .bet-choice {
+    opacity: 0.7;
+}
+
+.content .bet-option .closed .bet-choice li {
+    pointer-events: none;
+}
+
+.content .bet-option .closed .bet-choice a {
+    pointer-events: none;
+}
+
+.content .rules {
+    font-size: 12px;
+    position: fixed;
+    height: 50%;
+    width: 82%;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.content .report {
+    width: 78%;
+    height: 50%;
+    position: fixed;
+    overflow: auto;
+}
+
+.content .report .wrapper {
+    position: relative;
+}
+
+.content .report .wrapper .tab-switch {
+    height: 28px;
+}
+
+.content .report .wrapper .tab-switch ul {
+    display: -ms-flexbox;
+    display: flex;
+    height: inherit;
+}
+
+.content .report .wrapper .tab-switch ul li {
+    -ms-flex: 1 0 50%;
+    flex: 1 0 50%;
+    background: -webkit-gradient(linear, left top, left bottom, from(#12679f), to(#064377));
+    background: -webkit-linear-gradient(top, #12679f 0%, #064377 100%);
+    background: -o-linear-gradient(top, #12679f 0%, #064377 100%);
+    background: linear-gradient(to bottom, #12679f 0%, #064377 100%);
+    text-align: center;
+    line-height: 25px;
+    border-top: 3px solid #178fd8;
+}
+
+.content .report .wrapper .tab-switch ul li:first-child {
+    border-radius: 7px 0 0 7px;
+}
+
+.content .report .wrapper .tab-switch ul li:last-child {
+    border-radius: 0 7px 7px 0;
+}
+
+.content .report .wrapper .tab-switch ul li.active {
+    background: -webkit-gradient(linear, left top, left bottom, from(#e2461b), to(#c82931));
+    background: -webkit-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: -o-linear-gradient(top, #e2461b 0%, #c82931 100%);
+    background: linear-gradient(to bottom, #e2461b 0%, #c82931 100%);
+    border-top: 3px solid #f2665e;
+}
+
+.content .report .wrapper .tab-switch ul li.active a {
+    color: #f8ae4c;
+}
+
+.content .report .wrapper .tab-switch ul li a {
+    color: #178fd8;
+    text-decoration: none;
+    font-size: 12px;
+    display: block;
+}
+
+.content .report .wrapper .tab-content {
+    height: 100%;
+}
+
+.content .report .wrapper .tab-content .date-selector {
+    height: 20px;
+}
+
+.content .report .wrapper .tab-content .table {
+    width: 100%;
+    font-size: 12px;
+}
+
+.content .report .wrapper .tab-content .table table {
+    width: inherit;
+}
+
+.content .report .wrapper .tab-content .table table thead,
+.content .report .wrapper .tab-content .table table tbody,
+.content .report .wrapper .tab-content .table table tfoot {
+    text-align: center;
+}
+
+.content .bet-panel ul .cosone {
+    color: #000000;
+    background: #efcf0d;
+    border-radius: 15px;
+    border-right: 1px solid #efcf0d;
+    background: -webkit-gradient(linear, left top, left bottom, from(#efcf0d), to(#efcf0d));
+    background: -webkit-linear-gradient(top, #efcf0d 0%, #efcf0d 100%);
+    background: -o-linear-gradient(top, #efcf0d 0%, #efcf0d 100%);
+    background: linear-gradient(to bottom, #efcf0d 0%, #efcf0d 100%);
+}
+
+.content .bet-panel ul .cosone div span {
+    color: #000000;
+}
+
+.content .bet-option .bet-choice .bottom-bar .bet-choice .tabtwo ul .tlione {
+    background: #fc041a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fc041a), to(#fc041a));
+    background: -webkit-linear-gradient(top, #fc041a 0%, #fc041a 100%);
+    background: -o-linear-gradient(top, #fc041a 0%, #fc041a 100%);
+    background: linear-gradient(to bottom, #fc041a 0%, #fc041a 100%);
+}
+
+.content .bet-option .bet-choice .bottom-bar .bet-choice .tabtwos ul .tlione {
+    background: #fc041a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fc041a), to(#fc041a));
+    background: -webkit-linear-gradient(top, #fc041a 0%, #fc041a 100%);
+    background: -o-linear-gradient(top, #fc041a 0%, #fc041a 100%);
+    background: linear-gradient(to bottom, #fc041a 0%, #fc041a 100%);
+}
+
+.content .bet-option .bet-choice .bottom-bar .bet-choice .tabtwo ul .beishu {
+    color: #fcf905;
+}
+
+.content .bet-option .bet-choice .bottom-bar .bet-choice .tabtwos ul .beishu {
+    color: #fcf905;
+}
+
+.jiachu {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.fontjuz {
+    text-align: center;
+    color: red;
+    height: 60px;
+    line-height: 60px;
+    font-size: 25px;
+}
+
+.xialakuan {
+    font-size: 40px;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    border-bottom: 5px solid white;
+    padding-bottom: 2.5px;
+    background: #707070;
+    background: -webkit-gradient(linear, left top, left bottom, from(#707070), to(#707070));
+    background: -webkit-linear-gradient(top, #707070 0%, #707070 100%);
+    background: -o-linear-gradient(top, #707070 0%, #707070 100%);
+    background: linear-gradient(to bottom, #707070 0%, #707070 100%);
+}
+
+/*494848*/
+.sub-menu:after {
+    content: ' ';
+    width: 40px;
+    height: 40px;
+    background: #707070;
+    position: absolute;
+    right: 65px;
+    top: -20px;
+    transform: rotate(45deg);
+    transform-origin: bottom;
+    z-index: -1;
+    left: 38%;
+}
+
+.content .bet-option .bet-choice .bottom-bar .changpai ul li {
+    -ms-flex: 1 0 20%;
+    flex: 0 0 30%;
+    position: relative;
+    height: 2.5rem;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 2.5rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar .changpai ul li a {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    line-height: 2.5rem;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    left: 0;
+}
+
+.content .bet-option .bet-choice .bottom-bar .heihao ul li {
+    -ms-flex: 1 0 20%;
+    flex: 0 0 18%;
+    position: relative;
+    height: 3rem;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 3rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar .heihao ul li a {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    line-height: 3rem;
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+    left: 0;
+}
+
+.content .bet-option .bet-choice .bottom-bar .hezhi ul li {
+    -ms-flex: 1 0 20%;
+    flex: 0 0 18%;
+    position: relative;
+    height: 5rem;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 5rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar .erbuton ul li {
+    -ms-flex: 1 0 20%;
+    flex: 0 0 18%;
+    position: relative;
+    height: 5rem;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 5rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar .honhei ul li {
+    -ms-flex: 1 0 20%;
+    flex: 1 0 20%;
+    position: relative;
+    height: 5rem;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 5rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar .baozhi ul li {
+    -ms-flex: 1 0 20%;
+    flex: 1 0 30%;
+    position: relative;
+    height: 4rem;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 2rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar .erbuton ul li a {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    line-height: 1.5rem;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    left: 0;
+}
+
+.content .bet-option .bet-choice .bottom-bar .dui ul li {
+    -ms-flex: 1 0 20%;
+    flex: 1 0 30%;
+    position: relative;
+    height: 5rem;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 3rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar .danma ul li {
+    -ms-flex: 1 0 20%;
+    flex: 1 0 30%;
+    position: relative;
+    height: 5rem;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 3rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar .kuadui ul li {
+    -ms-flex: 1 0 20%;
+    flex: 0 0 18%;
+    position: relative;
+    height: 5rem;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: #494848;
+    background: -webkit-gradient(linear, left top, left bottom, from(#494848), to(#494848));
+    background: -webkit-linear-gradient(top, #494848 0%, #494848 100%);
+    background: -o-linear-gradient(top, #494848 0%, #494848 100%);
+    background: linear-gradient(to bottom, #494848 0%, #494848 100%);
+    line-height: 3rem;
+}
+
+.content .bet-option .bet-choice .bottom-bar .dui li a {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    line-height: 1.5rem;
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+    left: 0;
+}

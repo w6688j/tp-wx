@@ -1,0 +1,39 @@
+<div id="layui-m-layer0" class="layui-m-layer layui-m-layer1" index="0">
+    <div class="layui-m-layershade"></div>
+    <div class="layui-m-layermain">
+        <div class="layui-m-layersection">
+            <div class="layui-m-layerchild  layui-m-anim-up"
+                 style="position:fixed;bottom: 0;left:1%;width:98%; min-height:40%; border: none;border-top-left-radius: 10px; border-top-right-radius: 10px; -webkit-animation-duration: .5s; animation-duration: .5s;">
+                <div class="layui-m-layercont">
+                    <div class="score ajax_charge" style="padding-bottom: 20px;">
+                        <h4 class="game-tit game-tit-bg"><i class="iconfont"></i> <b>上分、下分</b><i
+                                class="iconfont close_layer"></i></h4>
+                        <div class="score-info">
+                            <div class="pic">
+                                <img src="{$userinfo.headimgurl}">
+                            </div>
+                            <div class="view">
+                                <a href="/Home/Select/wallet/type/5.html" class="log">上下分记录</a>
+                                <h4 style="text-align: left;">{$userinfo.nickname}</h4>
+                                <p>当前余额：{$userinfo.points}</p>
+                            </div>
+                        </div>
+                        <dl>
+                            <dt class="ftype">
+                                <a href="javascript:;" data-type="charge" class="on">上分</a>
+                                <a href="javascript:;" data-type="tixian">下分</a>
+                            </dt>
+                            <dd>
+                                <input type="number" name="money" data-max="{$userinfo.points}" step="0.1" placeholder="请输入上下分值">
+                            </dd>
+                        </dl>
+                        <div class="sub-btn">
+                            <a href="javascript:;" class="submit">确定操作</a>
+                        </div>
+                        <p style="padding: 10px;margin-top: 5px; color: #999;">请添加客服转账后，发起上下分申请！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

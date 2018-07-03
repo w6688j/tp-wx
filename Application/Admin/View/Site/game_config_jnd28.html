@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>后台 - pc28配置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>pc28配置</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form id="signform" action="{:U('Admin/Site/save_game_config')}" method="post" class="form-horizontal">
+                        <input type="hidden" name="game"  value="jnd28">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><h2>返水设置：</h2></label>
+                            <div class="col-sm-6">(返水设置不能为空，不能为0)</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否返水</label>
+                            <div class="col-sm-6">
+                                <input type="radio" value="1" <if condition="$config['jnd_is_fanshui'] eq 1">checked</if> class="i-checks" name="jnd_is_fanshui">是&nbsp;&nbsp;
+                                <input type="radio" value="0" <if condition="$config['jnd_is_fanshui'] eq 0">checked</if> class="i-checks" name="jnd_is_fanshui">否
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 游戏局数大于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_fs_jushu" value="{$config['jnd_fs_jushu']}" placeholder="" class="form-control"style="width: 100px;display: inline">局返水
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大于等于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_fs_jine_1" value="{$config['jnd_fs_jine_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="jnd_fs_bl_1" value="{$config['jnd_fs_bl_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大于等于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_fs_jine_2" value="{$config['jnd_fs_jine_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="jnd_fs_bl_2" value="{$config['jnd_fs_bl_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大于等于</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_fs_jine_3" value="{$config['jnd_fs_jine_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="jnd_fs_bl_3" value="{$config['jnd_fs_bl_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否返佣（分销）</label>
+                            <div class="col-sm-6">
+                                <input type="radio" value="1" <if condition="$config['jnd28_is_fenxiao'] eq 1">checked</if> class="i-checks" name="jnd28_is_fenxiao">是&nbsp;&nbsp;
+                                <input type="radio" value="0" <if condition="$config['jnd28_is_fenxiao'] eq 0">checked</if> class="i-checks" name="jnd28_is_fenxiao">否
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大、小、单、双</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_dx" value="{$config['jnd_dx']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">13/14特殊情况</label>
+                            <div class="col-sm-6">
+                                当总注小于<span>{$config['jnd_ds_jq_1']}时。</span>13、14<input type="text" name="jnd_ds_jq_x1_bl" value="{$config['jnd_ds_jq_x1_bl']}" placeholder="" class="form-control"style="width: 100px;display: inline">倍数
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-6">
+                                当总注大于<input type="text" name="jnd_ds_jq_1" value="{$config['jnd_ds_jq_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">13、14<input type="text" name="jnd_ds_jq_1_bl" value="{$config['jnd_ds_jq_1_bl']}" placeholder="" class="form-control"style="width: 100px;display: inline">倍数
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-6">
+                                当总注大于<input type="text" name="jnd_ds_jq_2" value="{$config['jnd_ds_jq_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">13、14<input type="text" name="jnd_ds_jq_2_bl" value="{$config['jnd_ds_jq_2_bl']}" placeholder="" class="form-control"style="width: 100px;display: inline">倍数
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-6">
+                                当总注大于<input type="text" name="jnd_ds_jq_3" value="{$config['jnd_ds_jq_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">13、14<input type="text" name="jnd_ds_jq_3_bl" value="{$config['jnd_ds_jq_3_bl']}" placeholder="" class="form-control"style="width: 100px;display: inline">倍数
+                            </div>
+
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="hr"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">选择大小单双的算法</label>
+                            <div class="col-sm-6">
+                                <input type="radio" value="1" <if condition="$config['jnd_dxds_swich'] eq 1">checked</if> class="i-checks" name="jnd_dxds_swich">算法【一】&nbsp;&nbsp;
+                                <input type="radio" value="2" <if condition="$config['jnd_dxds_swich'] eq 2">checked</if> class="i-checks" name="jnd_dxds_swich">算法【二】
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大单、小单、大双、小双【算法一】</label>
+                            <div class="col-sm-6">
+                                统一倍率：<input type="text" name="jnd_dxds" value="{$config['jnd_dxds']}" placeholder="输入赔率" class="form-control"style="width: 100px;display: inline"> 13/14特殊号码：<input type="text" name="jnd_dxds_13_14" value="{$config['jnd_dxds_13_14']}" placeholder="输入赔率" class="form-control"style="width: 100px;display: inline">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大单、小单、大双、小双【算法二】</label>
+                            <div class="col-sm-6">
+                                大双：<input type="text" name="jnd_dxds_dsxd" value="{$config['jnd_dxds_dsxd']}" placeholder="" class="form-control"style="width: 100px;display: inline">
+                                小单：<input type="text" name="jnd_dxds_dsxdxiaodan" value="{$config['jnd_dxds_dsxdxiaodan']}" placeholder="" class="form-control"style="width: 100px;display: inline">
+                                小双：<input type="text" name="jnd_dxds_xsdd" value="{$config['jnd_dxds_xsdd']}" placeholder="" class="form-control"style="width: 100px;display: inline">
+                                大单：<input type="text" name="jnd_dxds_xsdddss" value="{$config['jnd_dxds_xsdddss']}" placeholder="" class="form-control"style="width: 100px;display: inline">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-6">
+                                当总注小于<span>{$config['jnd_dxds_jq_1']}时。</span>13、14<input type="text" name="jnd_dxds_jq_x1_bl" value="{$config['jnd_dxds_jq_x1_bl']}" placeholder="" class="form-control"style="width: 100px;display: inline">倍数
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-6">
+                                当总注大于<input type="text" name="jnd_dxds_jq_1" value="{$config['jnd_dxds_jq_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">13、14<input type="text" name="jnd_dxds_jq_1_bl" value="{$config['jnd_dxds_jq_1_bl']}" placeholder="" class="form-control"style="width: 100px;display: inline">倍数
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-6">
+                                当总注大于<input type="text" name="jnd_dxds_jq_2" value="{$config['jnd_dxds_jq_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">13、14<input type="text" name="jnd_dxds_jq_2_bl" value="{$config['jnd_dxds_jq_2_bl']}" placeholder="" class="form-control"style="width: 100px;display: inline">倍数
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-6">
+                                当总注大于<input type="text" name="jnd_dxds_jq_3" value="{$config['jnd_dxds_jq_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">13、14<input type="text" name="jnd_dxds_jq_3_bl" value="{$config['jnd_dxds_jq_3_bl']}" placeholder="" class="form-control"style="width: 100px;display: inline">倍数
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">极大、极小</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_jz" value="{$config['jnd_jz']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">顺子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_sz" value="{$config['jnd_sz']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">对子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_dz" value="{$config['jnd_dz']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">豹子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_bz" value="{$config['jnd_bz']}" placeholder="输入赔率" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">和值（勿打乱顺序）</label>
+                            <div class="col-sm-6">
+                                <textarea type="text" name="jnd_hezhi_bv" value="{$config['jnd_hezhi_bv']}" placeholder="{$config['jnd_hezhi_bv']}" class="form-control">{$config['jnd_hezhi_bv']}
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><h3>设定下注金额：</h3></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">最低下注金额</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd28_zuidi" value="{$config['jnd28_zuidi']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">单注封顶：</label>
+                            <div class="col-sm-6">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大、小、单、双</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_check_dx" value="{$config['jnd_check_dx']}" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">大单、小单、大双、小双</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_check_dxds" value="{$config['jnd_check_dxds']}" placeholder="输入" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">极值</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_check_jz" value="{$config['jnd_check_jz']}" placeholder="输入" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">和值</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_check_hezhi" value="{$config['jnd_check_hezhi']}" placeholder="输入" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">豹子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_check_bz" value="{$config['jnd_check_bz']}" placeholder="输入" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">顺子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_check_sz" value="{$config['jnd_check_sz']}" placeholder="输入" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">对子</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_check_dz" value="{$config['jnd_check_dz']}" placeholder="输入" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">单局最高总金额</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="jnd_all_jine" value="{$config['jnd_all_jine']}" placeholder="输入" class="form-control">
+                            </div>
+                        </div>
+                        <span style="color: red;">*赔率为含本赔率  <br><br>** 修改了下注金额限定，请联系服务商，服务器重启worker服务</span>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="__PUBLIC__/Admin/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".i-checks").iCheck({
+            checkboxClass: "icheckbox_square-green",
+            radioClass: "iradio_square-green",
+        })
+    });
+</script>
+<script>
+    $(function(){
+        $('#signform').ajaxForm({
+            success: complete,
+            dataType: 'json'
+        });
+        function complete(data){
+            if(data.status==1){
+                $('.btn-primary').attr('disabled','disabled');
+                layer.msg(data.info, function(index){
+                    layer.close(index);
+                    window.location.href=data.url;
+                });
+            }else{
+                layer.msg(data.info);
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

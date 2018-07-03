@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>后台 - 会员管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+<style>
+    /*分页样式*/
+    .pages a,.pages span {
+        display:inline-block;
+        padding:4px 7px;
+        margin:0 2px;
+        border:1px solid #D5D4D4;
+        -webkit-border-radius:1px;
+        -moz-border-radius:1px;
+        border-radius:1px;
+    }
+    .pages a,.pages li {
+        display:inline-block;
+        list-style: none;
+        text-decoration:none; color:#3399ff;
+    }
+
+    .pages a:hover{
+        border-color:#3399ff;
+    }
+    .pages span.current{
+        background:#3399ff;
+        color:#FFF;
+        font-weight:700;
+        border-color:#3399ff;
+    }
+    .pages{
+        text-align: center;
+    }
+    /*分页样式*/
+
+    .layui-layer{
+        top:48px !important;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <button class="btn btn-primary" type="submit" onclick="location.reload()">刷新</button>
+                    <!--<h5>用户管理</h5>-->
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-3">
+
+
+                            <if condition="$allsum eq ''">  <else/>  <span>查询总竞猜金额:{$allsum}</span></if>
+                        </div>
+                        <div class="col-sm-9">
+                            <form method="get" action="{:U('Admin/Order/overtime')}">
+                                <div class="input-group">
+                                    <!--<input type="hidden" name="game"class="game">-->
+                                    <div class="col-sm-3">
+                                    <select name="selectgame" class="form-control" lay-verify="required">
+                                        <option value="">全部</option>
+                                        <option  <if condition="$game eq jscar">selected='selected'</if>  value="jscar">极速赛车</option>
+                                        <option  <if condition="$game eq jsssc">selected='selected'</if>  value="jsssc">极速时时彩</option>
+                                        <option <if condition="$game eq bj28">selected='selected'</if>  value="bj28">北京28</option>
+                                        <option <if condition="$game eq jnd28">selected='selected'</if>  value="jnd28">加拿大28</option>
+                                        <option <if condition="$game eq ssc">selected='selected'</if>  value="ssc">时时彩</option>
+                                        <option <if condition="$game eq pk10">selected='selected'</if>  value="pk10">北京赛车</option>
+                                        <option <if condition="$game eq fei">selected='selected'</if>  value="fei">飞艇</option>
+                                        <option <if condition="$game eq kuai3">selected='selected'</if>  value="kuai3">快3</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select name="is_add" class="form-control" >
+                                            <option  <if condition="$is_add eq ''">selected='selected'</if> value="">全部</option>
+                                            <option  <if condition="$is_add eq 1">selected='selected'</if>  value="1">已结算</option>
+                                            <option  <if condition="$is_add eq 3">selected='selected'</if>  value="0">未结算</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" placeholder="请输入期号" name="qihao" class="input-sm form-control">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" placeholder="请输入id" name="userid" class="input-sm form-control">
+                                    </div>
+                                    <span class="input-group-btn">
+	                                <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+
+
+                            </form>
+                            <!--<form method="post" action="{:U('Admin/Member/index')}">-->
+                                <!--<div class="input-group">-->
+                                    <!--<input type="text" required="required" placeholder="请输入用户id" name="userid" class="input-sm form-control"> <span class="input-group-btn">-->
+	                                    	<!--<button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>-->
+                                <!--</div>-->
+                            <!--</form>-->
+                        </div>
+
+
+                    </div>
+                    <div class="" >
+                        <table class="table table-striped table-hover table-bordered" style="width:auto;overflow:auto;display:inline-block;">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>开奖</th>
+                                <th>用户名</th>
+                                <th>期数</th>
+                                <th>游戏</th>
+                                <th>内容</th>
+                                <th>竞猜金额</th>
+                                <th>结果</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo">
+                                <tr>
+                                    <td width="">{$vo.id}</td>
+                                    <td width="" class ='getjilu' game ='{$vo.game}' qihao ='{$vo.number}'></td>
+                                    <td width="">{$vo.nickname}</td>
+                                    <td width="">{$vo.number}</td>
+                                    <td width="">{$vo.game}</td>
+                                    <td width="">{$vo.jincai}</td>
+                                    <td width="">{$vo.del_points}</td>
+                                    <td width="">{$vo['add_points'] - $vo['del_points']}</td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pages">
+                        {$show}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".i-checks").iCheck({
+            checkboxClass: "icheckbox_square-green",
+            radioClass: "iradio_square-green",
+        })
+        $('.getjilu').click(function () {
+            var qihao = $(this).attr('qihao');
+            var game =$(this).attr('game');
+            var mubiao = $(this);
+            $.ajax({
+                url: "{:U('admin/Order/getkjjilu')}",
+                type: "post",
+                data:{'game':game,'qihao':qihao},
+                dataType:'json',
+                success:function(res){
+                    if(res ==''){
+                        layer.msg('游戏未开奖，如果长时间未开奖请手动开奖');
+                    }else {
+                        mubiao.text(res);
+                    }
+
+                }
+            });
+        })
+    });
+</script>
+<script>
+    function integral(id){
+        layer.open({
+            type: 2,
+            title: '会员上分',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['300px', '500px'],
+            content: "__APP__/Admin/Integral/index/id/" + id + ""
+        });
+    }
+    function under(id){
+        layer.open({
+            type: 2,
+            title: '会员下分',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['300px', '500px'],
+            content: "__APP__/Admin/Integral/under/id/" + id + ""
+        });
+    }
+    function tname(id){
+        layer.open({
+            type: 2,
+            title: '修改推荐人',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['300px', '500px'],
+            content: "__APP__/Admin/Integral/tname/id/" + id + ""
+        });
+    }
+    function setcode(id){
+        layer.open({
+            type: 2,
+            title: '修改密码',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['300px', '500px'],
+            content: "__APP__/Admin/Integral/setcode/id/" + id + ""
+        });
+    }
+    function disable(id){
+        layer.confirm('确定要禁用吗？禁用后将不能登录。', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="__APP__/Admin/Member/disable/id/" + id + ""
+        });
+    }
+    function endisable(id){
+        layer.confirm('确定要启用吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="__APP__/Admin/Member/endisable/id/" + id + ""
+        });
+    }
+    function gagdo(id){
+        layer.confirm('确定要将他禁言吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="__APP__/Admin/Member/gagdo/status/1/id/" + id + ""
+        });
+    }
+    function gagsdo(id){
+        layer.confirm('确定要取消禁言吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="__APP__/Admin/Member/gagdo/status/2/id/" + id + ""
+        });
+    }
+    function kefudo(id){
+        layer.confirm('确定要将他设为客服吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="__APP__/Admin/Member/kefudo/status/1/id/" + id + ""
+        });
+    }
+    function kefusdo(id){
+        layer.confirm('确定要取消客服吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="__APP__/Admin/Member/kefudo/status/2/id/" + id + ""
+        });
+    }
+    function shanchu(id) {
+        layer.confirm('确定要删除吗？删除用户会同时删除用户的下注和上下分记录', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="__APP__/Admin/Member/delete/id/" + id + ""
+        });
+    }
+//    $(".selectgame").change(function(){
+//    var aa = $(".selectgame").val();
+//    $(".game").val(aa);
+//    });
+</script>
+</body>
+
+
+</html>

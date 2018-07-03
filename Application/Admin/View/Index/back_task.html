@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>后台 - 主页</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="__PUBLIC__/Admin/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="__PUBLIC__/Admin/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper wrapper-content">
+<div class="row">
+    <div class="jumbotron">
+        <h1>请认真阅读</h1>
+        <p>
+            登录账号:<span class="label label-danger">{$user}</span>
+            登录密码:<span class="label label-danger">{$pass}</span>
+            <a class="btn btn-primary btn-lg" target="_blank" href="http://{$_SERVER['HTTP_HOST']}:800/" role="button">控制地址</a>
+
+        </p>
+        <p>
+            name:flying-开头的表示是飞单服务,如果没有进行飞单可以关闭<br />
+            name:kj开头的表示开奖服务.正常开奖程序稳定在98%以上.如果卡掉可以进行重启操作,如重启仍然无法解决开奖问题,需联系客服处理<br />
+            name:workerman开头的是聊天服务,本服务关闭会导致无法投注.网站设置或者部分系统设置更改需要重启此服务.<br />
+
+            Restart 重启<br />
+            Stop 停止<br />
+            Clear_log 清除日志功能<br />
+            Tail -f查看日志一般用来查看飞单功能是否登录,是否正常飞单<br />
+            State 状态,绿色的表示正常运行,其他颜色表示有问题或者停止运行<br />
+            Restart all 重启全部服务<br />
+            Stop all 停止全部服务<br />
+
+        </p>
+        <div class="page-header">
+            <h1> <small class="alert alert-success">查看飞单是否正常请点击flying一行的tail-f 页面刷新显示正常的当前余额则表示已经正常登陆会正常工作,如果不能显示则表示登陆失败</small></h1>
+        </div>
+        <br />
+    </div>
+
+</div>
+</div>
+</body>
+</html>

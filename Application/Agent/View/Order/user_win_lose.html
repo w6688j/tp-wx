@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>代理后台 - 客户输赢</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+	</head>
+	<style>
+		/*分页样式*/
+		.pages a,.pages span {
+		    display:inline-block;
+		    padding:4px 7px;
+		    margin:0 2px;
+		    border:1px solid #D5D4D4;
+		    -webkit-border-radius:1px;
+		    -moz-border-radius:1px;
+		    border-radius:1px;
+		}
+		.pages a,.pages li {
+		    display:inline-block;
+		    list-style: none;
+		    text-decoration:none; color:#3399ff;
+		}
+
+		.pages a:hover{
+		    border-color:#3399ff;
+		}
+		.pages span.current{
+		    background:#3399ff;
+		    color:#FFF;
+		    font-weight:700;
+		    border-color:#3399ff;
+		}
+		.pages{
+			text-align: center;
+		}
+		/*分页样式*/
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated fadeInRight">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<!--<h5>每日输赢</h5>-->
+							<button class="btn btn-primary" type="submit" onclick="location.reload()">刷新</button>
+						</div>
+						<div class="ibox-content">
+							<div class="row">
+								<div class="col-sm-12">
+									<form method="get" action="{:U('agent/Order/user_win_lose')}">
+										<div class="input-group">
+											<div class="col-sm-4"><input type="text" placeholder="请选择时间" id="time" name="time" class="form-control"></div>
+											<div class="col-sm-4"><input type="text" placeholder="请选择开始时间" id="time1" name="time1" class="form-control"></div>
+											<div class="col-sm-4"><input type="text" placeholder="请选择结束时间" id="time2" name="time2" class="form-control"></div>
+											<div class="col-sm-4"><input type="text" placeholder="请输入用户id" name="userid" class="form-control"></div>
+											<div class="col-sm-4"><input type="text" placeholder="请输入用户名" name="nickname" class="input-sm form-control"></div>
+											<div class="col-sm-4">
+												<input type="radio" name="gtime" value="1" >今天
+												<input type="radio" name="gtime" value="2" >昨天
+												<input type="radio" name="gtime" value="3" >三天
+												<input type="radio" name="gtime" value="4" >近7天
+												<input type="radio" name="gtime" value="5" >本月
+												<input type="radio" name="gtime" value="6" >上月
+											</div>
+											<span class="input-group-btn"><button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-striped table-hover table-bordered">
+									<thead>
+										<tr>
+											<th>时间</th>
+											<th>UID</th>
+											<th>用户名</th>
+											<th>上分</th>
+											<th>下分</th>
+											<th>下注流水</th>
+											<th>派彩</th>
+											<th>(彩金+红包)</th>
+											<th>佣金(前一天)</th>
+											<th>反水(前一天)</th>
+											<th>输赢</th>
+											<th>总输赢</th>
+											<th>团队上分</th>
+										</tr>
+									</thead>
+									<tbody>
+									<volist name="date" id="vo">
+										<tr>
+											<td width="100">{$times}<empty name="times2"><else/>—{$times2}</empty></td>
+											<td width="100">{$vo['userid']}</td>
+											<td width="100">{$vo['nickname']}</td>
+											<td width="100">{$vo.shangfen}</td>
+											<td width="100">{$vo.xiafen}</td>
+											<td width="100">{$vo.del_points}</td>
+											<td width="100">{$vo.add_points}</td>
+											<td width="100">{$vo.commisssion}</td>
+											<td width="100">{$vo.zhengsong}</td>
+											<td width="100">{$vo.fanshui}</td>
+											<td width="100">
+												{$vo['del_points']-$vo['add_points']}
+											</td>
+											<td width="100">
+												{$vo['del_points']-$vo['add_points']-$vo['commisssion']-$vo['zhengsong']-$vo['fanshui']}
+											</td>
+											<td width="100">{$vo.td}</td>
+										</tr>
+									</volist>
+									<tr>
+										<td width="100" colspan="3"></td>
+										<td width="100">{$dats.shangfen}</td>
+										<td width="100">{$dats.xiafen}</td>
+										<td width="100">{$dats.del_points}</td>
+										<td width="100">{$dats.add_points}</td>
+										<td width="100">{$dats.commisssion}</td>
+										<td width="100">{$dats.zhengsong}</td>
+										<td width="100">{$dats.fanshui}</td>
+										<td width="100">
+											{$dats['del_points']-$dats['add_points']}
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+		<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/layer/laydate/laydate.js"></script>
+		<script src="__PUBLIC__/Common/layer/layer.js"></script>
+		<script>
+            laydate.render({
+                elem: '#time'
+            });
+            laydate.render({
+                elem: '#time1'
+                ,type: 'datetime'
+            });
+            laydate.render({
+                elem: '#time2'
+                ,type: 'datetime'
+            });
+		</script>
+		<script>
+			$(document).ready(function() {
+				$(".i-checks").iCheck({
+					checkboxClass: "icheckbox_square-green",
+					radioClass: "iradio_square-green",
+				})
+			});
+		</script>
+		<script>
+			function del(id){
+				layer.confirm('确定要删除吗？', {
+				  	btn: ['确定','取消'] //按钮
+				}, function(){
+				  	window.location.href="__APP__/Admin/Robot/del/id/" + id + ""
+				});
+			}
+		</script>
+	</body>
+
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html id="iframe">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{:C('sitename')}</title>
+    <meta name="keywords" content="{:C('keyword')}">
+    <meta name="description" content="{:C('content')}">
+
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="telephone=no"  content="format-detection">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/lib.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/page.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Select/css/font-awesome-4.7.0/css/font-awesome.css">
+</head>
+<body>
+<div style="background: black;color: white;height: 38px; text-align: center">
+    <a style="color: white" href="#"onClick="javascript :history.back(-1);"><i style="    line-height: 38px;float: left;padding-left: 10px;" class=" fa fa-angle-left fa-2x"></i></a><h3 style="font-size: 15px;    line-height: 38px;">支付宝转账</h3>
+</div>
+<div>
+    <img style="width: 100%;padding: 23px 48px;" src="/Uploads{$zhifubao.kefu}">
+</div>
+<div style="padding-left: 25px;">
+    <span style="border-left: 3px solid red;padding-left: 10px;font-size: 13px;">识别二维码付款后再填写转账金额提交</span>
+</div><br>
+<div style="padding-left: 25px;">
+    <span style="color: red">存款金额*</span>
+</div><br>
+<div style="    text-align: center;">
+    <input class="jine" style="    border: 1px solid #b7b7b7;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 80%;"name ="money" placeholder="请填写转账的金额 （1-20W）">
+</div>
+<br>
+<div style="    text-align: center;">
+    <button onclick="javascript:{this.disabled=true;}"  class="tijiao" style="    background: #42a6ff;
+    color: white;
+    padding: 5px;
+    width: 68%;
+    height: 35px;
+    border-radius: 5px;">提交</button>
+</div>
+</body>
+<script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script>
+
+    $(".tijiao").click(function () {
+        var sum  ='';
+        sum  = $('.jine').val();
+        var url = 'zhifubao';
+        var data = {'sum':sum,'type':'alipay','type2':'1'};
+        $.post(url,data,function(result){
+            var obj = JSON.parse(result);
+            if(obj.status == 0){
+                layer.msg('提交成功');
+                setTimeout(function() {
+                    window.location.href="{:U('Home/Dan/index')}"
+                }, 1000);
+            }else {
+                layer.msg("提交失败");
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            }
+        });
+    })
+</script>
+
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>后台 - pk10配置</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+	</head>
+
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated fadeInRight">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>极速赛车配置</h5>
+							<div class="ibox-tools">
+								<a class="collapse-link">
+									<i class="fa fa-chevron-up"></i>
+								</a>
+							</div>
+						</div>
+						<div class="ibox-content">
+							<form id="signform" action="{:U('Admin/Site/save_game_config')}" method="post" class="form-horizontal">
+								<input type="hidden" name="game"  value="jscar">
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><h2>返水设置：</h2></label>
+									<div class="col-sm-6">(返水设置不能为空，不能为0)</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">是否返水</label>
+									<div class="col-sm-6">
+										<input type="radio" value="1" <if condition="$config['jscar_is_fanshui'] eq 1">checked</if> class="i-checks" name="jscar_is_fanshui">是&nbsp;&nbsp;
+										<input type="radio" value="0" <if condition="$config['jscar_is_fanshui'] eq 0">checked</if> class="i-checks" name="jscar_is_fanshui">否
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"> 游戏局数大于</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_fs_jushu" value="{$config['jscar_fs_jushu']}" placeholder="" class="form-control"style="width: 100px;display: inline">局返水
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">大于等于</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_fs_jine_1" value="{$config['jscar_fs_jine_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="jscar_fs_bl_1" value="{$config['jscar_fs_bl_1']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">大于等于</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_fs_jine_2" value="{$config['jscar_fs_jine_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="jscar_fs_bl_2" value="{$config['jscar_fs_bl_2']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label">大于等于</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_fs_jine_3" value="{$config['jscar_fs_jine_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">返水比例为 <input type="text" name="jscar_fs_bl_3" value="{$config['jscar_fs_bl_3']}" placeholder="" class="form-control"style="width: 100px;display: inline">(用小数点 例：0.2)
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">是否返佣（分销）</label>
+									<div class="col-sm-6">
+										<input type="radio" value="1" <if condition="$config['jscar_is_fenxiao'] eq 1">checked</if> class="i-checks" name="jscar_is_fenxiao">是&nbsp;&nbsp;
+										<input type="radio" value="0" <if condition="$config['jscar_is_fenxiao'] eq 0">checked</if> class="i-checks" name="jscar_is_fenxiao">否
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">1~10名猜大小单双</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_dxds" value="{$config['jscar_dxds']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">1~10名猜车号</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_chehao" value="{$config['jscar_chehao']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">1~10名猜组合(大单,小双)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_zuhe_1" value="{$config['jscar_zuhe_1']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">1~10名猜组合(小单,大双)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_zuhe_2" value="{$config['jscar_zuhe_2']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">1~5名猜龙虎</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_lh" value="{$config['jscar_lh']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚猜庄闲</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_zx" value="{$config['jscar_zx']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">猜冠亚号码</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_gy" value="{$config['jscar_gy']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和值(特码)(大，双)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_tema_1" value="{$config['jscar_tema_1']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和值(特码)(小，单)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_tema_2" value="{$config['jscar_tema_2']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和值(特码)猜数字(3.4.18.19)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_tema_sz_1" value="{$config['jscar_tema_sz_1']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和值(特码)猜数字(5.6.16.17)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_tema_sz_2" value="{$config['jscar_tema_sz_2']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和值(特码)猜数字(7.8.14.15)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_tema_sz_3" value="{$config['jscar_tema_sz_3']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和值(特码)猜数字(9.10.12.13)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_tema_sz_4" value="{$config['jscar_tema_sz_4']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和值(特码)猜数字(11)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_tema_sz_5" value="{$config['jscar_tema_sz_5']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和值(特码)猜区段(A,C)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_tema_qd_1" value="{$config['jscar_tema_qd_1']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和值(特码)猜区段(B)</label>
+								    <div class="col-sm-6">
+										<input type="text" name="jscar_tema_qd_2" value="{$config['jscar_tema_qd_2']}" placeholder="输入赔率" class="form-control">
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><h3>设定下注金额：</h3></label>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">最低下注金额</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_zuidi" value="{$config['jscar_zuidi']}" placeholder="" class="form-control">
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">单注封顶：</label>
+									<div class="col-sm-6">
+
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">大、小、单、双</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_dxds_bv" value="{$config['jscar_dxds_bv']}" placeholder="" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">大单、小单、大双、小双</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_zuhe_bv" value="{$config['jscar_zuhe_bv']}" placeholder="输入" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">数字</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_shuzi_bv" value="{$config['jscar_shuzi_bv']}" placeholder="输入" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">龙虎</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_longhu_bv" value="{$config['jscar_longhu_bv']}" placeholder="输入" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">闲庄</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_xz_bv" value="{$config['jscar_xz_bv']}" placeholder="输入" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_guanya_bv" value="{$config['jscar_guanya_bv']}" placeholder="输入" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">冠亚和</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_guanyahe_bv" value="{$config['jscar_guanyahe_bv']}" placeholder="输入" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">特码</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_tema_bv" value="{$config['jscar_tema_bv']}" placeholder="输入" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">ABC</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_tema_abc" value="{$config['jscar_tema_abc']}" placeholder="输入" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">单局最高总金额</label>
+									<div class="col-sm-6">
+										<input type="text" name="jscar_max_bv" value="{$config['jscar_max_bv']}" placeholder="输入" class="form-control">
+									</div>
+								</div>
+								<span style="color: red;">*赔率为含本赔率</span>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<div class="col-sm-4 col-sm-offset-2">
+										<button class="btn btn-primary" type="submit">保存信息</button>&nbsp;&nbsp;&nbsp;
+										<a class="btn btn-danger" href="{:U('Index/index')}">取消</a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+		<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+		<script src="__PUBLIC__/Admin/js/content.min.js?v=1.0.0"></script>
+		<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+		<script src="__PUBLIC__/Common/layer/layer.js"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$(".i-checks").iCheck({
+					checkboxClass: "icheckbox_square-green",
+					radioClass: "iradio_square-green",
+				})
+			});
+		</script>
+		<script>
+			$(function(){
+				$('#signform').ajaxForm({
+					success: complete, 
+					dataType: 'json'
+				});
+				function complete(data){
+					if(data.status==1){
+						$('.btn-primary').attr('disabled','disabled');
+						layer.msg(data.info, function(index){
+			 				layer.close(index);
+							window.location.href=data.url;
+						});
+					}else{
+						layer.msg(data.info);
+						return false;	
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

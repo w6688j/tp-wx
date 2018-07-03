@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{:C('sitename')}</title>
+    <meta content="user-scalable=no,maximum-scale=0.38,initial-scale=1,width=device-width" id="viewport" name="viewport">
+    <meta name='Robots' content='noindex,nofollow'/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/iconfont.css?v=20171101">
+    <link href="__PUBLIC__/Home/Carhome/css/layout.css?v=20171111" type="text/css" rel="stylesheet"/>
+    <link href="__PUBLIC__/Home/Carhome/css/wx.css?v=20171111" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var tz_types = ["1", "2", "3", "4", "5", "6"];
+        var ifa_height = 730;
+    </script>
+    <!--<link href="__PUBLIC__/Home/Carhome/css/common.css?v=20171101" rel="stylesheet" />-->
+    <link href="__PUBLIC__/Home/Carhome/css/chungking.css?v=20171101" rel="stylesheet" />
+    <script src="__PUBLIC__/Home/Carhome/js/cqssc_zh_cn.js?v=20171111" type="text/javascript"></script>
+    <script src="__PUBLIC__/Home/Carhome/js/games.js?v=20171111" type="text/javascript"></script>
+    <script src="__PUBLIC__/Home/Carhome/js/cqssc.js?v=20171111" type="text/javascript"></script>
+    <script src="__PUBLIC__/Home/Carhome/js/layer.js?v=20171111" type="text/javascript"></script>
+    <script src="__PUBLIC__/Home/Carhome/js/xsapp.js?v=20171111" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+</head>
+<style>
+    .bt-red{
+        background: #ff3c3c;
+        padding: 10px 13px;
+        color: white;
+        display: block;
+        border-radius: 10px;
+    }
+    .suoxiao{
+        height: 87px;
+    }
+</style>
+<body onload="connect()">
+<div class="frameTOP" style="    margin-bottom: 8px;">
+    <iframe id="idiframe" src="{:U('Home/Ssc/ssc_header2')}"scrolling="no" marginwidth='0'height="750px;" marginheight='0' width="100%" border='0'
+            class="ifarms" frameborder='no'></iframe>
+    <div class="neirong minmax" id="neirong" style="overflow: scroll;display: none">
+        <table id="tables" class="tables" border="0" cellpadding="1" cellspacing="1">
+            <tr>
+                <th class="th_1">期号</th>
+                <th class="th_22 no2 ">开奖号码<br><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i></th>
+                <th class="th_32">龙虎</th>
+                <th class="t3">特码大小</th>
+                <th class="t3">特码单双</th>
+                <th class="t3">ABC</th>
+                <th class="th_42">五球总和</th>
+            </tr>
+            <volist name = "list"   id = "vo">
+                <tr>
+                    <td class="qihao">{$vo.periodnumber}</td>
+                    <!--数字-->
+                    <td class="nn2">
+                        <?php
+							$number = $vo['awardnumbers'];
+                         $dataf =  explode(',',$number);
+                       foreach($dataf as $arr){
+                      echo "<img style='width: 29px' src='__PUBLIC__/Home/Carhome/images/pk10/s".$arr.".png'>";
+                        }
+                        ?>
+                    </td>
+                    <td class="lh">
+                        <img src="__PUBLIC__/Home/Carhome/images/pk10/<?php lh($vo['lh'])?>.png" style="width: 29px">
+                    </td>
+                    <td class="num3">{$vo.tema_dx}</td>
+                    <td class="num3">{$vo.tema_ds}</td>
+                    <td class="num3">{$vo.tema_abc}</td>
+                    <td class="tm2"><?php
+                    	$number = $vo['awardnumbers'];
+                         $dataf =  explode(',',$number);
+                            $sum=$dataf[0]+$dataf[1]+$dataf[2]+$dataf[3]+$dataf[4]+$dataf[5];
+                                echo $sum;
+                                    ?></td>
+                </tr>
+            </volist>
+        </table>
+    </div>
+    <div class="changlong cqssc_cl" style="display: none;">
+        <table style="width: 100%; background-color: rgba(255,255,255,0.7);" border='0' cellpadding='1' cellspacing='1'>
+            <tr>
+                <td width="49.5%" style="vertical-align: top;">
+                    <table id='changlong1' class="tables" border='0' cellpadding='1' cellspacing='1'>
+                    </table>
+                </td>
+                <td width="49.5%" style="vertical-align: top; background-color: rgba(230,230,230,0.7);">
+                    <table id='changlong2' class="tables" border='0' cellpadding='1' cellspacing='1'>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div style="      background: #656565;
+    color: white;
+    width: 91%;
+    height: 42px;
+    margin: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;"> <marquee style="    line-height: 42px;">{:C('youxitoptongzhi')}</marquee></div>
+<!--聊天主体  -->
+<div class="leftdiv">
+    <ul>
+        <li data-uri='/' class="ulogo ajax_uri on"><img
+                src="http://qimg.dgtztz.com/2017-11-08_5a031bc886004.jpg" class="mlogo show_load"/></li>
+        <li class="home" data-id="home"><span>菜单</span></li>
+        <li class="guess" data-id="touzu"><span>竞猜</span></li>
+        <li class="logsss" onclick="flashjilu();"data-id="tzlog" ><span>记录</span></li>
+        <li class="skefu" data-id="kefu"><span>客服<em>0</em></span></li>
+        <li class="fresh" data-id="reload"><span>刷新</span></li>
+        <li><span><a href="select"style="color: white">主页</a></span></li>
+    </ul>
+</div>
+<div id="frameRIGHTH">
+    <div class="nav_banner">
+        <ul class="lottery">
+            <li class="home" data-id="lottery">
+                <span> <i class="iconfont">&#xe683;</i>重庆时时彩</span>
+            </li>
+            <!--<li class="dh" data-id="donghua"><span>动画</span></li>-->
+            <li class="wz"><span>走势</span></li>
+            <!--<li class="cl" data-id="changlong"><span>长龙</span></li>-->
+            <li class="gz"><span>规则</span></li>
+            <!--<li class="sx" data-id='reload2'><span>更新动画</span></li>-->
+            <li class="xiaochuang" data-id='minmax'><span>小窗</span></li>
+            <if condition="C_set('chat_on_off') eq 1">
+            <li><span><a href="__APP__/Home/Chat" style="color: white">福利群</a></span></li>
+            </if>
+        </ul>
+        <ul class="uinfo">
+            <li class="uno">ID:<b>{$userinfo.id}</b></li>
+            <li class="uname">昵称:{$userinfo.nickname}</li>
+            <li class="money">余点: <b class="balance">{$userinfo.points}</b></li>
+            <li class="oline">在线: <b class="online" id="xs"></b>人</li>
+        </ul>
+    </div>
+    <div class='touzu rbox'>
+        <div class="user_messages">
+            <div class="keybord_box"></div>
+            <div class="keybord_div" id="keybord_div"></div>
+            <div class="txtbet_div" id="txtbet_div">
+                <div class="game-box">
+                    <div class="close"><i class="iconfont closebt">&#xe60d;</i></div>
+                    <div class="game-hd">
+                        <div class="menu">
+                            <ul>
+                                <li class="gameli"><a href="javascript:;" data-t="1" class="on">猜数字</a></li>
+                                <li class="gameli"><a href="javascript:;"  data-t="2">猜大小单双</a></li>
+                                <li class="gameli"><a href="javascript:;" data-t="5">特码竞猜</a></li>
+                                <li class="more-game">
+                                    <a href="javascript:;"><img src="__PUBLIC__/Home/Carhome/images/game-arrow.png"/></a>
+                                    <div class="sub-menu">
+                                        <a href="javascript:;" data-t="7">单码竞猜</a>
+                                        <a href="javascript:;" data-t="8">连码竞猜</a>
+                                        <a href="javascript:;" data-t="4">猜龙虎</a>
+                                        <a href="javascript:;" data-t="3">猜三球总和</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="infuse">
+                            <a href="javascript:void(0)" class="getkeybord"></a>
+                            <a href="javascript:;" class="clearnum"><i class="iconfont">清空所选 &#xe60d;</i></a>
+                            <em id="bet_num">共0注</em>
+                            <a href="javascript:;" class="confirm-pour"><i class="iconfont">&#xe60b; 确定下注</i></a>
+                        </div>
+                    </div>
+                    <div class="game-bd">
+
+                        <!--猜大小单双-->
+                        <div class="gamenum game-type-1">
+                            <div class="rank-tit"><span class="change"></span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn mini-btn" data-line="1">
+                                    <div class="h5">万</div>
+                                </a>
+                                <a href="javascript:;" class="btn mini-btn" data-line="2">
+                                    <div class="h5">千</div>
+                                </a>
+                                <a href="javascript:;" class="btn mini-btn" data-line="3">
+                                    <div class="h5">百</div>
+                                </a>
+                                <a href="javascript:;" class="btn mini-btn" data-line="4">
+                                    <div class="h5">十</div>
+                                </a>
+                                <a href="javascript:;" class="btn mini-btn" data-line="5">
+                                    <div class="h5">个</div>
+                                </a>
+                            </div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn large-btn" data-val="0">
+                                    <div class="h5">
+                                        <h5>0</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="1">
+                                    <div class="h5">
+                                        <h5>1</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="2">
+                                    <div class="h5">
+                                        <h5>2</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="3">
+                                    <div class="h5">
+                                        <h5>3</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="4">
+                                    <div class="h5">
+                                        <h5>4</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="5">
+                                    <div class="h5">
+                                        <h5>5</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="6">
+                                    <div class="h5">
+                                        <h5>6</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="7">
+                                    <div class="h5">
+                                        <h5>7</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="8">
+                                    <div class="h5">
+                                        <h5>8</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="9">
+                                    <div class="h5">
+                                        <h5>9</h5>
+                                        <p><em>× {$config['ssc_bl_sum']}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gamenum game-type-2">
+                            <div class="rank-tit"><span class="change">猜大小单双</span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn mini-btn" data-line="1">
+                                    <div class="h5">万</div>
+                                </a>
+                                <a href="javascript:;" class="btn mini-btn" data-line="2">
+                                    <div class="h5">千</div>
+                                </a>
+                                <a href="javascript:;" class="btn mini-btn" data-line="3">
+                                    <div class="h5">百</div>
+                                </a>
+                                <a href="javascript:;" class="btn mini-btn" data-line="4">
+                                    <div class="h5">十</div>
+                                </a>
+                                <a href="javascript:;" class="btn mini-btn" data-line="5">
+                                    <div class="h5">个</div>
+                                </a>
+                            </div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn" data-val="大">
+                                    <div class="h5">
+                                        <h5>大</h5>
+                                        <p>5、6、7、8、9</p>
+                                        <p><em>× {$config['ssc_bl_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn" data-val="小">
+                                    <div class="h5">
+                                        <h5>小</h5>
+                                        <p>0、1、2、3、4</p>
+                                        <p><em>×  {$config['ssc_bl_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn" data-val="单">
+                                    <div class="h5">
+                                        <h5>单</h5>
+                                        <p>1、3、5、7、9</p>
+                                        <p><em>×  {$config['ssc_bl_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn" data-val="双">
+                                    <div class="h5">
+                                        <h5>双</h5>
+                                        <p>0、2、4、6、8</p>
+                                        <p><em>×  {$config['ssc_bl_dxds']}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--猜数字-->
+                        <div class="gamenum game-type-3">
+                            <div class="rank-tit"><span class="change"></span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn2" data-line="前">
+                                    <div class="h5">
+                                        <h5>前三</h5>
+                                        <p>万、千、百</p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-line="中">
+                                    <div class="h5">
+                                        <h5>中三</h5>
+                                        <p>千、百、十</p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-line="后">
+                                    <div class="h5">
+                                        <h5>后三</h5>
+                                        <p>百、十、个</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn large-btn" data-val="豹子">
+                                    <div class="h5">
+                                        <h5>豹子</h5>
+                                        <p><em>× {$config['ssc_baozi_sqsum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="顺子">
+                                    <div class="h5">
+                                        <h5>顺子</h5>
+                                        <p><em>×{$config['ssc_sz_sqsum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="对子">
+                                    <div class="h5">
+                                        <h5>对子</h5>
+                                        <p><em>× {$config['ssc_duizi_sqsum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="半顺">
+                                    <div class="h5">
+                                        <h5>半顺</h5>
+                                        <p><em>× {$config['ssc_banshun_sqsum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="杂六">
+                                    <div class="h5">
+                                        <h5>杂六</h5>
+                                        <p><em>× {$config['ssc_liu_sqsum']}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--猜三球总和-->
+                        <div class="gamenum game-type-4">
+                            <div class="rank-tit"><span class="change"></span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn2" data-val="龙/">
+                                    <div class="h5">
+                                        <h5>龙</h5>
+                                        <p><em>×{$config['ssc_lh_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="虎/">
+                                    <div class="h5">
+                                        <h5>虎</h5>
+                                        <p><em>× {$config['ssc_laohu_sum']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="和/">
+                                    <div class="h5">
+                                        <h5>和</h5>
+                                        <p><em>× {$config['ssc_he_sum']}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--猜龙虎-->
+                        <div class="gamenum game-type-5">
+                            <div class="rank-tit"><span class="change"></span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn3" data-val="大">
+                                    <div class="h5">
+                                        <h5>大</h5>
+                                        <p><em>× {$config['ssc_zonghe_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="小">
+                                    <div class="h5">
+                                        <h5>小</h5>
+                                        <p><em>× {$config['ssc_zonghe_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="单">
+                                    <div class="h5">
+                                        <h5>单</h5>
+                                        <p><em>× {$config['ssc_zonghe_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="双">
+                                    <div class="h5">
+                                        <h5>双</h5>
+                                        <p><em>× {$config['ssc_zonghe_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="A">
+                                    <div class="h5">
+                                        <h5>A</h5>
+                                        <P>0-15</P>
+                                        <p><em>× {$config['ssc_a_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="B">
+                                    <div class="h5">
+                                        <h5>B</h5>
+                                        <P>16-29</P>
+                                        <p><em>× {$config['ssc_b_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="C">
+                                    <div class="h5">
+                                        <h5>C</h5>
+                                        <P>30-45</P>
+                                        <p><em>× {$config['ssc_c_dxds']}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--五球总和区段-->
+                        <!--单码竞猜-->
+                        <div class="gamenum game-type-7">
+                            <div class="rank-tit"><span class="change"></span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn large-btn" data-val="0">
+                                    <div class="h5">0</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="1">
+                                    <div class="h5">1</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="2">
+                                    <div class="h5">2</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="3">
+                                    <div class="h5">3</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="4">
+                                    <div class="h5">4</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="5">
+                                    <div class="h5">5</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="6">
+                                    <div class="h5">6</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="7">
+                                    <div class="h5">7</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="8">
+                                    <div class="h5">8</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="9">
+                                    <div class="h5">9</div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--连码码竞猜-->
+                        <div class="gamenum game-type-8">
+                            <div class="rank-tit"><span class="change"></span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn large-btn" data-val="0">
+                                    <div class="h5">0</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="1">
+                                    <div class="h5">1</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="2">
+                                    <div class="h5">2</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="3">
+                                    <div class="h5">3</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="4">
+                                    <div class="h5">4</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="5">
+                                    <div class="h5">5</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="6">
+                                    <div class="h5">6</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="7">
+                                    <div class="h5">7</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="8">
+                                    <div class="h5">8</div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="9">
+                                    <div class="h5">9</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="touzhu">
+                    <div class="pour-info">
+                        <h4 class="game-tit game-tit-bg">竞猜大小单双<a href="javascript:;" class="close">×</a></h3>
+                            <div class="m-bd">
+                                <h4>共<em class="bet_n">1</em>注，投注金额<em class="bet_total">0</em>元</h4>
+                                <dl>
+                                    <dt>
+                                        <span>下注金额：</span>
+                                        <input type="number" class="text text-right bet_money" placeholder="￥0.00"/>
+                                        <a href="javascript:;" class="money_clear"><i class="iconfont">&#xe63d;
+                                            清零</i></a>
+                                    </dt>
+                                    <dd>
+                                        <i class="m5" data-money='5'></i>
+                                        <i class="m10" data-money='10'></i>
+                                        <i class="m50" data-money='50'></i>
+                                        <i class="m100" data-money='100'></i>
+                                        <i class="m500" data-money='500'></i>
+                                        <i class="m1000" data-money='1000'></i>
+                                        <i class="m5000" data-money='5000'></i>
+                                    </dd>
+                                </dl>
+                                <div class="sub-btn">
+                                    <a href="javascript:;" class="cancel"><i class="iconfont">取消下注 &#xe60d;</i></a>
+                                    <a href="javascript:;" class="confirm"><i class="iconfont">&#xe60b; 确定下注</i></a>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="rightdiv">
+
+        </div>
+    </div>
+    <div class='kefu rbox off' style="text-align: center">
+        <img style="    margin-top: 14%; width: 50%;" src="__ROOT__/Uploads{$kefu.kefu}">
+        <br> <span style="color: #ff4444;">长按添加客服</span>
+        <!--<div class="user_messages">-->
+            <!--<input type="text" id='kfs'/> <span id="sendkf">发 送</span>-->
+        <!--</div>-->
+        <!--<div class="kfcs">-->
+            <!--<volist name = "liuyan"   id = "vo">-->
+                <!--<if condition="$vo['is_kefu'] eq 1">-->
+                    <!--<div class="saidright">-->
+                        <!--<img src="__ROOT__/Uploads{$kefu.kefu}">-->
+                        <!--<div class="tousaidl">-->
+                            <!--<span class="tousaid2">{$vo.time|date="H:i:s",###}</span>&nbsp;&nbsp;<span class="tousaid1">客服</span></div>-->
+                        <!--<div class="ts"><b></b><span class="neirongsaidl">{$vo.content}</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<else/>-->
+                    <!--<div class="saidright">-->
+                        <!--<img src="{$userinfo.headimgurl}"><div class="tousaidl">-->
+                        <!--<span class="tousaid2">{$vo.time|date="H:i:s",###}</span>&nbsp;&nbsp;<span class="tousaid1">{$userinfo.nickname}</span></div><div class="ts"><b></b>-->
+                        <!--<span class="neirongsaidl" style="background:#98E165;">{$vo.content}</span>-->
+                    <!--</div></div>-->
+                <!--</if>-->
+            <!--</volist>-->
+
+        <!--</div>-->
+    </div>
+    <div class="tzlog off rbox" data-uri="/index/mylog/lottery/cqssc.html">
+
+    </div>
+    <div class="guize off rbox" data-load="0" >
+        <div style="background-color: rgba(255, 255, 255, 0.5); border-radius: 20px; padding: 20px; line-height: 180%;">
+            <p class="text-center" style="white-space:normal;">
+                <span style="font-size:24px;color:#FF9900;">【游戏介绍】</span>
+            </p>
+            <p style="white-space:normal;">
+                【开奖时间】白天10:00至晚上21:55,  10分钟开奖一次，晚上22:00至凌晨02:00，5分钟开奖一次，全天共120期。
+            </p>
+            <p>玩法1【1~5球猜大小单双】<br>
+                (第1球)万、(第2球)千、(第3球)百、(第4球)十、(第5球)个位数中的结果大小单双竞猜。0-4为小，5-9为大；1、3、5、7、9为单，0、2、4、6、8为双。<br>
+                举例：竞猜"1大100"。开奖结果为：59436 【万】位数号码为"大"，视为中奖。<br>
+                举例：竞猜"3双100"。开奖结果为：59336 【百】位数号码为"单"，视为不中奖。<br>
+                例：123/双/100 = 万千百买双各100 = 总300<br>
+                玩法2【1~5球名猜数字】<br>
+                万(1)、千(2)、百(3)、十(4)、个(5)位数中分别从0～9中任意选择一个或一个以上号码竞猜。开奖结果与竞猜位数、号码相同即视为中奖，其余情形则视为不中奖。<br>
+                例：123/89/100 = 123球买8、9各买100 = 总600<br>
+                玩法3【前、中、后三球总和竞猜】<br>
+                分为选择前三总和【万千百】、中三总和【千百十】、后三总和【百十个】所竞猜位置的三位数开出号码为豹子、顺子、对子、半顺、杂六。<br>
+                豹子：如000、111..999等<br>
+                顺子：如234、890、901…等(顺序不限)<br>
+                对子：如001、288、585…等(不包括豹子)<br>
+                半顺：所竞猜位置的三位数开出号码任意两个顺序数字相连（不包括顺子、对子，号码9、0、1相连）。如235、378、283…等。<br>
+                ※如果开奖号码为前三顺子、前三对子，则前三半顺视为不中奖。<br>
+                杂六：所竞猜位置的三位数开出号码皆不相同且不能为连号，视为杂六。如179、264、802…等。<br>
+                ※如果开奖号码为中三豹子、中三顺子、中三对子、中三半顺，则杂六视为不中奖。<br>
+                格式：前中后/结果/金额<br>
+                例：前豹子100，中顺子100<br>
+                玩法4【龙虎竞猜】<br>
+                万位数为龙、个位数为虎，以万、个两位数比大小，号码0为最小、9为最大。开奖第一球万大于第五球个为龙，反之为虎。万、个两位数号码相同，则为和。<br>
+                格式：龙/金额    例：龙100、和100<br>
+                玩法5	【五求总和大小单双】<br>
+                总和大小：万、千、百、十、个五个位数加总作为开奖依据，五位数总和0~22为小，23~45为大。<br>
+                总和单双：万、千、百、十、个五个位数加总作为开奖依据，五位数总和1、3、5…43、45为单，总和0、2、4、6…42、44为双。<br>
+                例：总大200 特单100<br>
+                玩法6	【五求总和区段】<br>
+                五球总和(特码)开出的号码 0~15为A段，16~29为B段，30~45为C段。<br><br><br>
+            </p>
+        </div>
+    </div>
+    <div class="czhelp off rbox" data-load="0" data-uri="/index/help/data/czhelp/lottery/cqssc.html"><p class="loading">
+      充值联系客服<br>
+        <img src="__ROOT__/Uploads{$kefu.kefu}">
+    </p></div>
+</div>
+<div id="ss_menu">
+    <style type="text/css">li.disabled {
+        display: none;
+    }</style>
+    <div class="ss_nav">
+        <i class="iconfont close" data-id="#ss_menu"></i>
+        <ul class="lottery">
+            <if condition="C('pk10_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/Circle">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_pk10.png"></p><font> 北京赛车</font> </a>
+                </li>
+            </if>
+            <if condition="C('fei_on_off') eq 1">
+            <li class="show_load">
+                <a href="__APP__/Home/fei">
+                    <p><img src="__PUBLIC__/Home/Carhome/images/icon_xfft.png"></p><font> 幸运飞艇</font> </a>
+            </li>
+            </if>
+            <if condition="C('ssc_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/ssc">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_cqssc.png"></p><font> 时时彩</font> </a>
+                </li>
+            </if>
+            <if condition="C('kuai3_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/kuai3">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/jsks.png"></p><font> 快3</font> </a>
+                </li>
+            </if>
+            <if condition="C('bj28_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/Dan">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_bjpc.png"></p><font> 北京28</font> </a>
+                </li>
+            </if>
+            <if condition="C('jnd28_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/jnd">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_jnd.png"></p><font> 加拿大28 </font></a>
+                </li>
+            </if>
+            <if condition="C('jsssc_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/jsssc">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_jsssc.png"></p><font> 极速时时彩 </font></a>
+                </li>
+            </if>
+            <if condition="C('jscar_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/jscar">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/saiche.png"></p><font> 极速赛车</font> </a>
+                </li>
+            </if>
+            <if condition="C('lhc_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/lhc">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_lhc.png"></p><font> 六合彩</font> </a>
+                </li>
+            </if>
+            <if condition="C_set('chat_on_off') eq 1">
+            <li class="show_load">
+                <a href="__APP__/Home/Chat">
+                    <p><img src="__PUBLIC__/Home/Carhome/images/liaotianshi.png"></p>
+                    <font> 福利群</font>
+                </a>
+            </li>
+            </if>
+        </ul>
+        <ul class="menu">
+            <h3 class="tit">快捷菜单：</h3>
+            <li>
+                <a href="select/?lottery=mall" class="show_load">
+                    <i class="iconfont"></i>
+                    <font>回到大厅</font>
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/person.html" class="show_load">
+                    <i class="iconfont"></i>
+                    <font>个人中心</font>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        $("#ss_menu ul.lottery li").each(function (i, o) {
+            if ($(o).hasClass("disabled")) {
+                $(o).appendTo($("#ss_menu ul.lottery"));
+            }
+        });
+        $(document).ready(function () {
+            $(".wz").click(function () {
+                var display = $("#neirong").css('display');
+                if (display == "none") {
+                    $("#neirong").show();
+                    $(".ifarms").hide();
+                }else{
+                    $("#neirong").hide();
+                    $(".ifarms").show()
+                }
+            });
+            $(".gz").click(function () {
+                var display = $(".guize").attr('class').split(' ');
+                if (display[2] == null) {
+                    $(".guize").addClass('off');
+                    $(".touzu").removeClass('off');
+                }else{
+                    $(".guize").removeClass('off');
+                    $(".touzu").addClass('off');
+                }
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    site_url = "http://v4.dgtztz.com";
+    var udata = {
+        uid: 10218, kt: 1, status: 0, type: 'cqssc', sw: 1,
+        uname: "89", sign: "0a83d672125e20e36dd4d1c005aede61efe00b42", time: "",
+        headimg: "{$userinfo.headimgurl}"
+    };
+    $(function () {
+        load_slide_menu();
+        var socket_init = function () {
+            socket = function onopen() {
+            };
+        }
+        socket_init();
+        //心跳包
+
+        $(".xiaochuang").click(function () {
+            var aa = $('.frameTOP');
+            aa.toggleClass('suoxiao');
+        });
+
+        $(document).on("click", ".saidleft .neirongsaid", function () {
+            $("#Message").val($(this).text());
+        });
+        var a, b, c, d, bet = 1, bet_n = 0, bline, bval;
+        for (var i = 1; i <= 9; i++) {
+            if (!in_array(i, tz_types)) {
+                a = $('.menu').find("a[data-t='" + i + "']");
+                a.parent().is("li") ? a.parent().remove() : a.remove();
+                $('.game-type-' + i).remove();
+            }
+        }
+        //显示更多下注
+        $(".game-hd .menu").find("li").click(function () {
+            if ($(this).hasClass("more-game")) {
+                $(this).toggleClass("on");
+                $(this).hasClass("on") ? $(".sub-menu").show() : $(".sub-menu").hide();
+                ;
+            } else {
+                $(this).siblings().removeClass('on');
+                $(".sub-menu").hide();
+            }
+            ;
+        })
+        //切换下注方式
+        $(".game-hd .menu").find("a").click(function () {
+            var a = $(this), d = a.data();
+            if (!d.t)return;
+            $(".game-hd .menu").find("a").removeClass("on");
+            a.addClass("on"), $("#game-gtype,.game-tit").html(a.text()), $(".sub-menu").hide(), $('.gamenum').hide(),
+                $('.game-type-' + d.t).show().find('.rank-tit .change').html(a.text()), bet = d.t, show_bet();
+        });
+        //下注选择
+        $(".game-bd a.btn").click(function () {
+            $(this).toggleClass('on');
+            show_bet();
+        });
+        //清空
+        $(".clearnum").click(function () {
+            $(".game-bd a.btn").removeClass("on");
+            show_bet();
+        });
+        $(".money_clear").click(function () {
+            $(this).prev().val('');
+            zy.delcc("bet_money");
+            show_bet();
+        });
+        $("input.bet_money").keyup(function () {
+            show_bet();
+        });
+        $("i[data-money]").click(function () {
+            var a = $(".bet_money"), m = $(this).data("money"), n = a.val() * 1;
+            a.val(n + m);
+            zy.setcc("bet_money", n + m);
+            show_bet();
+        });
+        var show_bet = function () {
+            var t = $(".game-type-" + bet);
+            bline = [], bval = [];
+            t.find('a.on[data-line]').each(function (i, o) {
+                bline.push($(this).data('line'));
+            });
+            t.find('a.on[data-val]').each(function (i, o) {
+                bval.push($(this).data('val'));
+            });
+            bet_n = 0;
+            switch (bet) {
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    bet_n = bval.length;
+                    break;
+                case 8:
+                    if (bval.length > 0 && bval.length < 6) bet_n = 1;
+                    break;
+                default:
+                    bet_n = bline.length * bval.length;
+                    break;
+            }
+            $("#bet_num").html("共<b>" + bet_n + "</b>注");
+            $('.bet_n').html(bet_n);
+            var bet_money = $("input.bet_money").val() || 0;
+            $('.bet_total').html(bet_n * bet_money);
+            if (bline.length > 0 || bval.length > 0) {
+                $(".clearnum").addClass('on');
+                $(".infuse").show();
+            } else {
+                $(".clearnum").removeClass('on');
+                $(".infuse").show();
+            }
+            if (bet_n > 0) {
+                $(".confirm-pour").addClass('on');
+            } else {
+                $(".confirm-pour").removeClass('on');
+            }
+        }
+        $(".game-box i.closebt").click(function () {
+            $(".game-box,.txtbet").removeClass('on');
+            $(".txtbet_div").hide();
+        });
+        $("a.confirm").click(function () {
+            var bl = $("b.balance").text() * 1, msg1, msg2, msg = [],
+                bet_money = $("input.bet_money").val() * 1;
+            if (bet_money == 0) {
+            alert('请输入下注金额');
+                return;
+            }
+            if (bet_money * bet_n > bl) {
+                zy.tips("您的余点不足");
+                return;
+            }
+            switch (bet) {
+                case 1:
+                    msg1 = bline.join(""), msg2 = bval.join("");
+                    msg[0] = msg1 + "/" + msg2 + "/" + bet_money;
+                    break;
+                case 3:
+                    var kk = 0;
+                    $.each(bline, function (i, v) {
+                        $.each(bval, function (ii, vv) {
+                            msg[kk++] = v + "/" + vv + "/" + bet_money
+                        })
+                    });
+                    break;
+                case 4:
+                    $.each(bval, function (i, v) {
+                        msg[i] = v + bet_money
+                    });
+                    break;
+                case 5:
+                    msg1 = "总/";
+                    $.each(bval, function (i, v) {
+                            msg[i] = (in_array(v, ['A', 'B', 'C']) ? '' : msg1) + v + '/' + bet_money;
+                        }
+                    );
+                    break;
+                case 6:
+                case 8:
+                    msg[0] = "";
+                    for (var i = 0; i < bval.length; i++) {
+                        msg[0] += bval[i];
+                    }
+                    msg[0] += "/" + bet_money;
+                    break;
+                case 7:
+                    for (var i = 0; i < bval.length; i++) {
+                        msg[i] = bval[i] + "/" + bet_money;
+                    }
+                    break;
+                    break;
+                default:
+                    msg1 = bline.join("");
+                    $.each(bval, function (i, v) {
+                        msg[i] = msg1 + "/" + v + "/" + bet_money
+                    });
+                    break;
+            }
+            if (msg.count < 1) return;
+            $.each(msg, function (i, m) {
+                onSubmit1(m);
+                $(".txtbet_div").hide();
+//                send_msg(m);
+            });
+            $("#touzhu").removeClass("on");
+            location.href = "#main"
+        });
+        $(".confirm-pour").click(function () {
+            if (!$(this).hasClass("on")) return;
+            $("#touzhu").addClass("on"), location.href = "#confirm"
+        });
+
+        $(".pour-info").find("a.close,a.cancel").click(function () {
+            $("#touzhu").removeClass("on"), location.href = "#main";
+        });
+    });
+</script>
+<!--我的js-->
+<!--提交数据-->
+<script type="text/javascript">
+    setTimeout(function() {
+        $('#load').css('display','none');
+        $('.chatting').css('display','block');
+    }, 1500);
+    document.onkeydown=function(event){
+        e = event ? event :(window.event ? window.event : null);
+        if(e.keyCode==13){
+            onSubmit(); return false;
+        }
+    }
+    if(typeof console == "undefined") {
+        this.console = {
+            log: function(msg) {}
+        };
+    }
+    WEB_SOCKET_SWF_LOCATION = "__PUBLIC__/worker/swf/WebSocketMain.swf";
+    WEB_SOCKET_DEBUG = true;
+    var wslnum =0;
+    var ws, name;
+    // 连接服务端
+    function connect(){
+        // 创建websocket
+        var htt= 'https:' == document.location.protocol ? "wss://": "ws://";
+        ws = new WebSocket(htt + document.domain + ":{:C('worker_port')}");
+
+        // 当socket连接打开时，发送登录信息
+        ws.onopen = function(){
+
+            var name = "{$userinfo.nickname}";
+            // 登录
+            var userid = "{$userinfo.id}";
+            var login_data = '{"type":"login","type_name":"ssc","client_name":"' + name.replace(/"/g, '\\"') + '","client_id":"'+userid+'"}';
+            console.log("websocket握手成功，发送登录数据{:C('worker_port')}:" + login_data);
+            ws.send(login_data);
+        };
+        // 当有消息时根据消息类型显示不同信息
+        ws.onmessage = onmessage;
+        //监听Socket的关闭
+        ws.onclose = function (event) {
+            setTimeout(function () {
+                socket_check(0);
+            }, 1000)
+        };
+    }
+    var socket_check = function (flg) {
+        if (!ws || ws.readyState != 1) {
+            wslnum++;
+            if (wslnum > 10) {
+                location.reload();
+            }
+            else {
+                connect();
+            }
+        }
+        if (flg == 1) {
+            if (flg) clearTimeout(flg);
+            flg = setTimeout(function () {
+                socket_check(1)
+            }, 3000);
+        }
+    }
+    // 服务端发来消息时
+    var inte = parseInt(Math.random()*12+1);
+    function onmessage(e) {
+//        console.log("youxiaoxi");
+
+        var data = eval("(" + e.data + ")");
+        switch(data['type']) {
+            // 服务端ping客户端
+            case 'ping':
+                $('#xs').html(data.content+{:C('online')});
+        break;
+        // 登录 更新用户列表
+    case 'login':
+        console.log(data['client_name'] + "登录成功");
+        break;
+        // 发言
+    case 'say':
+//        console.log(data);
+
+            say(data['uid'],data['head_img_url'],data['time'],data['from_client_name'],data['content']);
+
+        break;
+        // 用户退出 更新用户列表
+    case 'logout':
+        break;
+    case 'broadcast':
+        //alert('client');
+        //房管
+    case 'admin':
+        if(data['updatepoints']){
+            $('.balance').text(data['updatepoints']);
+        }
+            systemsay(data['head_img_url'],data["time"],data["from_client_name"],data["content"]);
+        break;
+        //系统
+    case 'system':
+            if('{$userinfo.id}'==data['uid']){
+                systemsay(data['head_img_url'],data["time"],data["from_client_name"],data["content"])
+            }
+        break;
+        //积分减
+    case 'points':
+//        $('#sy').html((parseFloat($('#sy').html())-data['content']).toFixed(1));
+        $.ajax({
+            url: "{:U('Home/Dan/getpoint')}",
+            type: "post",
+            data:{'number':111},
+            dataType:'json',
+            success:function(res){
+                $('.balance').text(res.points);
+            }
+        });
+        break;
+        //积分加
+    case 'pointsadd':
+        $('#sy').html((parseFloat($('#sy').html())+data['points']).toFixed(1));
+        parent.layer.msg('恭喜竞猜成功');
+        break;
+        //重载
+    case 'reload':
+        if('{$userinfo.id}'==9){
+            window.location.href=window.location.href;
+        }
+        break;
+        //切换
+    case 'switch':
+        parent.location.reload();
+        break;
+    }
+    }
+    //html添加留言
+    function addhtmlliuyan(){
+        var msg = $("#kfs").val();
+        var html ="";
+        html+='<div class="saidright">'
+        html+='  <img src="{$userinfo.headimgurl}"><div class="tousaidl">'
+        html+='<span class="tousaid2"><?php echo date("H:i") ?></span>&nbsp;&nbsp;<span class="tousaid1">小弟</span></div><div class="ts"><b></b>'
+        html+='<span class="neirongsaidl" style="background:#98E165;">'+msg+'</span>'
+        html+='</div></div>';
+        $('.kfcs').prepend(html);
+    }
+    //    普通对话框 提交信息
+    $(function () {
+        $(".kbsend").click(function(){
+//            var input = $("#Message").val();
+            onSubmit1();
+        });
+        $("#sendkf").click(function () {
+            var msg = $("#kfs").val();
+            if(!msg){
+                layer.msg('请输入内容发送');
+            }else {
+                $.ajax({
+                    url: "{:U('Home/Circle/liuyan')}",
+                    type: "post",
+                    data:{'msg':msg,'is_kefu':0},
+                    dataType:'json',
+                    error:function(){
+                        parent.layer.open({content: '服务器开小差了~',skin: 'msg',time: 2});
+                    },
+                    success:function(res){
+                        if(res.error ==1){
+                            parent.layer.open({content:res.msg,skin: 'msg',time: 2});
+                            //添加留言
+                            addhtmlliuyan();
+                            $("#kfs").val('');
+                        }else {
+                            parent.layer.open({content:res.msg,skin: 'msg',time: 2});
+                        }
+                    }
+                });
+            }
+        });
+        $('.czzz').click(function () {
+            //页面层
+            layer.open({
+                type: 1
+                ,content: '<img src="__ROOT__/Uploads{$kefu.kefu}" style="width:50%;box-shadow: 2px 4px 50px black;z-index:9999;"/>'
+                ,anim: 'up'
+                ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: 400px; padding:10px 0; border:none;'
+            });
+        })
+
+
+    })
+    function del(id) {
+        layer.open({
+            content: '您确定要取消吗？'
+            ,btn: ['确认', '取消']
+            ,yes: function(index){
+                layer.close(index);
+                $.ajax({
+                    url: "{:U('Home/Common/quxiao')}",
+                    type: "post",
+                    data:{'id':id,'game':'ssc'},
+                    dataType:'json',
+                    error:function(){
+                        parent.layer.open({content: '服务器开小差了~',skin: 'msg',time: 2});
+                    },
+                    success:function(res){
+                        parent.layer.open({content:res.msg,skin: 'msg',time: 2});
+                        if(res.status ==1){
+                            flashjilu();
+                            $.ajax({
+                                url: "{:U('Home/Dan/getpoint')}",
+                                type: "post",
+                                data:{'number':111},
+                                dataType:'json',
+                                success:function(res){
+                                    $('.balance').text(res.points);
+                                }
+                            });
+                        }
+
+//                        location.href=location.href;
+                    }
+                });
+            }
+        });
+    }
+    //更新记录
+    function gengxin(res) {
+        var html ='';
+        html+=' <table width="100%" class="table">'
+        html+='     <tbody>'
+        html+='  <tr>'
+        html+='  <th>期号</th>'
+        html+='  <th>内容</th>'
+        html+='  <th>金额</th>'
+        html+='  <th>投注时间</th>'
+        html+='  <th>结果</th>'
+        html+='  <th>结算</th>'
+        html+='  </tr>'
+        //开始循环
+        for(var i in res){
+//                console.log(res[o].id);
+            html+='      <tr>'
+            html+='    <td>'+res[i].number+'</td>'
+            html+='   <td>'+res[i].jincai+'</td>'
+            html+='  <td>'+res[i].del_points+'</td>'
+            html+='  <td>'+res[i].time+'</td>'
+            html+='  <td>'
+            if(res[i].numbers ==res[i].number){
+                html+='     <a class="bt bt-red" onclick="del('+res[i].id+')">取消</a>'
+            }else {
+                html+=Number(res[i].add_points -res[i].del_points).toFixed(2)
+            }
+            html+='  </td>'
+            if(res[i].is_add ==1){
+                html+='  <td>是</td>'
+            }else {
+                html+='  <td>否</td>'
+            }
+            html+='   </tr>'
+            //循环结束
+        }
+        html+='   </tbody>'
+        html+='  </table>';
+//            console.log(res[888].numbers);
+
+        $('.tzlog').html(html);
+    }
+
+    //刷新操作
+    function flashjilu() {
+        $.ajax({
+            url: "{:U('Home/Common/getjilu')}",
+            type: "post",
+            data:{'game':'ssc'},
+            dataType:'json',
+            error:function(){
+                parent.layer.open({content: '服务器开小差了~',skin: 'msg',time: 2});
+            },
+            success:function(res){
+                gengxin(res);
+                $.ajax({
+                    url: "{:U('Home/Dan/getpoint')}",
+                    type: "post",
+                    data:{'number':111},
+                    dataType:'json',
+                    success:function(res){
+                        $('.balance').text(res.points);
+                    }
+                });
+
+//                        location.href=location.href;
+            }
+        });
+    }
+    // 提交对话
+    function onSubmit1(msg) {
+        var headimgurl = '{$userinfo.headimgurl}';
+        var from_client_name = '{$userinfo.nickname}';
+        if(msg){
+            //快捷下注提交会话
+            if(msg ==''){
+                return false;
+            }
+            var input = msg
+        }else {
+            //普通提交会话
+            var input= $("#Message").val();
+            if(input == ''){
+                return false;
+            }
+        }
+        ws.send('{"type":"say","type_name":"ssc","client_name":"'+from_client_name+'","headimgurl":"'+headimgurl+'","content":"' +input+ '"}');
+//        ws.send('{"type":"say_pk10","client_name":"'+from_client_name+'","headimgurl":"'+headimgurl+'","content":"' + input.value.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r') + '"}');
+//    ,"content":"' + input.value.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r') + '"
+        $('#Message').val('').focus();
+        $('.getkeybord').click();
+        //$('#dialog').scrollTop(0);
+    }
+    // 自己发言
+    function say(uid,img,time,name,content) {
+        if('{$userinfo.id}'==uid){
+            othersay1(img,time,name,content);
+        }else{
+            othersay(img,time,name,content);
+        }
+    }
+    //别人说话
+    function othersay(img,time,name,content) {
+        var html = "";
+        html +=' <div class="saidleft"><img src="'+img+'">'
+        html +='<div class="tousaid"><span class="tousaid1">'+name+'</span>&nbsp;&nbsp;<span class="tousaid2">'+time+'</span></div>'
+        html +=' <div class="tsf"><b></b><span class="neirongsaid">'+content+'</span></div>'
+        html +=' </div>'
+        $(".rightdiv").prepend(html);
+    }
+    function othersay1(img,time,name,content) {
+        var html = "";
+        html +=' <div class="saidleft"><img src="'+img+'">'
+        html +='<div class="tousaid"><span class="tousaid1">'+name+'</span>&nbsp;&nbsp;<span class="tousaid2">'+time+'</span></div>'
+        html +=' <div class="tsf"><b></b><span class="neirongsaid" style="background:#98E165;">'+content+'</span></div>'
+        html +=' </div>'
+        $(".rightdiv").prepend(html);
+    }
+    //系统发言
+    function systemsay(img,time,name,content){
+        var html = "";
+        html+=' <div class=saidright>'
+        html+='         <img src="'+img+'"/>'
+        html+='<div class=tousaidl>'
+        html+='<span class="tousaid2">'+time+'</span>&nbsp;&nbsp;<span class=tousaid1>'+name+'</span></div>'
+        html+='<div class=ts><b></b><span class=neirongsaidl style="background:#98E165;">'+content+'</span>'
+        html+='</div>'
+        html+='</div>';
+        $(".rightdiv").prepend(html);
+    }
+</script>
+<!--推送-->
+<script src='//cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+<script>
+    var uid = '{$userinfo.id}';
+</script>
+<script>
+    //关闭灰色 jQuery 遮罩
+    function closeBg() {
+        $("#dialog").hide();
+    }
+
+    function jianpan() {
+        if($(".chatting2").css("display")=='none'){
+            $('.chatting2').show();
+        }else {
+            $('.chatting2').hide();
+            $('.chatting3').show();
+        }
+    }
+    function escape2Html(str) {
+        var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
+    }
+
+</script>
+<!--我的方法-->

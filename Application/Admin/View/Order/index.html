@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>后台 - 竞猜管理</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+	</head>
+	<style>
+		/*分页样式*/
+		.pages a,.pages span {
+		    display:inline-block;
+		    padding:4px 7px;
+		    margin:0 2px;
+		    border:1px solid #D5D4D4;
+		    -webkit-border-radius:1px;
+		    -moz-border-radius:1px;
+		    border-radius:1px;
+		}
+		.pages a,.pages li {
+		    display:inline-block;
+		    list-style: none;
+		    text-decoration:none; color:#3399ff;
+		}
+		
+		.pages a:hover{
+		    border-color:#3399ff;
+		}
+		.pages span.current{
+		    background:#3399ff;
+		    color:#FFF;
+		    font-weight:700;
+		    border-color:#3399ff;
+		}
+		.pages{
+			text-align: center;
+		}
+		/*分页样式*/
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated fadeInRight">	
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<!--<h5>竞猜管理</h5>-->
+							<button class="btn btn-primary" type="submit" onclick="location.reload()">刷新</button>
+							<a class="btn btn-primary" type="submit" onclick="gotochat()">进入聊天室</a>
+						</div>
+						<div class="ibox-content">
+							<div class="row">
+								<div class="col-sm-12">
+									<form method="get" action="{:U('Admin/Order/index')}">
+										<div class="input-group">
+											<div class="col-sm-4"><input type="text" placeholder="选择哪一天的流水" id="time" name="time" class="form-control"></div>
+											<div class="col-sm-4"><input type="text" placeholder="请选择开始时间" id="time1" name="time1" class="form-control"></div>
+											<div class="col-sm-4"><input type="text" placeholder="请选择结束时间" id="time2" name="time2" class="form-control"></div>
+											<div class="col-sm-4"><input type="text" placeholder="请输入用户id" name="userid" class="form-control"></div>
+											<div class="col-sm-4">
+												<select class="form-control" id="game" name="game" >
+													<option value="">全部</option>
+													<option  <if condition="$game eq pk10">selected='selected'</if>   value="pk10">北京赛车</option>
+													<option  <if condition="$game eq fei">selected='selected'</if>   value="fei">幸运飞艇</option>
+													<option <if condition="$game eq ssc">selected='selected'</if> value="ssc">时时彩</option>
+													<option <if condition="$game eq kuai3">selected='selected'</if>  value="kuai3">快3</option>
+													<option <if condition="$game eq bj28">selected='selected'</if>  value="bj28">北京28</option>
+													<option <if condition="$game eq jnd28">selected='selected'</if>  value="jnd28">加拿大28</option>
+													<option <if condition="$game eq jsssc">selected='selected'</if>  value="jsssc">极速时时彩</option>
+													<option <if condition="$game eq jscar">selected='selected'</if> value="jscar">极速赛车</option>
+													<option <if condition="$game eq lhc">selected='selected'</if> value="lhc">六合彩</option>
+												</select>
+											</div>
+											<div class="col-sm-4">
+												<select class="form-control" id="type" name="type" >
+													<option value="">全部</option>
+													<option  <if condition="$type eq 1">selected='selected'</if>   value="1">已结算</option>
+													<option  <if condition="$type eq 3">selected='selected'</if>   value="0">未结算</option>
+												</select>
+											</div>
+											<span class="input-group-btn">
+	                                    	<button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-striped table-hover table-bordered">
+									<thead>
+										<tr>
+											<th>订单Id</th>
+											<th>期号</th>
+											<th>时间</th>
+											<th>用户id</th>
+											<th>开奖数据</th>
+											<th>竞猜</th>
+											<th>下注流水</th>
+											<th>派彩</th>
+											<th>输赢</th>
+											<th>余额</th>
+											<th>结算</th>
+											<th>游戏类别</th>
+										</tr>
+									</thead>
+									<tbody>
+									<?php
+									$total = 0;
+									$bonus = 0;
+									?>
+										<volist name="list" id="vo">
+											<?php
+												$total += $vo['del_points'];
+												$bonus += $vo['add_points'];
+											?>
+											<tr>
+												<td width="100">{$vo.id}</td>
+												<td width="100">{$vo.number}</td>
+												<td width="100">{$vo.time|date="Y-m-d H:i:s",###}</td>
+												<td width="100">{$vo.userid}</td>
+												<td width="100" class ='getjilu' game ='{$vo.game}' qihao ='{$vo.number}'></td>
+												<td width="100">{$vo.jincai}</td>
+												<td width="100">
+													<empty name="vo['points']">
+															<if condition="$vo['state'] eq 1">
+																{$vo.del_points}
+																<else/>
+																0.0
+															</if>
+														<else/>
+															<if condition="$vo['type'] eq 0">
+																<span style="color: blue;">下分&nbsp;&nbsp;{$vo.points}</span>
+															</if>
+													</empty>
+												</td>
+												<td width="100">
+													<empty name="vo['points']">
+														{$vo.add_points}
+														<else/>
+														<if condition="$vo['type'] eq 1">
+															<span style="color: red;">上分&nbsp;&nbsp;{$vo.points}</span>
+														</if>
+													</empty>
+												</td>
+												<td width="100">
+												<if condition="$vo['state'] eq 1">
+													<if condition="$vo['is_add'] eq 1">
+														<if condition="$vo['add_points'] - $vo['del_points'] gt 0">
+															<span style="color: #fca900">{$vo['add_points']-$vo['del_points']}(赢)</span>
+															<else/>
+															<span style="color: red;">{$vo['add_points']-$vo['del_points']}(输)</span>
+														</if>
+														<else/>
+														<span style="">-{$vo.del_points}(未开奖)</span>
+													</if>
+												</if>
+												</td>
+												<td width="100"><if condition="$vo['state'] eq 1 || $vo['points']">{$vo.balance}<else/>{$vo['balance']+$vo['del_points']}<span style="color:red;">（已取消）</span></if></td>
+												<td width="100"><if condition="$vo['is_add'] eq 1">是<else/><span style="color: red">否</span></if><if  condition="$vo['is_add'] neq 1 && $vo['state'] eq 1">&nbsp;<a onclick="quxiao('{$vo.id}')">取消下注</a></if></td>
+												<td width="100">{$vo.game}</td>
+											</tr>
+										</volist>
+									<tr>
+										<td colspan="12">总计下注总额:{$total},中奖总额:{$bonus}</td>
+									</tr>
+
+									</tbody>
+								</table>
+							</div>
+							<div class="pages">
+								{$show}
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+		<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/layer/laydate/laydate.js"></script>
+		<script src="__PUBLIC__/Common/layer/layer.js"></script>
+		<script>
+            laydate.render({
+                elem: '#time'
+            });
+            laydate.render({
+                elem: '#time1'
+                ,type: 'datetime'
+            });
+            laydate.render({
+                elem: '#time2'
+                ,type: 'datetime'
+            });
+		</script>
+		<script>
+			$(document).ready(function() {
+				$(".i-checks").iCheck({
+					checkboxClass: "icheckbox_square-green",
+					radioClass: "iradio_square-green",
+				})
+				$('.getjilu').click(function () {
+					var qihao = $(this).attr('qihao');
+					var game =$(this).attr('game');
+					var mubiao = $(this);
+                    $.ajax({
+                        url: "{:U('admin/Order/getkjjilu')}",
+                        type: "post",
+                        data:{'game':game,'qihao':qihao},
+                        dataType:'json',
+                        success:function(res){
+                            if(res ==''){
+								layer.msg('游戏未开奖，如果长时间未开奖请手动开奖');
+							}else {
+                                mubiao.text(res);
+							}
+
+                        }
+                    });
+                })
+			});
+		</script>
+		<script>
+			function del(id){
+				layer.confirm('确定要删除吗？', {
+				  	btn: ['确定','取消'] //按钮
+				}, function(){
+				  	window.location.href="__APP__/Admin/Robot/del/id/" + id + ""
+				});
+			}
+			function quxiao(id) {
+                layer.confirm('确定要取消吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    window.location.href="__APP__/Admin/order/xiazhudel/id/" + id + ""
+                });
+            }
+            function gotochat() {
+                layer.open({
+                    type: 2,
+                    title: '前台操作页面',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['400px', '700px'],
+                    content: "__APP__/Home/Chat "
+                });
+            }
+		</script>
+	</body>
+
+	
+</html>

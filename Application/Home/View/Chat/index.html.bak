@@ -1,0 +1,817 @@
+<html ng-app="ionicApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>聊天室</title>
+    <link href="https://cdn.bootcss.com/ionic/1.3.2/css/ionic.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/ionic/1.3.2/js/ionic.bundle.min.js"></script>
+    <style>
+        .chattouxiang {
+            width: 45px;
+            height: 45px;
+            border-radius: 999px;
+        }
+
+        .cahtrowtext {
+            background: #afe47e;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .chattext {
+            padding: 5px;
+            /*position: absolute;*/
+            margin-right: 10px;
+            width: 70%;
+            display: block;
+        }
+
+        .hongbao {
+            background: #f99d3a;
+            border-radius: 5px;
+        }
+
+        /*.tanchuang{*/
+        /*position: fixed;*/
+        /*z-index: 99;*/
+        /*left: 50%;*/
+        /*margin-left: -120px;*/
+        /*top: 50%;*/
+        /*margin-top: -160px;*/
+        /*}*/
+        a{text-decoration:none}
+        .longzao {
+
+        }
+        .footer{
+            width: 430px;
+            height: 50px;
+            background: #666;
+            position: absolute;
+            bottom: 0;
+            padding: 10px;
+        }
+        .footer input {
+            width: 75%;
+            height: 34px;
+            outline: none;
+            font-size: 20px;
+            text-indent: 10px;
+            position: absolute;
+            border-radius: 6px;
+        }
+
+        .footer span {
+            display: inline-block;
+            width: 16%;
+            height: 34px;
+            background: #ccc;
+            font-weight: 900;
+            line-height: 34px;
+            cursor: pointer;
+            text-align: center;
+            position: absolute;
+            right: 20px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<input type="hidden" id="selecth">
+<input type="hidden"id ="rtype">
+<body class="grade-a platform-browser platform-ios platform-ios9 platform-ios9_1 platform-ready" style="overflow: hidden" onload="connect()">
+<!--<div class="tanchuang" style="    background-image: url(/Public/home/img/kai2.png); height: 320px;width: 240px;background-size: 240px 320px; "><div style="width: 240px;background-image: url(/public/home/img/kai2.png);"></div>-->
+<!--<div class="closetc"onclick="closetc()" style="width: 30px;height: 30px;position: absolute;    right: 7px;top: 10px;"></div>-->
+<!--<div class="closetc"onclick="openhb()" style="width: 70px;height: 70px;position: absolute;    right: 85px;top: 160px;"></div>-->
+<!--</div>-->
+<div class="tanchuang2" style="display: none"><img style="width: 240px;" src="__PUBLIC__/home/img/wan.png"></div>
+
+<div style="width: 100%;height: 40px;border-bottom: 1px solid #e8d6d6;">
+    <a href="javascript:history.go(-1)" style="line-height: 40px;padding-left: 20px;color: #87cefa">返回</a>
+    <a href="/home" style="line-height: 40px;padding-right: 20px;color: #87cefa;float: right">首页</a>
+</div>
+<div class="content" >
+    <div style="overflow: auto; height: 90%;" class="new">
+        <volist name="list" id="vo">
+            <if condition="$vo['ishon']== 1">
+                <if condition="$vo['uid']== $userinfo['id']">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-60 col-offset-20  hongbao" id="hongbao" onclick="lingqu('{$vo.hid}','{$vo.type}')" daihao="ff"
+                                 style="text-align: center">
+                                <img style="    width: 29px;height: 39px; vertical-align: middle;margin-top: 9px;float: left;margin-left: 10px;"
+                                     src="__PUBLIC__/home/img/hongbao.png">
+                                <span style="color: white;display: block;padding: 10px;font-size: 0.8em">恭喜发财，大吉大利<br><span style="color: white;">{$vo.content}</span></span>
+
+                            </div>
+                            <div class="col-20">
+                                <img style="float: right;" src="{$vo.imgurl}" class="chattouxiang">
+                            </div>
+                        </div>
+                    </div>
+                    <else/>
+                    <div class="" style="text-align: center">{$vo.time|date=' H:i:s',###}</div>
+                    <div class="row ">
+                        <div class="row" style=" ">
+                            <div class="col-20">
+                                <img src="{$vo.imgurl}" class="chattouxiang">
+                            </div>
+                            <div class="col-50 hongbao" id="hongbao" onclick="lingqu('{$vo.hid}','{$vo.type}')" daihao="ff"
+                                 style="text-align: center">
+                                <img style="    width: 29px;height: 39px; vertical-align: middle;margin-top: 9px;float: left;margin-left: 10px;"
+                                     src="__PUBLIC__/home/img/hongbao.png">
+                                <span style="color: white;display: block;padding: 10px;font-size: 0.8em">恭喜发财，大吉大利<br><span style="color: white;">{$vo.content}</span></span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </if>
+
+                <elseif condition="$vo['uid']== $userinfo['id']"/>
+                <!--<div class="" style="text-align: center">{$vo.time|date=' H:i:s',###}</div>-->
+                <div class="row">
+                    <div class="row">
+                        <div class="col  col-offset-20 cahtrowtext">
+                            <if condition="$vo['isimg'] eq 1">
+                                <img style="width: 100%" src="/Chart/{$vo.content}">
+                                <else/>
+                                <span class="chattext">{$vo.content}</span>
+                            </if>
+
+                        </div>
+                        <div class="col-20">
+                            <img style="float: right;" src="{$vo.imgurl}" class="chattouxiang">
+                        </div>
+                    </div>
+                </div>
+                <else/>
+                <!--<div class="" style="text-align: center">{$vo.time|date=' H:i:s',###}</div>-->
+                <div class="row">
+                    <div class="row" style=" ">
+
+                        <div class="col-20">
+                            <img src="{$vo.imgurl}" class="chattouxiang">
+                        </div>
+                        <div class="col-80">
+                            <!--<span class="chattext"style="color: #a7a7a7; font-size: 11px;"><span style="width: 30px;overflow: auto">{$vo.uname}</span> {$vo.time|date=' H:i:s',###}</span>-->
+                            <if condition="$vo['isimg'] eq 1">
+
+                                <span class="chattext  cahtrowtext" style="padding: 5px;"> <img style="width: 100%" src="/Chart/{$vo.content}"></span>
+                                <else/>
+                                <span class="chattext  cahtrowtext" style="padding: 12px;">{$vo.content}</span>
+                            </if>
+
+                        </div>
+                    </div>
+                </div>
+            </if>
+        </volist>
+        <!--发红包开始-->
+        <!--<div class="" style="text-align: center">12:12</div>-->
+        <!--<div class="row ">-->
+        <!--<div class="row" style=" ">-->
+        <!--<div class="col-20">-->
+        <!--<img src="http://img.bss.csdn.net/201611181625472613.png" class="chattouxiang">-->
+        <!--</div>-->
+        <!--<div class="col-50 hongbao" style="text-align: center">-->
+        <!--<img style="    width: 29px;height: 39px; vertical-align: middle;margin-top: 9px;margin-bottom: 9px;" src="__PUBLIC__/home/img/hongbao.png">-->
+        <!--<span style="color: white">-->
+        <!--恭喜发财，大吉大利-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--红包end-->
+    </div>
+    <!--一条别人发的-->
+    <!--<div class="" style="text-align: center">12:12</div>-->
+    <!--<div class="row">-->
+    <!--<div class="row" style=" ">-->
+    <!--<div class="col-20">-->
+    <!--<img src="http://img.bss.csdn.net/201611181625472613.png" class="chattouxiang">-->
+    <!--</div>-->
+    <!--<div class="col-60 cahtrowtext">-->
+    <!--<span class="chattext">hello，我的朋友,发红包吧我的朋友,发红包吧</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--一条别人发的end-->
+    <!--一条自己发的-->
+    <!--<div class="" style="text-align: center">12:12</div>-->
+    <!--<div class="row">-->
+    <!--<div class="row">-->
+    <!--<div class="col  col-offset-20 cahtrowtext">-->
+    <!--<span class="chattext">hello，我的朋友,发红包吧我的朋友,发红包吧</span>-->
+    <!--</div>-->
+    <!--<div class="col-20">-->
+    <!--<img style="float: right;" src="http://img.bss.csdn.net/201611181625472613.png" class="chattouxiang">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--一条自己发的end-->
+    <!--发红包开始-->
+    <!--<div class="" style="text-align: center">12:12</div>-->
+    <!--<div class="row ">-->
+    <!--<div class="row" style=" ">-->
+    <!--<div class="col-20">-->
+    <!--<img src="http://img.bss.csdn.net/201611181625472613.png" class="chattouxiang">-->
+    <!--</div>-->
+    <!--<div class="col-40 hongbao" style="text-align: center">-->
+    <!--<span style="color: white">-->
+    <!--恭喜发财，大吉大利-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--红包end-->
+</div>
+</div>
+<!--<div style="-->
+<!--position: fixed;width: 100%;background: white;border-top: 1px solid #d1d1d1;height: 36px;-->
+    <!--bottom: 0px;-->
+<!--" class="onfo">-->
+    <!--<div class="">-->
+        <!--<div class="" style="color: black;width: 80%;float: left;"><input style="    width: 96%; border: 0px solid #e0e0e0;height: 35px; " id="textarea"></div>-->
+        <!--<div class=" ziji" onclick="onSubmit()" style="color: black;float: left;width: 20%;"><span style="height: 35px;background: #f99d3a; display: block;   text-align: center; padding: 2px; color: white; line-height: 35px;">发送</span></div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="top" style="
+    width: 100%;
+    bottom: 0px;
+    position: absolute;
+    left: 0;
+    background: #fff;
+    margin-bottom:0px;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #e6e6e6;
+    z-index: 99;
+    border-top: 1px solid #e6e6e6;
+">
+   <div style="width: 10px;height: 1px;"onclick="menu()"><img style="  margin-left: 6px;  width: 29px; padding-top: 3px;" src="__PUBLIC__/Home/img/menu.png"></div><input id="textarea" type="text" required="" style=" padding-left: 40px; float: left;width: 81%; border: 0px; " placeholder="输入内容....">
+    <button onclick="onSubmit()" style="
+	background-color: #fa9f34;
+       height: 32px;
+    line-height: 18px;
+  	width: 16%;
+  	float: left;
+      -webkit-border-radius: 5px;-moz-border-radius:5px ;border-radius: 5px;
+    border: 1px solid #ffffff;
+    color: white;">发送</button><br><br>
+    <div  class="menus"style="width: 100%;height: 80px;background: #f7f7f7;border-top: 1px solid #dedede;display: none">
+        <div style="    padding-top: 10px;padding-left: 20px;">
+        <div style="float: left"onclick="sendred()"><img style="width: 48px;" src="__PUBLIC__/Home/img/hongbao1.png"></div>
+        <div style="float: left;padding-left: 20px;"onclick="file()"><img style="width: 48px;"  src="__PUBLIC__/Home/img/tupian.png"></div>
+            <form class="m-t" role="form" method="post" action="{:U('Home/Honbao/getimg')}" id="LoginForm">
+            <input name="image" id="file" type="file" style="display: none" onchange="c()"/>
+           </form>
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+<script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script>
+    function c() {
+        var formData = new FormData();
+        formData.append("file",$("#file")[0].files[0]);
+        $.ajax({
+            url : "__APP__/home/honbao/getimg",
+            type : 'POST',
+            data : formData,
+            dataType:'json',
+// 告诉jQuery不要去处理发送的数据
+            processData : false,
+// 告诉jQuery不要去设置Content-Type请求头
+            contentType : false,
+            success : function(res) {
+                if(res.url){
+                    //图片
+                    onSubmit(res.url);
+                }else{
+                   layer.msg(res.info);
+                }
+            },
+            error : function(responseStr) {
+                console.log("error");
+            }
+        });
+    }
+
+
+
+    function file() {
+        $("#file").trigger("click");
+    }
+    //跳转发红包页面
+   function sendred(){
+       var index = layer.open({
+           type: 2,
+           title:'发红包',
+           content: "__APP__/home/honbao/fornt_send_view",
+           area: ['0px', '0px'],
+       });
+       layer.full(index);
+   }
+    //自己发送的消息
+    function ziji(uid, name, head, content, time,isimg) {
+        var html = '';
+//        html += '<div class="" style="text-align: center">' + time + '</div>'
+        html += '<div class="row">'
+        html += ' <div class="row">'
+        html += '  <div class="col  col-offset-20 cahtrowtext">'
+        if(isimg == 1){
+            html += '<img style="width: 100%;" src="/Chart/'+content+'">'
+        }else {
+            html += ' <span class="chattext">' + content + '</span>'
+        }
+        html += '</div>'
+        html += '<div class="col-20">'
+        html += ' <img style="float: right;" src="'+head+'" class="chattouxiang">'
+        html += ' </div>'
+        html += '  </div>'
+        html += '   </div>';
+        $(".new").prepend(html);
+    }
+    //他人发的消息
+    function bieren(uid, name, head, content, time,isimg) {
+        var html = '';
+//        html += ' <div class="" style="text-align: center">' + time + '</div>'
+        html += '  <div class="row">'
+        html += '   <div class="row" style=" ">'
+        html += '   <div class="col-20">'
+        html += '   <img src="'+head+'" class="chattouxiang">'
+        html += '   </div>'
+        html += '   <div class="col-80 ">'
+//          html+='  <span class="chattext" style="color: #a7a7a7;font-size: 11px;">'+name+'</span>'
+        if(isimg ==1){
+            html+='  <span class="chattext  cahtrowtext" style="padding: 5px;"> <img style="width: 100%" src="/Chart/'+content+'"></span>'
+        }else {
+            html += '   <span class="chattext cahtrowtext" style="padding: 12px">' + content + '</span>'
+        }
+
+        html += '  </div>'
+        html += ' </div>'
+        html += ' </div>'
+        $(".new").prepend(html);
+    }
+
+    function hongbao(hid,content,time,rtype,img) {
+        var html = '';
+        html += '<div class="" style="text-align: center">'+time+'</div>'
+        html += ' <div class="row ">'
+        html += '  <div class="row" style=" ">'
+        html += ' <div class="col-20">'
+        html += '  <img src="'+img+'" class="chattouxiang">'
+        html += ' </div>'
+        html += '  <div class="col-50 hongbao" id="hongbao" onclick="lingqu(' + hid + ','+rtype+')" daihao ="ff" style="text-align: center">'
+        html += '  <img style="    width: 29px;height: 39px; vertical-align: middle;margin-top: 9px;float: left;margin-left: 10px;" src="__PUBLIC__/home/img/hongbao.png">'
+        html += '   <span style="color: white;display: block;padding: 10px;font-size: 0.8em">'
+        html += '    恭喜发财，大吉大利<br><span style="color: white;">'+content+'</span>'
+        html += ' </span>'
+        html += ' </div>'
+        html += '   </div>'
+        html += '   </div></div>'
+        $(".new").prepend(html);
+    }
+    //自己的红包
+    function hongbaobyself(hid,content,time,rtype,img) {
+        var html = '';
+//        html += '<div class="" style="text-align: center">' + time + '</div>'
+        html += '<div class="row">'
+        html += ' <div class="row">'
+        html += '  <div class="col-60 col-offset-20 hongbao" id="hongbao" onclick="lingqu(' + hid + ','+rtype+')" daihao ="ff" style="text-align: center">'
+        html += '  <img style="    width: 29px;height: 39px; vertical-align: middle;margin-top: 9px;float: left;margin-left: 10px;" src="__PUBLIC__/home/img/hongbao.png">'
+        html += '   <span style="color: white;display: block;padding: 10px;font-size: 0.8em">'
+        html += '    恭喜发财，大吉大利<br><span style="color: white;">'+content+'</span>'
+        html += ' </span>'
+        html += ' </div>'
+        html += '<div class="col-20">'
+        html += ' <img style="float: right;" src="'+img+'" class="chattouxiang">'
+        html += ' </div>'
+        html += '  </div>'
+        html += '   </div>';
+        $(".new").prepend(html);
+    }
+    //    领取红包
+    function lingqu(id,rtype) {
+//        alert(rtype);
+        $('#selecth').attr('value', id);
+//        $('#rtype'),attr('value',rtype);
+//        var aa = $('#selecth').val();
+        //获取aa的值给后端判断是否领完了，如果领完了，显示已经领完了。
+//        if(1==2){
+//            var html = '<img style="width: 240px;" src="__PUBLIC__/home/img/kai2.png">'
+//            $('.tanchuang').html(html);
+
+        var dydy = '';
+        dydy += '<div class="tanchuang" style="    background-image: url(/Public/home/img/kai2.png); height: 320px;width: 240px;background-size: 240px 320px; "><div style="width: 240px;background-image: url(/public/home/img/kai2.png);"></div>'
+        dydy += '<div class="closetc"onclick="closetc()" style="width: 30px;height: 30px;position: absolute;    right: 7px;top: 10px;"></div>'
+        dydy += ' <div class="closetc"onclick="openhb('+id+','+rtype+')" style="width: 70px;height: 70px;position: absolute;    right: 85px;top: 160px;"></div>'
+        dydy += ' </div>';
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            shadeClose: true,
+            skin: 'yourclass',
+            content: dydy,
+        });
+//        }else {
+//         //如果没有领完，再领取
+//            var html = '<img style="width: 240px;" src="__PUBLIC__/home/img/wan.png">'
+//            $('.tanchuang').html(html);
+//            $('.tanchuang').show();
+//        }
+    }
+    //点击菜单
+    function menu() {
+        $('.menus').toggle(200);
+    }
+    //关闭红包的按钮
+    function closetc() {
+        $('.tanchuang').hide();
+        $('.layui-layer-shade').hide();
+    }
+    function closelayer() {
+        layer.closeAll();//关闭弹窗
+    }
+    function openhb(id,rtype) {
+        layer.msg('正在领红包，请稍后', {
+            icon: 16
+            , shade: 0.01
+        });
+        //获取红包的id
+        var hid = $('#selecth').val();
+        $.post("__APP__/home/honbao/linhonbao", {uid:"{$userinfo.id}", hid: hid,rtype:rtype}, function (result) {
+            var result = JSON.parse(result)
+//            console.log(result.msgs);
+            layer.msg(result.date);
+            setTimeout('closelayer()', 1500)
+        });
+    };
+    //解决iphone输入框被笼罩
+//    $(function() {
+//        $('#textarea').on('click', function () {
+//            var target = this;
+//            setInterval(function(){
+//                target.scrollIntoView(true);
+//            },200)
+//        });
+//    })
+
+</script>
+<!--提交数据开始-->
+<script type="text/javascript">
+
+    var acontainer = $('#acontainer');
+    var hasData = false;
+
+    function AddList(data) {
+        if (data.length > 0) {
+            hasData = true;
+            acontainer.html(data[0].data);
+            acontainer.show();
+        }
+    }
+    function beforeStartRunning() {
+        acontainer.hide();
+    }
+
+    function afterEndRunning() {
+        if (hasData) acontainer.show();
+    }
+
+</script>
+<!--提交数据-->
+
+<script type="text/javascript">
+//    $("#textarea").focus(function(){
+//        //聚焦
+//        document.activeElement.scrollIntoViewIfNeeded();
+////        window.scrollTo(0, 500);
+////        var gethei = getViewPortHeight();
+////        var usehei =gethei -36;
+////        $('.onfo').css('top',usehei+'px');
+////        $(this).addClass("bor");
+//    });
+//    $("#textarea").blur(function(){
+//        //失去焦点
+//        $('.onfo').css('top','');
+//    });
+    setTimeout(function () {
+        $('#load').css('display', 'none');
+        $('.chatting').css('display', 'block');
+    }, 1500);
+    function getViewPortHeight() {
+        return document.documentElement.clientHeight || document.body.clientHeight;
+    }
+    document.onkeydown = function (event) {
+        e = event ? event : (window.event ? window.event : null);
+        if (e.keyCode == 13) {
+            onSubmit();
+            return false;
+        }
+    }
+
+    if (typeof console == "undefined") {
+        this.console = {
+            log: function (msg) {
+            }
+        };
+    }
+    WEB_SOCKET_SWF_LOCATION = "__PUBLIC__/worker/swf/WebSocketMain.swf";
+    WEB_SOCKET_DEBUG = true;
+    var ws, name;
+    // 连接服务端
+    function connect() {
+        // 创建websocket
+        ws = new WebSocket("ws://" + document.domain + ":{:C('worker_port')}");
+        // 当socket连接打开时，发送登录信息
+        ws.onopen = function () {
+            var name = "{$userinfo.nickname}";
+            // 登录
+            var userid = "{$userinfo.id}";
+            var login_data = '{"type":"login_chat","client_name":"' + name.replace(/"/g, '\\"') + '","client_id":"' + userid + '"}';
+            console.log("websocket握手成功，发送登录数据{:C('worker_port')}:" + login_data);
+
+            ws.send(login_data);
+        };
+        // 当有消息时根据消息类型显示不同信息
+        ws.onmessage = onmessage;
+        ws.onclose = function () {
+            console.log("连接关闭，定时重连");
+            connect();
+        };
+        ws.onerror = function () {
+            console.log("出现错误");
+            connect();
+        };
+    }
+    // 服务端发来消息时
+    var inte = parseInt(Math.random()*12+1);
+    function onmessage(e) {
+        var data = eval("(" + e.data + ")");
+        switch(data['type']) {
+            // 服务端ping客户端
+            case 'ping':
+                $('#xs').html(data.content+{:C('jnd_online')});
+
+        break;
+        // 登录 更新用户列表
+
+    case 'login':
+        console.log(data['client_name'] + "登录成功");
+        break;
+        // 发言
+    case 'say':
+        if (data['send_type'] ==='chat') {
+            ziji(data['uid'], data['from_client_name'], data['head_img_url'], data['content'], data['time'],data['isimg']);
+        }
+
+        break;
+        // 用户退出 更新用户列表
+    case 'logout':
+        break;
+    case 'broadcast':
+        //alert('client');
+        //房管
+    case 'admin':
+        if (data['send_type'] ==='chat'){
+            if(data['isgag'] ==1){
+                bieren(data['uid'] ,data['from_client_name'], data['head_img_url'], data['content'], data['time'],data['isimg']);
+            }else {
+                if(data['uid'] =="{$userinfo.id}"){
+                    ziji(data['uid'] ,data['from_client_name'], data['head_img_url'], data['content'], data['time'],data['isimg']);
+                }else {
+                    bieren(data['uid'] ,data['from_client_name'], data['head_img_url'], data['content'], data['time'],data['isimg']);
+                }
+            }
+
+        }
+        break;
+        //系统
+    case 'system':
+        if('{$userinfo.id}'==data['uid']){
+            $(".chatting").prepend('<div class="chatting-li qtr green"><div class="portrait"><img src="'+data['head_img_url']+'"/></div><div class="content"><small><span class="name">' + data["from_client_name"] +'</span><time>'+data["time"] +'</time></small><p>' + data["content"] + '</p></div></div>');
+        }else{
+            $(".chatting").prepend('<div class="chatting-li qtr orange"><div class="portrait"><img src="'+data['head_img_url']+'"/></div><div class="content"><small><span class="name">' + data["from_client_name"] +'</span><time>'+data["time"] +'</time></small><p>' + data["content"] + '</p></div></div>');
+        }
+        break;
+        //积分减
+    case 'points':
+        $('#sy').html((parseFloat($('#sy').html())-data['content']).toFixed(1));
+        break;
+        //积分加
+    case 'pointsadd':
+        $('#sy').html((parseFloat($('#sy').html())+data['points']).toFixed(1));
+        parent.layer.msg('恭喜竞猜成功');
+        break;
+        //重载
+    case 'reload':
+        if('{$userinfo.id}'==9){
+            window.location.href=window.location.href;
+        }
+        break;
+        //切换
+    case 'switch':
+        parent.location.reload();
+        break;
+    }
+    }
+    // 提交对话
+    function onSubmit(data) {
+        var isimg =0;
+        $(".xiazhujine").text("");
+        $(".input2").val("");
+        $(".input").val("");
+        $("#dialog").hide();
+        var headimgurl = '{$userinfo.headimgurl}';
+        var input = document.getElementById("textarea");
+        var from_client_name = '{$userinfo.nickname}';
+        var content ='';
+        if(data){
+            content=data;
+            isimg =1;
+        }else {
+            if (input.value == '') {
+                $('#textarea').focus();
+                return false;
+            }
+            content  =input.value.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+        }
+        ws.send('{"type":"say_chat","client_name":"' + from_client_name + '","headimgurl":"' + headimgurl + '","content":"' +content+ '","isimg":"' +isimg+ '"}');
+        $('#textarea').val('').focus();
+        $('.new').scrollTop(0);
+    }
+
+    // 发言
+//    function say(uid, from_client_name, head_img_url, content, time) {
+//        if ('{$userinfo.id}' == uid) {
+//            $(".chatting").prepend('<div class="chatting-li green"><div class="portrait"><img src="' + head_img_url + '"/></div><div class="content"><small><span class="name">' + from_client_name + '</span><time>' + time + '</time></small><p>' + content + '</p></div></div>');
+//        } else {
+//            $(".chatting").prepend('<div class="chatting-li"><div class="portrait"><img src="' + head_img_url + '"/></div><div class="content"><small><span class="name">' + from_client_name + '</span><time>' + time + '</time></small><p>' + content + '</p></div></div>');
+//        }
+//    }
+</script>
+<!--聊天-->
+<script src="__PUBLIC__/Home/js/baguetteBox.min.js"></script>
+<!--推送-->
+<script src='//cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+<script>
+    var uid = '{$userinfo.id}';
+</script>
+<script>
+    function escape2Html(str) {
+        var arrEntities = {'lt': '<', 'gt': '>', 'nbsp': ' ', 'amp': '&', 'quot': '"'};
+        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
+            return arrEntities[t];
+        });
+    }
+
+    $(document).ready(function () {
+
+        // 连接服务端
+        var socket = io('http://' + document.domain + ':{:C("puish_port")}');
+
+        // 连接后登录
+        socket.on('connect', function () {
+            socket.emit('login', uid);
+            console.log('推送链接成功');
+        });
+        // 后端推送来消息时
+        socket.on('new_msg', function (msg) {
+            var data = eval("(" + escape2Html(msg) + ")");
+            console.log(data);
+            console.log(escape2Html(msg));
+            var time = data['time'];
+            var content = data['content'];
+            var rtype =data['rtype'];
+            if(data['type'] =='hongbao'){
+                if(data['uid'] =='{$userinfo.id}'){
+                    hongbaobyself(data['hid'],content,time,rtype,data['head_img_url']);
+                }else {
+                    hongbao(data['hid'],content,time,rtype,data['head_img_url']);
+                }
+
+            }
+            if(data['gonggao']){
+                bieren('',data['name'], data['head_img_url'], data['content'], data['time']);
+            }
+
+//            if(data['points'] && data['to']=='{$userinfo.id}'){
+//                var points = parseFloat($('#sy').html())+parseFloat(data['points']);
+//                $('#sy').html(points);
+//            }
+
+            //获取最新数据
+//            $.ajax({
+//                url: "{:U('Home/Dan/getpoint')}",
+//                type: "post",
+//                data:{'number':111},
+//                dataType:'json',
+//                error:function(){
+//                    parent.layer.open({content: '服务器开小差了~',skin: 'msg',time: 2});
+//                },
+//                success:function(res){
+//                    $('#sy').text(res.points);
+//                }
+//            });
+            //获取最新数据end
+//            $(".chatting").prepend('<div class="chatting-li qtr orange"><div class="portrait"></div><div class="content"><small><time>'+time+'</time></small><p>' + content + '</p></div></div>');
+        });
+        $('.content').click(function () {
+            $('.menus').hide(300);
+        })
+
+    });
+</script>
+<!--提交数据结束-->
+<!--提交数据end-->
+
+<!--微信分享-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    // 微信JSSDK异常处理
+    wx.error(function (e) {
+        console.log(e);
+    });
+    // 注入JSSDK配置参数，默认开启所有接口权限
+    wx.config({$options | json_encode
+    })
+    ;
+    // 当JSSDK初始化完成后，再执行相关操作
+    wx.ready(function () {
+        var host = document.domain + "?t=" + '{$userinfo.id}';
+        //分享到朋友圈
+        wx.onMenuShareTimeline({
+            title: '北京赛车pk10', // 分享标题
+            link: host, // 分享链接
+            imgUrl: '{$userinfo.qrcode}', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        //分享给朋友
+        wx.onMenuShareAppMessage({
+            title: '北京赛车pk10', // 分享标题
+            desc: '北京赛车pk10', // 分享描述
+            link: host, // 分享链接
+            imgUrl: '{$userinfo.qrcode}', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        //分享到QQ
+        wx.onMenuShareQQ({
+            title: '北京赛车pk10', // 分享标题
+            desc: '北京赛车pk10', // 分享描述
+            link: host, // 分享链接
+            imgUrl: '{$userinfo.qrcode}', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        //分享到腾讯微博
+        wx.onMenuShareWeibo({
+            title: '北京赛车pk10', // 分享标题
+            desc: '北京赛车pk10', // 分享描述
+            link: host, // 分享链接
+            imgUrl: '{$userinfo.qrcode}', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        //分享到QQ空间
+        wx.onMenuShareQZone({
+            title: '北京赛车pk10', // 分享标题
+            desc: '北京赛车pk10', // 分享描述
+            link: host, // 分享链接
+            imgUrl: '{$userinfo.qrcode}', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
+</script>
+<!--微信分享-->
+</body>
+</html>

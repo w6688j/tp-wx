@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{:C('sitename')}</title>
+    <meta content="user-scalable=no,maximum-scale=0.38,initial-scale=1,width=device-width" id="viewport" name="viewport">
+    <meta name='Robots' content='noindex,nofollow'/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/iconfont.css?v=20171101">
+    <link href="__PUBLIC__/Home/Carhome/css/layout.css?v=20171111" type="text/css" rel="stylesheet"/>
+    <link href="__PUBLIC__/Home/Carhome/css/wx.css?v=20171111" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var tz_types = ["1", "2", "3", "4", "5", "6"];
+        var ifa_height = 730;
+    </script>
+    <link href="__PUBLIC__/Home/Carhome/css/common.css?v=20171101" rel="stylesheet" />
+    <link href="__PUBLIC__/Home/Carhome/css/chungking.css?v=20171101" rel="stylesheet" />
+    <script src="__PUBLIC__/Home/Carhome/js/cqssc_zh_cn.js?v=20171111" type="text/javascript"></script>
+    <script src="__PUBLIC__/Home/Carhome/js/games.js?v=20171111" type="text/javascript"></script>
+    <script src="__PUBLIC__/Home/Carhome/js/cqssc.js?v=20171111" type="text/javascript"></script>
+    <script src="__PUBLIC__/Home/Carhome/js/layer.js?v=20171111" type="text/javascript"></script>
+    <script src="__PUBLIC__/Home/Carhome/js/xsapp.js?v=20171111" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Carhome/css/kuai3.css"/>
+</head>
+<style>
+    .bt-red{
+        background: #ff3c3c;
+        padding: 10px 13px;
+        color: white;
+        display: block;
+        border-radius: 10px;
+    }
+    .suoxiao{
+        height: 87px;
+    }
+</style>
+<body onload="connect()">
+<div class="frameTOP" style="margin-bottom: 8px;">
+    <iframe id="idiframe" src="{:U('Home/kuai3/kuai3_header')}"scrolling="no" marginwidth='0'height="700px;" marginheight='0' width="100%" border='0'
+            class="ifarms" frameborder='no'></iframe>
+    <div class="neirong minmax" style="overflow: scroll;display: none">
+        <table id="tables" class="tables" border="0" cellpadding="1" cellspacing="1">
+            <tr>
+                <th>期号</th>
+                <th>开奖结果</th>
+                <th>总和</th>
+                <th>大小</th>
+                <th>单双</th>
+            </tr>
+            <volist name = "list"   id = "vo">
+                <tr>
+                    <td>{$vo.periodnumber}</td>
+                    <td>  <?php
+							$number = $vo['awardnumbers'];
+                         $dataf =  explode(',',$number);
+                       foreach($dataf as $arr){
+                      echo "<img style='width: 29px' src='__PUBLIC__/Home/Carhome/images/pk10/s".$arr.".png'>";
+                        }
+                        ?></td>
+                    <td><img src="__PUBLIC__/Home/Carhome/images/pk10/qd{$vo.zonghe}.png" width="30px">
+                    <td>{$vo.dx}</td>
+                    <td>
+                        {$vo.ds}
+                </tr>
+            </volist>
+        </table>
+    </div>
+</div>
+<div style="      background: #656565;
+    color: white;
+    width: 91%;
+    height: 42px;
+    margin: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;"> <marquee style="    line-height: 42px;">{:C('youxitoptongzhi')}</marquee></div>
+<!--聊天主体  -->
+<div class="leftdiv">
+    <ul>
+        <li data-uri='/' class="ulogo ajax_uri on"><img
+                src="http://qimg.dgtztz.com/2017-11-08_5a031bc886004.jpg" class="mlogo show_load"/></li>
+        <li class="home" data-id="home"><span>菜单</span></li>
+        <li class="guess" data-id="touzu"><span>竞猜</span></li>
+        <li class="logsss" onclick="flashjilu();"data-id="tzlog" ><span>记录</span></li>
+        <li class="skefu" data-id="kefu"><span>客服<em>0</em></span></li>
+        <li class="fresh" data-id="reload"><span>刷新</span></li>
+        <li><span><a href="select" style="color: white">主页</a></span></li>
+    </ul>
+</div>
+<div id="frameRIGHTH">
+    <div class="nav_banner">
+        <ul class="lottery">
+            <li class="home" data-id="lottery">
+                <span> <i class="iconfont">&#xe683;</i>江苏快三</span>
+            </li>
+            <!--<li class="dh" data-id="donghua"><span>动画</span></li>-->
+            <li class="wz"><span>走势</span></li>
+            <!--<li class="cl" data-id="changlong"><span>长龙</span></li>-->
+            <li class="gz"><span>规则</span></li>
+            <!--<li class="sx" data-id='reload2'><span>更新动画</span></li>-->
+            <!--<li class="xiaochuang" data-id='minmax'><span>小窗</span></li>-->
+            <if condition="C_set('chat_on_off') eq 1">
+            <li><span><a href="__APP__/Home/Chat" style="color: white">福利群</a></span></li>
+            </if>
+        </ul>
+        <ul class="uinfo">
+            <li class="uno">ID:<b>{$userinfo.id}</b></li>
+            <li class="uname">昵称:{$userinfo.nickname}</li>
+            <li class="money">余点: <b class="balance">{$userinfo.points}</b></li>
+            <li class="oline">在线: <b class="online" id="xs"></b>人</li>
+        </ul>
+    </div>
+    <div class='touzu rbox'>
+        <div class="user_messages">
+            <div class="keybord_box"></div>
+            <div class="keybord_div" id="keybord_div"></div>
+            <div class="txtbet_div" id="txtbet_div">
+                <div class="game-box">
+                    <div class="close"><i class="iconfont closebt">&#xe60d;</i></div>
+                    <div class="game-hd">
+                        <div class="menu">
+                            <ul>
+                                <li class="gameli"><a href="javascript:;" class="on" data-t="1">猜大小单双</a></li>
+                                <li class="gameli"><a href="javascript:;" data-t="2">短牌</a></li>
+                                <li class="gameli"><a href="javascript:;" data-t="3">三军</a></li>
+                                <li class="more-game">
+                                    <a href="javascript:;"><img src="__PUBLIC__/Home/Carhome/images/game-arrow.png"/></a>
+                                    <div class="sub-menu">
+                                        <a href="javascript:;" data-t="4">长牌</a>
+                                        <a href="javascript:;" data-t="5">豹子</a>
+                                        <a href="javascript:;" data-t="6">和值</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="infuse">
+                            <a href="javascript:void(0)" class="getkeybord"></a>
+                            <a href="javascript:;" class="clearnum"><i class="iconfont">清空所选 &#xe60d;</i></a>
+                            <em id="bet_num">共0注</em>
+                            <a href="javascript:;" class="confirm-pour"><i class="iconfont">&#xe60b; 确定下注</i></a>
+                        </div>
+                    </div>
+                    <div class="game-bd">
+                        <div class="gamenum game-type-1">
+                            <div class="rank-tit"><span class="change">猜大小单双</span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn" data-val="大">
+                                    <div class="h5">
+                                        <h5>大</h5>
+                                        <p>11-18</p>
+                                        <p><em>× {$config['kuai3_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn" data-val="小">
+                                    <div class="h5">
+                                        <h5>小</h5>
+                                        <p>3-10</p>
+                                        <p><em>×  {$config['kuai3_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn" data-val="单">
+                                    <div class="h5">
+                                        <h5>单</h5>
+                                        <p>3,5,7,9,11,13,15,17</p>
+                                        <p><em>× {$config['kuai3_dxds']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn" data-val="双">
+                                    <div class="h5">
+                                        <h5>双</h5>
+                                        <p>4,6,7,8,10,12,14,16,18</p>
+                                        <p><em>×  {$config['kuai3_dxds']}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--猜大小单双-->
+                        <div class="gamenum game-type-2">
+                            <div class="rank-tit"><span class="change">短牌</span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn2" data-val="1">
+                                    <div class="h5">
+                                        <h5>11</h5>
+                                        <p><em>× {$config['kuai3_duanp_bv']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="2">
+                                    <div class="h5">
+                                        <h5>22</h5>
+                                        <p><em>× {$config['kuai3_duanp_bv']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="3">
+                                    <div class="h5">
+                                        <h5>33</h5>
+                                        <p><em>× {$config['kuai3_duanp_bv']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="4">
+                                    <div class="h5">
+                                        <h5>44</h5>
+                                        <p><em>× {$config['kuai3_duanp_bv']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="5">
+                                    <div class="h5">
+                                        <h5>55</h5>
+                                        <p><em>× {$config['kuai3_duanp_bv']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="6">
+                                    <div class="h5">
+                                        <h5>66</h5>
+                                        <p><em>× {$config['kuai3_duanp_bv']}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--猜数字-->
+                        <div class="gamenum game-type-3">
+                            <div class="rank-tit"><span class="change">三军</span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn2" data-val="1">
+                                    <div class="h5">
+                                        <h5>1</h5>
+                                        <p><em>×{$config['kuai_bz_sanjun']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="2">
+                                    <div class="h5">
+                                        <h5>2</h5>
+                                        <p><em>×{$config['kuai_bz_sanjun']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="3">
+                                    <div class="h5">
+                                        <h5>3</h5>
+                                        <p><em>×{$config['kuai_bz_sanjun']}</em></p>
+                                    </div>
+                                </a>  <a href="javascript:;" class="btn middle-btn2" data-val="4">
+                                    <div class="h5">
+                                        <h5>4</h5>
+                                        <p><em>×{$config['kuai_bz_sanjun']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="5">
+                                    <div class="h5">
+                                        <h5>5</h5>
+                                        <p><em>×{$config['kuai_bz_sanjun']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="6">
+                                    <div class="h5">
+                                        <h5>6</h5>
+                                        <p><em>×{$config['kuai_bz_sanjun']}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--猜三球总和-->
+                        <div class="gamenum game-type-4">
+                            <div class="rank-tit"><span class="change">长牌</span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn2" data-val="12">
+                                    <div class="h5">
+                                        <h5>12</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="13">
+                                    <div class="h5">
+                                        <h5>13</h5>
+                                        <p><em>× {$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="14">
+                                    <div class="h5">
+                                        <h5>14</h5>
+                                        <p><em>× {$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="15">
+                                    <div class="h5">
+                                        <h5>15</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>  <a href="javascript:;" class="btn middle-btn2" data-val="16">
+                                <div class="h5">
+                                    <h5>16</h5>
+                                    <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                </div>
+                            </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="23">
+                                    <div class="h5">
+                                        <h5>23</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="24">
+                                    <div class="h5">
+                                        <h5>24</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="25">
+                                    <div class="h5">
+                                        <h5>25</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+
+                                <a href="javascript:;" class="btn middle-btn2" data-val="26">
+                                    <div class="h5">
+                                        <h5>26</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="34">
+                                    <div class="h5">
+                                        <h5>34</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="35">
+                                    <div class="h5">
+                                        <h5>35</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="36">
+                                    <div class="h5">
+                                        <h5>36</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="45">
+                                    <div class="h5">
+                                        <h5>45</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="46">
+                                    <div class="h5">
+                                        <h5>46</h5>
+                                        <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="56">
+                                <div class="h5">
+                                    <h5>56</h5>
+                                    <p><em>×{$config['kuai_bz_changpai']}</em></p>
+                                </div>
+                            </a>
+                            </div>
+                        </div>
+                        <!--猜龙虎-->
+                        <div class="gamenum game-type-5">
+                            <div class="rank-tit"><span class="change">豹子</span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn3" data-val="1">
+                                    <div class="h5">
+                                        <h5>111</h5>
+                                        <p><em>× {$config['kuai_bz']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="2">
+                                    <div class="h5">
+                                        <h5>222</h5>
+                                        <p><em>× {$config['kuai_bz']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="3">
+                                    <div class="h5">
+                                        <h5>333</h5>
+                                        <p><em>× {$config['kuai_bz']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn3" data-val="4">
+                                    <div class="h5">
+                                        <h5>444</h5>
+                                        <p><em>× {$config['kuai_bz']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="5">
+                                    <div class="h5">
+                                        <h5>555</h5>
+                                        <p><em>× {$config['kuai_bz']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="6">
+                                    <div class="h5">
+                                        <h5>666</h5>
+                                        <p><em>× {$config['kuai_bz']}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="全豹/">
+                                    <div class="h5">
+                                        <h5>全豹</h5>
+                                        <p><em>×{$config['kuai_bz_quan']}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gamenum game-type-6">
+                            <div class="rank-tit"><span class="change">和值</span></div>
+                            <div class="btn-box btn-grounp">
+                                <a href="javascript:;" class="btn middle-btn2" data-val="4">
+                                    <div class="h5">
+                                        <h5>4</h5>
+                                        <p><em>×{$hezhi[4]}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="5">
+                                    <div class="h5">
+                                        <h5>5</h5>
+                                        <p><em>× {$hezhi[5]} </em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="6">
+                                    <div class="h5">
+                                        <h5>6</h5>
+                                        <p><em>× {$hezhi[6]}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="7">
+                                    <div class="h5">
+                                        <h5>7</h5>
+                                        <p><em>×{$hezhi[7]}</em></p>
+                                    </div>
+                                </a>  <a href="javascript:;" class="btn middle-btn2" data-val="8">
+                                <div class="h5">
+                                    <h5>8</h5>
+                                    <p><em>×{$hezhi[8]}</em></p>
+                                </div>
+                            </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="9">
+                                    <div class="h5">
+                                        <h5>9</h5>
+                                        <p><em>×{$hezhi[9]}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="10">
+                                    <div class="h5">
+                                        <h5>10</h5>
+                                        <p><em>×{$hezhi[10]}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="11">
+                                    <div class="h5">
+                                        <h5>11</h5>
+                                        <p><em>×{$hezhi[11]}</em></p>
+                                    </div>
+                                </a>
+
+                                <a href="javascript:;" class="btn middle-btn2" data-val="12">
+                                    <div class="h5">
+                                        <h5>12</h5>
+                                        <p><em>×{$hezhi[12]}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="13">
+                                    <div class="h5">
+                                        <h5>13</h5>
+                                        <p><em>×{$hezhi[13]}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="14">
+                                    <div class="h5">
+                                        <h5>14</h5>
+                                        <p><em>×{$hezhi[14]}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="15">
+                                    <div class="h5">
+                                        <h5>15</h5>
+                                        <p><em>×{$hezhi[15]}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="16">
+                                    <div class="h5">
+                                        <h5>16</h5>
+                                        <p><em>×{$hezhi[16]}</em></p>
+                                    </div>
+                                </a>
+                                <a href="javascript:;" class="btn middle-btn2" data-val="17">
+                                    <div class="h5">
+                                        <h5>17</h5>
+                                        <p><em>×{$hezhi[17]}</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--五球总和区段-->
+                        <!--单码竞猜-->
+
+                        <!--连码码竞猜-->
+
+                    </div>
+                </div>
+                <div id="touzhu">
+                    <div class="pour-info">
+                        <h4 class="game-tit game-tit-bg">竞猜大小单双<a href="javascript:;" class="close">×</a></h4>
+                        <div class="m-bd">
+                            <h4>共<em class="bet_n">1</em>注，投注金额<em class="bet_total">0</em>元</h4>
+                            <dl>
+                                <dt>
+                                    <span>下注金额：</span>
+                                    <input type="number" class="text text-right bet_money" placeholder="￥0.00"/>
+                                    <a href="javascript:;" class="money_clear"><i class="iconfont">&#xe63d;
+                                        清零</i></a>
+                                </dt>
+                                <dd>
+                                    <i class="m5" data-money='5'></i>
+                                    <i class="m10" data-money='10'></i>
+                                    <i class="m50" data-money='50'></i>
+                                    <i class="m100" data-money='100'></i>
+                                    <i class="m500" data-money='500'></i>
+                                    <i class="m1000" data-money='1000'></i>
+                                    <i class="m5000" data-money='5000'></i>
+                                </dd>
+                            </dl>
+                            <div class="sub-btn">
+                                <a href="javascript:;" class="cancel"><i class="iconfont">取消下注 &#xe60d;</i></a>
+                                <a href="javascript:;" class="confirm"><i class="iconfont">&#xe60b; 确定下注</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="rightdiv">
+
+        </div>
+    </div>
+    <div class='kefu rbox off' style="text-align: center">
+        <img style="margin-top: 14%; width: 50%;" src="__ROOT__/Uploads{$kefu.kefu}">
+        <br> <span style="color: #ff4444;">长按添加客服</span>
+    </div>
+    <div class="tzlog off rbox" data-uri="/index/mylog/lottery/cqssc.html"><p class="loading">数据加载中...</p></div>
+    <div class="guize off rbox" data-load="0">
+            <div style="background-color: rgba(255, 255, 255, 0.5); border-radius: 20px; padding: 20px; line-height: 180%;">
+                <div>
+                    <ol>
+                        <li><p><strong  style="font-size: 28px">「江苏骰宝(快3)规则说明」</strong></p>该游戏的投注时间、开奖时间和开奖号码与“江苏骰宝(快3)”完全同步，北京时间（GMT+8）每天白天从上午08:40开到晚上22:10，每10分钟开一次奖,每天开奖82期。</li>
+                    </ol>
+                    <h2>具体游戏规则如下:</h2>
+                    <h3>骰宝</h3>
+                    <p>1.小：三粒骰子之点数总和由4点至10点；<br>
+                        2.大：三粒骰子之点数总和由11点至17点；注：若三粒骰子平面点数相同，通吃「大」、「小」各注。<br>
+                        3.三军/鱼虾蟹：任何一粒骰子出现选定之平面点数；<br>
+                        4.围骰：三粒骰子平面与选定点数相同；<br>
+                        5.全骰：在一点至六点内，三粒骰子平面点数相同；<br>
+                        6.点数：由4点至17点，三粒骰子平面点数之总和；<br>
+                        7.长牌：任两粒骰子之平面点数；<br>
+                        8.短牌：选定两粒骰子之平面点数；<br>
+                    </p>
+                </div>
+            </div>
+    </div>
+    <div class="czhelp off rbox" data-load="0" data-uri="/index/help/data/czhelp/lottery/cqssc.html"><p class="loading">
+        充值联系客服<br>
+        <img src="__ROOT__/Uploads{$kefu.kefu}">
+    </p></div>
+</div>
+<div id="ss_menu">
+    <style type="text/css">li.disabled {
+        display: none;
+    }</style>
+    <div class="ss_nav">
+        <i class="iconfont close" data-id="#ss_menu"></i>
+        <ul class="lottery">
+            <if condition="C('pk10_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/Circle">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_pk10.png"></p><font> 北京赛车</font> </a>
+                </li>
+            </if>
+            <if condition="C('fei_on_off') eq 1">
+            <li class="show_load">
+                <a href="__APP__/Home/fei">
+                    <p><img src="__PUBLIC__/Home/Carhome/images/icon_xfft.png"></p><font> 幸运飞艇</font> </a>
+            </li>
+            </if>
+            <if condition="C('ssc_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/ssc">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_cqssc.png"></p><font> 时时彩</font> </a>
+                </li>
+            </if>
+            <if condition="C('kuai3_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/kuai3">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/jsks.png"></p><font> 快3</font> </a>
+                </li>
+            </if>
+            <if condition="C('bj28_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/Dan">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_bjpc.png"></p><font> 北京28</font> </a>
+                </li>
+            </if>
+            <if condition="C('jnd28_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/jnd">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_jnd.png"></p><font> 加拿大28 </font></a>
+                </li>
+            </if>
+            <if condition="C('jsssc_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/jsssc">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_jsssc.png"></p><font> 极速时时彩 </font></a>
+                </li>
+            </if>
+            <if condition="C('jscar_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/jscar">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/saiche.png"></p><font> 极速赛车</font> </a>
+                </li>
+            </if>
+            <if condition="C('lhc_on_off') eq 1">
+                <li class="show_load">
+                    <a href="__APP__/Home/lhc">
+                        <p><img src="__PUBLIC__/Home/Carhome/images/icon_lhc.png"></p><font> 六合彩</font> </a>
+                </li>
+            </if>
+            <if condition="C_set('chat_on_off') eq 1">
+            <li class="show_load">
+                <a href="__APP__/Home/Chat">
+                    <p><img src="__PUBLIC__/Home/Carhome/images/liaotianshi.png"></p>
+                    <font> 福利群</font>
+                </a>
+            </li>
+            </if>
+        </ul>
+        <ul class="menu">
+            <h3 class="tit">快捷菜单：</h3>
+            <li>
+                <a href="select/?lottery=mall" class="show_load">
+                    <i class="iconfont"></i>
+                    <font>回到大厅</font>
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Select/person.html" class="show_load">
+                    <i class="iconfont"></i>
+                    <font>个人中心</font>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        $("#ss_menu ul.lottery li").each(function (i, o) {
+            if ($(o).hasClass("disabled")) {
+                $(o).appendTo($("#ss_menu ul.lottery"));
+            }
+        });
+        $(document).ready(function () {
+            $(".wz").click(function () {
+                var display = $(".neirong").css('display');
+                if (display == "none") {
+                    $(".neirong").show();
+                    $(".ifarms").hide();
+                }else{
+                    $(".neirong").hide();
+                    $(".ifarms").show()
+                }
+            });
+            $(".gz").click(function () {
+                var display = $(".guize").attr('class').split(' ');
+                if (display[2] == null) {
+                    $(".guize").addClass('off');
+                    $(".touzu").removeClass('off');
+                }else{
+                    $(".guize").removeClass('off');
+                    $(".touzu").addClass('off');
+                }
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    site_url = "";
+    var lottery_uri = "/Carhome/index/xiaohu";
+    var ws_api = "ws://119.28.179.168:8088", wslnum = 0, wslflg = null;
+    var kefu_head = "http://qimg.dgtztz.com/2017-10-30_59f6137d57ec7.jpg", sys_head = "/Public/images/gm.jpg";
+    var udata = {
+        uid: 10218, kt: 1, status: 0, type: 'cqssc', sw: 1,
+        uname: "年华岁月", sign: "0a83d672125e20e36dd4d1c005aede61efe00b42", time: "",
+        headimg: "{$userinfo.headimgurl}"
+    };
+    $(function () {
+        load_slide_menu();
+        var socket_init = function () {
+            socket = new WebSocket(ws_api);
+            socket.onopen = function (event) {
+                var sendMessage = {
+                    'act': 'login', 'sw': udata.sw,
+                    'uid': udata.uid,
+                    'type': udata.type,
+                    'uname': udata.uname,
+                    'headimg': udata.headimg,
+                    'sign': udata.sign,
+                    'time': udata.time,
+                };
+
+
+            }
+            //socket_check();
+        }
+        //心跳包
+        //setInterval(function(){
+        //	online_heart();
+        //},30000);
+
+
+        $(document).on("click", ".cs-btn", function () {
+            var that = $(this);
+            layer.open({
+                content: '确定要撤单吗？', btn: ['确定', '关闭'], yes: function (index) {
+                    layer.close(index);
+                    $.get($(that).data('uri')).then(function (res) {
+                        zy.tips(res.info);
+                        $.get('/index/mylog/lottery/cqssc.html').then(function (res) {
+                            $(".tzlog").html(res);
+                        })
+                    })
+                }
+            });
+        });
+        $(document).on("click", ".saidleft .neirongsaid", function () {
+            $("#Message").val($(this).text());
+        });
+        //显示更多下注
+        $(".game-hd .menu").find("li").click(function () {
+            if ($(this).hasClass("more-game")) {
+                $(this).toggleClass("on");
+                $(this).hasClass("on") ? $(".sub-menu").show() : $(".sub-menu").hide();
+                ;
+            } else {
+                $(this).siblings().removeClass('on');
+                $(".sub-menu").hide();
+            }
+            ;
+        })
+        var bet=0;
+        //切换下注方式
+        $(".game-hd .menu").find("a").click(function () {
+            var a = $(this), d = a.data();
+            if (!d.t)return;
+            $(".game-hd .menu").find("a").removeClass("on");
+            a.addClass("on"), $(".game-tit").html(a.text()), $(".sub-menu").hide(), $('.gamenum').hide(),
+                $('.game-type-' + d.t).show().find('.rank-tit .change').html(a.text()),$(".game-bd a.btn").removeClass("on"), bet = d.t, show_bet();
+        });
+        //下注选择
+        $(".game-bd a.btn").click(function () {
+            $(this).toggleClass('on');
+            show_bet();
+        });
+        //清空
+        $(".clearnum").click(function () {
+            $(".game-bd a.btn").removeClass("on");
+            show_bet();
+        });
+        $(".money_clear").click(function () {
+            $(this).prev().val('');
+            zy.delcc("bet_money");
+            show_bet();
+        });
+        $("input.bet_money").keyup(function () {
+            show_bet();
+        });
+        $("i[data-money]").click(function () {
+            var a = $(".bet_money"), m = $(this).data("money"), n = a.val() * 1;
+            a.val(n + m);
+            zy.setcc("bet_money", n + m);
+            show_bet();
+        });
+        var show_bet = function () {
+            if (!bet){
+                bet=1;
+            }
+            var t = $(".game-type-" + bet);
+            bval = [];
+            t.find('a.on[data-val]').each(function (i, o) {
+                bval.push($(this).data('val'));
+            });
+            bet_n = 0;
+            switch (bet) {
+                case 1:
+                    bet_n = bval.length;
+                    break;
+                case 2:
+                    bet_n = bval.length;
+                    break;
+                case 3:
+                    bet_n = bval.length;
+                    break;
+                case 4:
+                    bet_n = bval.length;
+                    break;
+                case 5:
+                    if (bval.length > 0 && bval.length < 6) bet_n = 1;
+                    break;
+                case 6:
+                    if (bval.length > 0 && bval.length < 8) bet_n = 1;
+                    break;
+                default:
+                    bet_n = bval.length;
+                    break;
+            }
+            $("#bet_num").html("共<b>" + bet_n + "</b>注");
+            $('.bet_n').html(bet_n);
+            var bet_money = $("input.bet_money").val() || 0;
+            $('.bet_total').html(bet_n * bet_money);
+            if ( bval.length > 0) {
+                $(".clearnum").addClass('on');
+                $(".infuse").show();
+            } else {
+                $(".clearnum").removeClass('on');
+                $(".infuse").show();
+            }
+            if (bet_n > 0) {
+                $(".confirm-pour").addClass('on');
+            } else {
+                $(".confirm-pour").removeClass('on');
+            }
+        }
+        $(".game-box i.closebt").click(function () {
+            $(".game-box,.txtbet").removeClass('on');
+            $(".txtbet_div").hide();
+        });
+        $("a.confirm").click(function () {
+            var bl = $("b.balance").text() * 1, msg1, msg2, msg = [],
+                bet_money = $("input.bet_money").val() * 1;
+            if (bet_money == 0) {
+                alert('请输入下注金额');
+                return;
+            }
+            if (bet_money * bet_n > bl) {
+                zy.tips("您的余点不足");
+                return;
+            }
+            switch (bet) {
+                case 1:
+                    $.each(bval, function (i, v) {
+                        msg[i] = v+"/" + bet_money
+                    });
+                    break;
+                case 2:
+                    $.each(bval, function (i, v) {
+                        msg[i] ="短牌/"+ v +"/"+ bet_money
+                    });
+                    break;
+                case 3:
+                    $.each(bval, function (i, v) {
+                        msg[i] ="三军/"+ v +"/"+ bet_money
+                    });
+                    break;
+                case 4:
+                    $.each(bval, function (i, v) {
+                        msg[i] ="长牌/"+ v +"/"+ bet_money
+                    });
+                    break;
+                case 5:
+                    $.each(bval, function (i, v) {
+                        if(v>0 && v<7){
+                            msg[i] ="豹子/"+ v +"/"+ bet_money
+                        }else if(v=="全豹/") {
+                            msg[i] = v + bet_money
+                        }
+                    });
+                    break;
+                case 6:
+                    $.each(bval, function (i, v) {
+                        msg[i] =v +"/"+ bet_money
+                    });
+                    break;
+                default:
+                    $.each(bval, function (i, v) {
+                        msg[i] = v + "/" + bet_money
+                    });
+                    break;
+            }
+            if (msg.count < 1) return;
+            $.each(msg, function (i, m) {
+                onSubmit1(m);
+                $(".txtbet_div").hide();
+//                send_msg(m);
+            });
+            $("#touzhu").removeClass("on");
+            location.href = "#main"
+        });
+        $(".confirm-pour").click(function () {
+            if (!$(this).hasClass("on")) return;
+            $("#touzhu").addClass("on"), location.href = "#confirm"
+        });
+
+        $(".pour-info").find("a.close,a.cancel").click(function () {
+            $("#touzhu").removeClass("on"), location.href = "#main";
+        });
+    });
+</script>
+<!--我的js-->
+<!--提交数据-->
+<script type="text/javascript">
+    setTimeout(function () {
+        $('#load').css('display', 'none');
+        $('.chatting').css('display', 'block');
+    }, 1500);
+    document.onkeydown = function (event) {
+        e = event ? event : (window.event ? window.event : null);
+        if (e.keyCode == 13) {
+            onSubmit();
+            return false;
+        }
+    }
+    if (typeof console == "undefined") {
+        this.console = {
+            log: function (msg) {
+            }
+        };
+    }
+    WEB_SOCKET_SWF_LOCATION = "__PUBLIC__/worker/swf/WebSocketMain.swf";
+    WEB_SOCKET_DEBUG = true;
+    var wslnum =0;
+    var ws, name;
+    // 连接服务端
+    function connect() {
+        // 创建websocket
+        var htt= 'https:' == document.location.protocol ? "wss://": "ws://";
+        ws = new WebSocket(htt+ document.domain + ":{:C('worker_port')}");
+        // 当socket连接打开时，发送登录信息
+        ws.onopen = function () {
+            var name = "{$userinfo.nickname}";
+            // 登录
+            var userid = "{$userinfo.id}";
+            var login_data = '{"type":"login","type_name":"kuai3","client_name":"' + name.replace(/"/g, '\\"') + '","client_id":"' + userid + '"}';
+            console.log("websocket握手成功，发送登录数据{:C('worker_port')}:" + login_data);
+            ws.send(login_data);
+        };
+        // 当有消息时根据消息类型显示不同信息
+        ws.onmessage = onmessage;
+        //监听Socket的关闭
+        ws.onclose = function (event) {
+            setTimeout(function () {
+                socket_check(0);
+            }, 1000)
+        };
+    }
+    var socket_check = function (flg) {
+        if (!ws || ws.readyState != 1) {
+            wslnum++;
+            if (wslnum > 10) {
+                location.reload();
+            }
+            else {
+                connect();
+            }
+        }
+        if (flg == 1) {
+            if (flg) clearTimeout(flg);
+            flg = setTimeout(function () {
+                socket_check(1)
+            }, 3000);
+        }
+    }
+    // 服务端发来消息时
+    var inte = parseInt(Math.random()*12+1);
+    function onmessage(e) {
+
+
+        var data = eval("(" + e.data + ")");
+        switch(data['type']) {
+            // 服务端ping客户端
+            case 'ping':
+                $('#xs').html(data.content+{:C('online')});
+
+        break;
+        // 登录 更新用户列表
+    case 'login':
+        console.log(data['client_name'] + "登录成功");
+        break;
+        // 发言
+    case 'say':
+            say(data['uid'],data['head_img_url'],data['time'],data['from_client_name'],data['content']);
+        break;
+        // 用户退出 更新用户列表
+    case 'logout':
+        break;
+    case 'broadcast':
+        //alert('client');
+
+        //房管
+    case 'admin':
+        if(data['updatepoints']){
+            $('.balance').text(data['updatepoints']);
+        }
+            systemsay(data['head_img_url'],data["time"],data["from_client_name"],data["content"]);
+        break;
+        //系统
+    case 'system':
+
+            if('{$userinfo.id}'==data['uid']){
+                systemsay(data['head_img_url'],data["time"],data["from_client_name"],data["content"])
+             }
+
+
+        break;
+        //积分减
+    case 'points':
+//        $('#sy').html((parseFloat($('#sy').html())-data['content']).toFixed(1));
+        $.ajax({
+            url: "{:U('Home/Dan/getpoint')}",
+            type: "post",
+            data:{'number':111},
+            dataType:'json',
+            success:function(res){
+                $('.balance').text(res.points);
+            }
+        });
+        break;
+        //积分加
+    case 'pointsadd':
+        $('#sy').html((parseFloat($('#sy').html())+data['points']).toFixed(1));
+//        parent.layer.msg('恭喜竞猜成功');
+        break;
+        //重载
+    case 'reload':
+        if('{$userinfo.id}'==9){
+            window.location.href=window.location.href;
+        }
+        break;
+        //切换
+    case 'switch':
+        parent.location.reload();
+        break;
+    }
+    }
+    //    普通对话框 提交信息
+    $(function () {
+        $(".kbsend").click(function(){
+//            var input = $("#Message").val();
+            onSubmit1();
+        });
+        $("#sendkf").click(function () {
+            var msg = $("#kfs").val();
+            if(!msg){
+                layer.msg('请输入内容发送');
+            }else {
+                $.ajax({
+                    url: "{:U('Home/Circle/liuyan')}",
+                    type: "post",
+                    data:{'msg':msg,'is_kefu':0},
+                    dataType:'json',
+                    error:function(){
+                        parent.layer.open({content: '服务器开小差了~',skin: 'msg',time: 2});
+                    },
+                    success:function(res){
+                        if(res.error ==1){
+                            parent.layer.open({content:res.msg,skin: 'msg',time: 2});
+                            //添加留言
+                            addhtmlliuyan();
+                            $("#kfs").val('');
+                        }else {
+                            parent.layer.open({content:res.msg,skin: 'msg',time: 2});
+                        }
+                    }
+                });
+            }
+        });
+
+        $('.czzz').click(function () {
+            //页面层
+            layer.open({
+                type: 1
+                ,
+                content: '<img src="__ROOT__/Uploads{$kefu.kefu}" style="width:50%;box-shadow: 2px 4px 50px black;z-index:9999;"/>'
+                ,
+                anim: 'up'
+                ,
+                style: 'position:fixed; bottom:0; left:0; width: 100%; height: 400px; padding:10px 0; border:none;'
+            });
+        })
+
+
+    })
+    function del(id) {
+        layer.open({
+            content: '您确定要取消吗？'
+            ,btn: ['确认', '取消']
+            ,yes: function(index){
+                layer.close(index);
+                $.ajax({
+                    url: "{:U('Home/Common/quxiao')}",
+                    type: "post",
+                    data:{'id':id,'game':'kuai3'},
+                    dataType:'json',
+                    error:function(){
+                        parent.layer.open({content: '服务器开小差了~',skin: 'msg',time: 2});
+                    },
+                    success:function(res){
+                        parent.layer.open({content:res.msg,skin: 'msg',time: 2});
+                        if(res.status ==1){
+                            flashjilu();
+                            $.ajax({
+                                url: "{:U('Home/Dan/getpoint')}",
+                                type: "post",
+                                data:{'number':111},
+                                dataType:'json',
+                                success:function(res){
+                                    $('.balance').text(res.points);
+                                }
+                            });
+                        }
+
+//                        location.href=location.href;
+                    }
+                });
+            }
+        });
+    }
+    //html添加留言
+    function addhtmlliuyan(){
+        var msg = $("#kfs").val();
+        var html ="";
+        html+='<div class="saidright">'
+        html+='  <img src="{$userinfo.headimgurl}"><div class="tousaidl">'
+        html+='<span class="tousaid2"><?php echo date("H:i") ?></span>&nbsp;&nbsp;<span class="tousaid1">小弟</span></div><div class="ts"><b></b>'
+        html+='<span class="neirongsaidl" style="background:#98E165;">'+msg+'</span>'
+        html+='</div></div>';
+        $('.kfcs').prepend(html);
+    }
+    //更新记录
+    function gengxin(res) {
+        var html ='';
+        html+=' <table width="100%" class="table">'
+        html+='     <tbody>'
+        html+='  <tr>'
+        html+='  <th>期号</th>'
+        html+='  <th>内容</th>'
+        html+='  <th>金额</th>'
+        html+='  <th>投注时间</th>'
+        html+='  <th>结果</th>'
+        html+='  <th>结算</th>'
+        html+='  </tr>'
+        //开始循环
+        for(var i in res){
+//                console.log(res[o].id);
+            html+='      <tr>'
+            html+='    <td>'+res[i].number+'</td>'
+            html+='   <td>'+res[i].jincai+'</td>'
+            html+='  <td>'+res[i].del_points+'</td>'
+            html+='  <td>'+res[i].time+'</td>'
+            html+='  <td>'
+            if(res[i].numbers ==res[i].number){
+                html+='     <a class="bt bt-red" onclick="del('+res[i].id+')">取消</a>'
+            }else {
+                html+=Number(res[i].add_points -res[i].del_points).toFixed(2)
+            }
+            html+='  </td>'
+            if(res[i].is_add ==1){
+                html+='  <td>是</td>'
+            }else {
+                html+='  <td>否</td>'
+            }
+            html+='   </tr>'
+            //循环结束
+        }
+        html+='   </tbody>'
+        html+='  </table>';
+//            console.log(res[888].numbers);
+        $('.tzlog').html(html);
+    }
+    function getLocalTime(nS) {
+        return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+    }
+    //刷新操作
+    function flashjilu() {
+        $.ajax({
+            url: "{:U('Home/Common/getjilu')}",
+            type: "post",
+            data:{'game':'kuai3'},
+            dataType:'json',
+            error:function(){
+                parent.layer.open({content: '服务器开小差了~',skin: 'msg',time: 2});
+            },
+            success:function(res){
+                gengxin(res);
+                $.ajax({
+                    url: "{:U('Home/Dan/getpoint')}",
+                    type: "post",
+                    data:{'number':111},
+                    dataType:'json',
+                    success:function(res){
+                        $('.balance').text(res.points);
+                    }
+                });
+
+//                        location.href=location.href;
+            }
+        });
+    }
+    // 提交对话
+    function onSubmit1(msg) {
+        var headimgurl = '{$userinfo.headimgurl}';
+        var from_client_name = '{$userinfo.nickname}';
+        if(msg){
+            //快捷下注提交会话
+            if(msg ==''){
+                return false;
+            }
+            var input = msg
+        }else {
+            //普通提交会话
+            var input= $("#Message").val();
+            if(input == ''){
+                return false;
+            }
+        }
+        ws.send('{"type":"say","type_name":"kuai3","client_name":"'+from_client_name+'","headimgurl":"'+headimgurl+'","content":"' +input+ '"}');
+        //        ws.send('{"type":"say_pk10","client_name":"'+from_client_name+'","headimgurl":"'+headimgurl+'","content":"' + input.value.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r') + '"}');
+//    ,"content":"' + input.value.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r') + '"
+        $('#Message').val('').focus();
+        $('.getkeybord').click();
+        //$('#dialog').scrollTop(0);
+    }
+    // 自己发言
+    function say(uid,img,time,name,content) {
+        if('{$userinfo.id}'==uid){
+            othersay1(img,time,name,content);
+        }else{
+            othersay(img,time,name,content);
+        }
+    }
+    //别人说话
+    function othersay(img,time,name,content) {
+        var html = "";
+        html +=' <div class="saidleft"><img src="'+img+'">'
+        html +='<div class="tousaid"><span class="tousaid1">'+name+'</span>&nbsp;&nbsp;<span class="tousaid2">'+time+'</span></div>'
+        html +=' <div class="tsf"><b></b><span class="neirongsaid">'+content+'</span></div>'
+        html +=' </div>'
+        $(".rightdiv").prepend(html);
+    }
+    function othersay1(img,time,name,content) {
+        var html = "";
+        html +=' <div class="saidleft"><img src="'+img+'">'
+        html +='<div class="tousaid"><span class="tousaid1">'+name+'</span>&nbsp;&nbsp;<span class="tousaid2">'+time+'</span></div>'
+        html +=' <div class="tsf"><b></b><span class="neirongsaid" >'+content+'</span></div>'
+        html +=' </div>'
+        $(".rightdiv").prepend(html);
+    }
+    //系统发言
+    function systemsay(img,time,name,content){
+        var html = "";
+        html +='<div style="clear: both;height: 1px; width: 100%; margin-top: -1px;">'
+        html +=' <img style="width: 90px;float: right" src="'+img+'">'
+        html +=' <div style="float: right;margin-right: 1em">'
+        html +='   <div><div style="padding-left: 5em;float: right;">  <span style="font-size: 20px;">'+time+'</span>&nbsp;&nbsp;'+name+'</div></div>'
+        html +='   <div style="margin-left: 1em;" class="ziji">'+content+'</div>'
+        html +='    </div>'
+        html +='   </div>'
+        $(".rightdiv").prepend(html);
+
+    }
+</script>
+<!--推送-->
+<script src='//cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+<script>
+    var uid = '{$userinfo.id}';
+</script>
+<script>
+    //关闭灰色 jQuery 遮罩
+    function closeBg() {
+        $("#dialog").hide();
+    }
+
+    function jianpan() {
+        if($(".chatting2").css("display")=='none'){
+            $('.chatting2').show();
+        }else {
+            $('.chatting2').hide();
+            $('.chatting3').show();
+        }
+    }
+    function escape2Html(str) {
+        var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
+    }
+
+</script>
+<!--我的方法-->

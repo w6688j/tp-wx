@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>后台 - 会员管理</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+		<link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+	</head>
+	<style>
+		/*分页样式*/
+		.pages a,.pages span {
+		    display:inline-block;
+		    padding:4px 7px;
+		    margin:0 2px;
+		    border:1px solid #D5D4D4;
+		    -webkit-border-radius:1px;
+		    -moz-border-radius:1px;
+		    border-radius:1px;
+		}
+		.pages a,.pages li {
+		    display:inline-block;
+		    list-style: none;
+		    text-decoration:none; color:#3399ff;
+		}
+		
+		.pages a:hover{
+		    border-color:#3399ff;
+		}
+		.pages span.current{
+		    background:#3399ff;
+		    color:#FFF;
+		    font-weight:700;
+		    border-color:#3399ff;
+		}
+		.pages{
+			text-align: center;
+		}
+		/*分页样式*/
+		
+		.layui-layer{
+			top:48px !important;
+		}
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated fadeInRight">	
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>用户管理</h5>
+						</div>
+						<div class="ibox-content">
+							<div class="row">
+								<div class="col-sm-3">
+									<form method="get" action="{:U('admin/agent/userlist')}">
+										<div class="input-group">
+											<input type="text" required="required" placeholder="请输入用户名" name="nickname" class="input-sm form-control"> <span class="input-group-btn">
+	                                    	<input type="hidden" name="uid" value="{$did}"/>
+											<button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+										</div>
+									</form>
+									<form method="get" action="{:U('admin/agent/userlist')}">
+										<div class="input-group">
+											<input type="hidden" name="uid" value="{$did}"/>
+											<input type="text" required="required" placeholder="请输入用户id" name="userid" class="input-sm form-control"> <span class="input-group-btn">
+	                                    	<button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="" >
+								<table class="table table-striped table-hover table-bordered" style="width:auto;overflow:auto;display:inline-block;">
+									<thead>
+										<tr>
+											 <th>id</th>
+											<th>头像</th>
+											<th>用户名</th>
+											<th>推荐人</th>
+											<th>性别</th>
+											<th>注册时间</th>
+											<th>注册ip</th>
+											<th>最后登录ip</th>
+											<th>绑定手机</th>
+											<th>剩余点数</th>
+											<th>佣金余额</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<volist name="list" id="vo">
+											<tr>
+												<td width="20">{$vo.id}</td>
+												<td width="60"><img src="{$vo.headimgurl}"/></td>
+												<td width="">{$vo.nickname}</td>
+												<td width="">{$vo.tname}</td>
+												<td width="50" style="text-align: center;">
+													<if condition="$vo['sex'] eq 1">男</if>
+													<if condition="$vo['sex'] eq 2">女</if>
+													<if condition="$vo['sex'] eq 0">未知</if>
+												</td>
+												<td width="100">{$vo.reg_time|date="Y-m-d H:i:s",###}</td>
+												<td onclick="showdl('{$vo.reg_ip}')">{$vo.reg_ip}</td>
+												<td onclick="showdl('{$vo.last_ip}')">{$vo.last_ip}</td>
+												<td>
+												<if condition ="$vo['username'] eq ''">未绑定<else/>已绑定</if>
+												</td>
+												<td width="100" style="text-align: center;font-weight: 700;">{$vo.points}</td>
+												<td width="100" style="text-align: center;font-weight: 700;">{$vo.commission}</td>
+												<td>
+													<if condition="$vo.status eq 1">
+														<a onclick="disable('{$vo.id}')" class="btn btn-danger">禁用</a>
+														<else/>
+														<a onclick="endisable('{$vo.id}')" class="btn btn-primary">启用</a>
+													</if>
+													<if condition="$vo.isgag eq 1">
+														<a onclick="gagsdo('{$vo.id}')" class="btn btn-danger">取消禁言</a>
+														<else/>
+														<a onclick="gagdo('{$vo.id}')" class="btn btn-primary">禁言</a>
+													</if>
+												</td>
+											</tr>
+										</volist>
+									</tbody>
+								</table>
+							</div>
+							<div class="pages">
+								{$show}
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script src="__PUBLIC__/Admin/js/plugins/iCheck/icheck.min.js"></script>
+		<script src="__PUBLIC__/Common/layer/layer.js"></script>
+		<script>
+			$(document).ready(function() {
+				$(".i-checks").iCheck({
+					checkboxClass: "icheckbox_square-green",
+					radioClass: "iradio_square-green",
+				})
+			});
+		</script>
+		<script>
+			function disable(id){
+				layer.confirm('确定要禁用吗？禁用后将不能登录。', {
+				  	btn: ['确定','取消'] //按钮
+				}, function(){
+				  	window.location.href="__APP__/agent/Member/disable/id/" + id + ""
+				});
+			}
+			function endisable(id){
+				layer.confirm('确定要启用吗？', {
+				  	btn: ['确定','取消'] //按钮
+				}, function(){
+				  	window.location.href="__APP__/agent/Member/endisable/id/" + id + ""
+				});
+			}
+            function gagdo(id){
+                layer.confirm('确定要将他禁言吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    window.location.href="__APP__/agent/Member/gagdo/status/1/id/" + id + ""
+                });
+            }
+            function gagsdo(id){
+                layer.confirm('确定要取消禁言吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    window.location.href="__APP__/agent/Member/gagdo/status/2/id/" + id + ""
+                });
+            }
+			function showdl(ip) {
+                //获取最新数据
+                $.ajax({
+                    url: "{:U('agent/Member/showdldo')}",
+                    type: "post",
+                    data:{'ip':ip},
+                    dataType:'json',
+                    error:function(){
+                        parent.layer.open({content: '服务器开小差了~',skin: 'msg',time: 2});
+                    },
+                    success:function(res){
+                      layer.msg(res);
+                    }
+                });
+            }
+		</script>
+	</body>
+
+	
+</html>

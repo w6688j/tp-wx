@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器</title>
+    <style>
+        table{border: 1px solid #d8d8d8;margin: auto;margin-top: 10%}
+        table th{border:1px solid #d8d8d8}
+        table td{border:1px solid #d8d8d8}
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>更新数据,和结算</th>
+        <!--<th>加拿大28</th>-->
+        <!--<th>北京28</th>-->
+        <!--<th>赛车pk10</th>-->
+    </tr>
+    <tr>
+        <td><div style="text-align: center;margin-top: 20%">
+            <div>距离刷新还有<span id="mes"style="color: red">5</span></div>
+            <span id="time"></span>--<span id = 'sx'></span>
+        </div>
+        </td>
+        <!--<td>-->
+        <!--<iframe frameborder=0 width=250 height=200 marginheight=0 marginwidth=0 scrolling=no src=http://{$severname}/admin/auto/jnd28></iframe>-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--<iframe frameborder=0 width=250 height=200 marginheight=0 marginwidth=0 scrolling=no src=http://{$severname}/admin/auto/bj28></iframe>-->
+        <!--</td>-->
+        <td>
+            <!--<iframe frameborder=0 width=250 height=200 marginheight=0 marginwidth=0 scrolling=no src=http://www.car.com/admin/auto/pk10></iframe>-->
+        </td>
+
+    </tr>
+
+</table>
+
+</body>
+<script src="__PUBLIC__/Admin/js/jquery.min.js"></script>
+<script>
+    var aa = 0;
+    function update() {
+        $.ajax({url:"./update"});
+    }
+    var time;
+    time = getNowFormatDate();
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+        return currentdate;
+    }
+
+    //还有几秒；
+    $(function () {
+        funkaishi();
+        $("#time").html(time);
+    })
+    var i = 10;
+    var intervalid;
+    function funkaishi() {
+        intervalid = setInterval("fun()", 1000);
+    }
+    function fun() {
+        var  time2 = getNowFormatDate();
+
+        if (i == 0) {
+            update();
+            clearInterval(intervalid);
+            i = 10;
+            funkaishi();
+            $("#time").html(time2);
+        }
+        document.getElementById("mes").innerHTML = i;
+        i--;
+    }
+
+    //定时刷新整个页面
+    function myrefresh()
+    {
+        window.location.reload();
+    }
+    setTimeout('myrefresh()',300000); //指定1秒刷新一次
+
+</script>
+</html>

@@ -1,0 +1,11 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+.idea
+/Application/Runtime/
+/.phpstorm.meta.php
+/Uploads/qrcode/
+/kj/conf.js
+/kj/node_modules/
+/Application/Common/Conf/db.php
+/Application/Common/Conf/common.php
+

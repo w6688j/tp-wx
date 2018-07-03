@@ -1,0 +1,296 @@
+<html ng-app="ionicApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>上下分管理</title>
+    <link href="https://cdn.bootcss.com/ionic/1.3.2/css/ionic.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/ionic/1.3.2/js/ionic.bundle.min.js"></script>
+    <script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
+    <script src="__PUBLIC__/layer/layer.js"></script>
+</head>
+<style>
+    .shangxia{
+        padding: 50px 0px;
+    }
+    .bj{
+        line-height: 40px;
+    }
+    .cur{
+        color: lightskyblue;
+    }
+    .spanjz{
+        padding-left:20px;
+
+    }
+    .fanhui{
+        font-size: 22px;
+        padding-top: 10px;
+        padding-left: 10px;
+    }
+    a{text-decoration:none}
+</style>
+<body>
+<div style="width: 100%;height: 40px;border-bottom: 1px solid #e8d6d6;">
+    <a href="javascript:history.go(-1)" style="line-height: 40px;padding-left: 20px;color: #87cefa">返回</a>
+</div>
+
+<div>
+    <div class="row"style="text-align: center">
+        <div class="col-50 bj cur" style="max-width: 33.3%">上分</div>
+        <div class="col-50 bj" style="max-width: 33.3%">下分</div>
+        <div class="col-50 bj" style="max-width: 33.3%">佣金提现</div>
+    </div>
+</div>
+<div class="divs">
+    <ul class="list">
+
+       <a href="{:U('Home/Dan/weixin')}"> <li class="item">
+          <img style="    width: 27px;vertical-align:middle" src="/Public/Home/img/wx.png"><span class="spanjz">微信转账</span>
+        </li></a>
+        <a href="{:U('Home/Dan/zhifubao')}">  <li class="item">
+            <img style="    width: 27px;vertical-align:middle" src="/Public/Home/img/zfb.png"><span class="spanjz">支付宝转账</span>
+        </li>
+        </a>
+        <a href="{:U('Home/Select/yinghangka')}"><li class="item">
+            <img style="    width:27px;vertical-align:middle" src="/Public/Home/img/yinghangka.png"><span class="spanjz">银行卡转账</span>
+        </li></a>
+    </ul>
+</div>
+<!--下分-->
+<div class="divs"style="display: none">
+    <ul class="list">
+        <li class="item">
+            <span class="spanjz">账户余额 <span style="float: right">{$userinfo.points}</span></span>
+        </li>
+        <li class="item">
+            <span class="spanjz">账户昵称<span style="float: right">{$userinfo.nickname}</span></span>
+        </li>
+
+    </ul>
+    <style>
+        .xinxi{
+            padding:5px 25px;
+        }
+        .shurukuang{
+            width: 100%;
+        }
+    </style>
+    <label class="item item-input" style="border-top: 0px;">
+        选择下分类型  &nbsp;&nbsp;&nbsp;
+        <select style="  border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;"class="select">
+            <option value="weixin">微信</option>
+            <option value="alipay">支付宝</option>
+            <option value="bankcard" selected = "selected">银行卡</option>
+        </select>
+    </label>
+
+        <!--<div style="padding: 5px;"><label>&nbsp;&nbsp;&nbsp;</label><input class="jine"  style="    border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name="" type="text" placeholder=""></div>-->
+    <div class="xinxi">
+        <div style="padding: 5px;"><label>提取金额：</label><input class="jine" style="     width: 100%; border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name=""placeholder="可提取金额:{:C('zuiditixian')}-{$userinfo.points}" type="text"></div>
+    </div>
+    <div class="xinxi">
+        <div style="padding: 5px;"><label>收款账户：</label><input class="accountnumber shurukuang" value="{$datas['banksou']}" style="  border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name=""type="text"placeholder="输入账号"></div>
+        <div class="bankcardl" style="display: block">
+            <div style="padding: 5px;"><label>开户行：&nbsp;&nbsp;&nbsp;</label><input class="khh shurukuang"  style="    border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name=""value="{$datas['khh']}" type="text" placeholder="请输入开户行"></div>
+            <div style="padding: 5px;"><label>收款人：&nbsp;&nbsp;&nbsp;</label><input class="skr shurukuang" style="    border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name="" type="text"value="{$datas['name']}" placeholder="姓名"></div>
+
+        </div>
+        <div style="width: 100%;text-align: center;padding-top: 30px;">
+            <input type="button" class="tijiao"onclick="tijiao()" style="    background: #42a6ff;
+    color: white;
+    padding: 5px;
+    width: 68%;
+    height: 35px;
+    border-radius: 5px;" value="提交">
+        </div>
+</div>
+</div>
+<div class="divs"style="display: none">
+    <ul class="list">
+        <li class="item">
+            <span class="spanjz">佣金余额 <span style="float: right">{$userinfo.commission}</span></span>
+        </li>
+        <li class="item">
+            <span class="spanjz">账户昵称<span style="float: right">{$userinfo.nickname}</span></span>
+        </li>
+
+    </ul>
+    <style>
+        .xinxi{
+            padding:5px 25px;
+        }
+        .shurukuang{
+            width: 100%;
+        }
+    </style>
+    <label class="item item-input" style="border-top: 0px;">
+        选择下分类型  &nbsp;&nbsp;&nbsp;
+        <select style="  border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;"class="select selects">
+            <option value="weixin">微信</option>
+            <option value="alipay">支付宝</option>
+            <option value="bankcard" selected = "selected">银行卡</option>
+        </select>
+    </label>
+
+    <!--<div style="padding: 5px;"><label>&nbsp;&nbsp;&nbsp;</label><input class="jine"  style="    border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name="" type="text" placeholder=""></div>-->
+    <div class="xinxi">
+        <div style="padding: 5px;"><label>提取金额：</label><input class="jine2" style="     width: 100%; border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name=""placeholder="可提取金额:{:C('zuiditixian')}-{$userinfo.commission}" type="text"></div>
+    </div>
+    <div class="xinxi">
+        <div style="padding: 5px;"><label>收款账户：</label><input class="accountnumber2 shurukuang" value="{$datas['weixin']}" style="  border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name=""type="text"placeholder="输入账号"></div>
+        <div class="bankcardl" style="display: block">
+            <div style="padding: 5px;"><label>开户行：&nbsp;&nbsp;&nbsp;</label><input class="khh2 shurukuang"  style="    border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name=""value="{$datas['khh']}" type="text" placeholder="请输入开户行"></div>
+            <div style="padding: 5px;"><label>收款人：&nbsp;&nbsp;&nbsp;</label><input class="skr2 shurukuang" style="    border: 1px solid #c7c7c7; padding: 5px;border-radius: 5px;" name="" type="text"value="{$datas['name']}" placeholder="姓名"></div>
+
+        </div>
+        <div style="width: 100%;text-align: center;padding-top: 30px;">
+            <input type="button" class="tijiao"onclick="yonjintijiao()" style="    background: #42a6ff;
+    color: white;
+    padding: 5px;
+    width: 68%;
+    height: 35px;
+    border-radius: 5px;" value="提交">
+        </div>
+    </div>
+</div>
+<?php
+$data =M('config')->where('id=1')->find();
+?>
+
+</body>
+
+<script>
+    var zhifubao ="{$datas['zhifubao']}";
+    var weixin ="{$datas['weixin']}";
+    var yinghang ="{$datas['banksou']}";
+    //当用户选择的时候
+    $(".select").change(function(){
+        var aa = $(".select").val();
+        if(aa =='weixin'){
+            $(".accountnumber").val(weixin);
+        }else if(aa =='alipay'){
+            $(".accountnumber").val(zhifubao);
+        }else if(aa =='bankcard'){
+            $(".accountnumber").val(yinghang);
+        }
+    });
+    $(".selects").change(function(){
+        var aa = $(".selects").val();
+        if(aa =='weixin'){
+            $(".accountnumber2").val(weixin);
+        }else if(aa =='alipay'){
+            $(".accountnumber2").val(zhifubao);
+        }else if(aa =='bankcard'){
+            $(".accountnumber2").val(yinghang);
+        }
+    });
+    $(".bj").click(function() {
+        $(".bj").eq($(this).index()).addClass("cur").siblings().removeClass('cur');
+        $(".divs").hide().eq($(this).index()).show();
+    });
+    //下分操作
+    //如果选择了银行卡
+    $(".select").change(function () {
+        if ($('.select').val() =='bankcard'){
+            $('.bankcardl').show()
+        }else {
+            $('.bankcardl').hide()
+        }
+    })
+
+    var panduan =1;
+    var bfb ='';
+     function tijiao() {
+       $.post("{:U('Home/Dan/checkxiafen')}","data",function(result){
+            var obj = JSON.parse(result);
+            if(obj.status ==1){
+                bfb =obj.bfb;
+                tijiaodo();
+            }else if(obj.status ==0) {
+                layer.confirm('您的流水不足，如要下分需缴纳'+getsum()+'费用,作为行政费用', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    bfb =obj.bfb;
+                    panduan =0;
+                    tijiaodo();
+                });
+
+            }
+        });
+    };
+    function yonjintijiao() {
+            var sum  ='';
+            sum  = $('.jine2').val();
+            var classify = $('.selects').val();
+            var accountnumber = $('.accountnumber2').val();
+            var khh = $('.khh2').val();
+            var skr = $('.skr2').val();
+            var url = "{:U('Home/select/yonjindo')}";
+            if(classify ==='bankcard'){
+                //type2  为下分提交
+                var data = {'jine':sum,'type':classify,'type2':'4','accountnumber':accountnumber,'khh':khh,'skr':skr,'panduan':panduan,'bfb':bfb};
+            }else {
+                var data = {'jine':sum,'type':classify,'type2':'4','accountnumber':accountnumber,'panduan':panduan,'bfb':bfb};
+            }
+            $.post(url,data,function(result){
+                var obj = JSON.parse(result);
+                if(obj.status == 1){
+                    layer.msg(obj.msg);
+                    setTimeout(function() {
+                        window.location.href="{:U('Home/Select/index')}"
+                    }, 1000);
+                }else if(obj.status ==3){
+                    layer.msg('为保障资金安全请绑定手机号');
+                    window.location.href="{:U('Home/Select/binding')}"
+                }else {
+                    layer.msg(obj.msg);
+//                setTimeout(function() {
+//                    location.reload();
+//                }, 1000);
+                }
+            });
+    };
+    //获取手续费
+    function getsum() {
+        var sum  ='';
+        sum  = $('.jine').val();
+        return Number(Number(sum)*"{:C('xingzheng')}"*Number(0.01)).toFixed(2) ;
+        
+    }
+    //提交
+    function tijiaodo() {
+        var sum  ='';
+        sum  = $('.jine').val();
+        var classify = $('.select').val();
+        var accountnumber = $('.accountnumber').val();
+        var khh = $('.khh').val();
+        var skr = $('.skr').val();
+        var url = "{:U('Home/Dan/xiafen')}";
+        if(classify ==='bankcard'){
+            //type2  为下分提交
+            var data = {'jine':sum,'type':classify,'type2':'0','accountnumber':accountnumber,'khh':khh,'skr':skr,'panduan':panduan,'bfb':bfb};
+        }else {
+            var data = {'jine':sum,'type':classify,'type2':'0','accountnumber':accountnumber,'panduan':panduan,'bfb':bfb};
+        }
+        $.post(url,data,function(result){
+            var obj = JSON.parse(result);
+            if(obj.status == 1){
+
+                layer.msg(obj.msg);
+                setTimeout(function() {
+                    window.location.href="{:U('Home/Select/downrecord')}"
+                }, 1000);
+            }else if(obj.status ==3){
+                layer.msg('为保障资金安全请绑定手机号');
+                window.location.href="{:U('Home/Select/binding')}"
+            }else {
+                layer.msg(obj.msg);
+//                setTimeout(function() {
+//                    location.reload();
+//                }, 1000);
+            }
+        });
+
+    }
+</script>
+</html>

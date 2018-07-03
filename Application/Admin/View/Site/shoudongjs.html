@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>后台 - 网站设置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/Admin/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Admin/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>手动结算</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form id="signform" action="{:U('Admin/Site/kjbf')}" method="post" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">请选择游戏（必选）:</label>
+                            <div class="col-sm-2">
+                                <select name="game" class="selectgame form-control" lay-verify="required">
+                                    <option value="">选择游戏</option>
+                                    <option value="jscar">极速赛车</option>
+                                    <option value="jsssc">极速时时彩</option>
+                                    <option value="Bj28js">北京28</option>
+                                    <option value="jnd28js">加拿大28</option>
+                                    <option value="Ssc">时时彩</option>
+                                    <option value="Bjpk10">北京赛车</option>
+                                    <option value="fei">飞艇</option>
+                                    <option value="kuai3">快3</option>
+                                    <option value="lhcjs">六合彩</option>
+                                </select>
+                            </div>
+                                <a class="btn btn-primary"class="submit" type="submit"onclick="js()">开奖</a>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="__PUBLIC__/Admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="__PUBLIC__/Admin/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/Common/js/ajaxForm.js"></script>
+<script src="__PUBLIC__/Common/layer/layer.js"></script>
+<script>
+    function js() {
+        var game = $('.selectgame').val();
+        if(game ==''){
+            layer.msg('选择游戏');
+        }else {
+            $.ajax({
+                url: "{:U('admin/auto/shoudongjs')}",
+                type: "post",
+                data:{'game':game},
+                dataType:'json',
+                success:function(res){
+                  layer.msg(res);
+                }
+            });
+
+        }
+
+    }
+    $(function(){
+        $('#signform').ajaxForm({
+            success: complete,
+            dataType: 'json'
+        });
+
+
+        function complete(data){
+            if(data.status==1){
+                $('.btn-primary').attr('disabled','disabled');
+                layer.msg(data.info, function(index){
+                    layer.close(index);
+                    window.location.href=data.url;
+                });
+            }else{
+                layer.msg(data.info);
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

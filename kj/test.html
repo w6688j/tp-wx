@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var info = '03,08,04,05,06,01,07,09,10,02';
+    var map=[];
+    var lh=[];
+    var info =  info.split(',');
+//    for (var i = 0; i < info.length; i++) {
+//        if (info[i] < 10) {
+//            info[i] = info[i].substr(1, 2);
+//        }
+//    }
+    console.log(info[1]+'-----'+info[9]);
+    map['tema'] = Number(info[0]) + Number(info[1]);
+    if (info[0] > info[9]) {
+        lh[0] = '龙';
+    } else {
+        lh[0] = '虎';
+    }
+    if (info[1] > info[8]) {
+        lh[1] = '龙';
+    } else {
+        lh[1] = '虎';
+    }
+    if (info[2] > info[7]) {
+        lh[2] = '龙';
+    } else {
+        lh[2] = '虎';
+    }
+    if (info[3] > info[6]) {
+        lh[3] = '龙';
+    } else {
+        lh[3] = '虎';
+    }
+    if (info[4] > info[5]) {
+        lh[4] = '龙';
+    } else {
+        lh[4] = '虎';
+    }
+
+  map['lh'] = JSON.stringify(lh);
+    console.log(map);
+
+</script>
+</html>
